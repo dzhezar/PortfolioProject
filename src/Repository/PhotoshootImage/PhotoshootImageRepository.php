@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\PhotoshootImage;
 
-use App\Entity\Photoshot;
+use App\Entity\PhotoshootImage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Photoshot|null find($id, $lockMode = null, $lockVersion = null)
- * @method Photoshot|null findOneBy(array $criteria, array $orderBy = null)
- * @method Photoshot[]    findAll()
- * @method Photoshot[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PhotoshootImage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PhotoshootImage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PhotoshootImage[]    findAll()
+ * @method PhotoshootImage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PhotoshotRepository extends ServiceEntityRepository
+class PhotoshootImageRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Photoshot::class);
+        parent::__construct($registry, PhotoshootImage::class);
     }
 
     // /**
-    //  * @return Photoshot[] Returns an array of Photoshot objects
+    //  * @return PhotoshootImage[] Returns an array of PhotoshootImage objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class PhotoshotRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Photoshot
+    public function findOneBySomeField($value): ?PhotoshootImage
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

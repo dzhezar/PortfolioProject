@@ -22,7 +22,7 @@ final class Version20190313233624 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE photoshot ADD is_posted TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE photoshoot ADD is_posted TINYINT(1) NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,7 +30,7 @@ final class Version20190313233624 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE photoshot_image');
-        $this->addSql('ALTER TABLE photoshot DROP is_posted');
+        $this->addSql('DROP TABLE photoshoot_image');
+        $this->addSql('ALTER TABLE photoshoot DROP is_posted');
     }
 }

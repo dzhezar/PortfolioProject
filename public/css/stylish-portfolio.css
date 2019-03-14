@@ -384,9 +384,48 @@ a:hover, a:focus, a:active {
   margin-bottom: 10px;
 }
 
+.modified-row{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.instagram{
+  -ms-flex: 0 0 58.333333%;
+  flex: 0 0 58.333333%;
+  max-width: 58.333333%;
+}
+
+.about_us{
+  -ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+  text-align: justify;
+}
+
 @media (max-width: 992px) {
   .header{
     display: none;
+  }
+  .instagram{
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .about_us{
+    -ms-flex: 0 0 83.333333%;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+    margin-left: 8.333333%;
+  }
+  .content-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .footer{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 }
 
@@ -417,11 +456,4 @@ a:hover, a:focus, a:active {
   src: local('☺'), url('ostrich-sans-light.woff') format('woff'), url('ostrich-sans-light.ttf') format('truetype'), url('ostrich-sans-light.svg') format('svg');
   font-weight: 300;
   font-style: normal;
-}
-
-.modified-row{
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
 }

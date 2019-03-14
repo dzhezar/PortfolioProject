@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PhotoshotRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PhotoshootRepository")
  */
-class Photoshot
+class Photoshoot
 {
     /**
      * @ORM\Id()
@@ -39,7 +39,7 @@ class Photoshot
     private $Model;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PhotoshotImage", mappedBy="Photoshot", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\PhotoshootImage", mappedBy="Photoshoot", orphanRemoval=true)
      */
     private $photoshotImages;
 
@@ -112,14 +112,14 @@ class Photoshot
     }
 
     /**
-     * @return Collection|PhotoshotImage[]
+     * @return Collection|PhotoshootImage[]
      */
     public function getPhotoshotImages(): Collection
     {
         return $this->photoshotImages;
     }
 
-    public function addPhotoshotImage(PhotoshotImage $photoshotImage): self
+    public function addPhotoshotImage(PhotoshootImage $photoshotImage): self
     {
         if (!$this->photoshotImages->contains($photoshotImage)) {
             $this->photoshotImages[] = $photoshotImage;
@@ -129,7 +129,7 @@ class Photoshot
         return $this;
     }
 
-    public function removePhotoshotImage(PhotoshotImage $photoshotImage): self
+    public function removePhotoshotImage(PhotoshootImage $photoshotImage): self
     {
         if ($this->photoshotImages->contains($photoshotImage)) {
             $this->photoshotImages->removeElement($photoshotImage);

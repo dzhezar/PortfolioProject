@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PhotoshotImageRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PhotoshootImageRepository")
  */
-class PhotoshotImage
+class PhotoshootImage
 {
     /**
      * @ORM\Id()
@@ -17,10 +17,10 @@ class PhotoshotImage
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Photoshot", inversedBy="photoshotImages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Photoshoot", inversedBy="photoshotImages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Photoshot;
+    private $Photoshoot;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -32,14 +32,14 @@ class PhotoshotImage
         return $this->id;
     }
 
-    public function getPhotoshot(): ?Photoshot
+    public function getPhotoshoot(): ?Photoshoot
     {
-        return $this->Photoshot;
+        return $this->Photoshoot;
     }
 
-    public function setPhotoshot(?Photoshot $Photoshot): self
+    public function setPhotoshoot(?Photoshoot $Photoshoot): self
     {
-        $this->Photoshot = $Photoshot;
+        $this->Photoshoot = $Photoshoot;
 
         return $this;
     }

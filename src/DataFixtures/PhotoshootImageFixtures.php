@@ -15,13 +15,13 @@ class PhotoshootImageFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
-        for ($i = 0; $i < 70; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             $image = new PhotoshootImage();
-            $photoshoot = $this->getReference(Photoshoot::class . '_' . $faker->numberBetween(0, 9));
+            $photoshoot = $this->getReference(Photoshoot::class . '_' . $faker->numberBetween(0, 29));
 
 
             $image
-                ->setImage($faker->imageUrl())
+                ->setImage($faker->imageUrl(1920,1080,'fashion'))
                 ->setPhotoshoot($photoshoot);
             $manager->persist($image);
         }

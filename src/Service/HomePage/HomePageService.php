@@ -24,7 +24,20 @@ class HomePageService implements HomePageServiceInterface
         $collection = new PhotoshootCollection();
 
         foreach ($mainPhotoshoots as $item){
-            $collection->addPhotoshot($photoshootMapper->entityToDto($item));
+            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+        }
+        return $collection;
+    }
+
+
+    public function getAllPhotoshoots()
+    {
+        $photoshoots = $this->photoshootRepository->FindPhotoshootsWithImages();
+        $photoshootMapper = new PhotoshootMapper();
+        $collection = new PhotoshootCollection();
+
+        foreach ($photoshoots as $item){
+            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
         }
         return $collection;
     }

@@ -1,3 +1,6 @@
 index:
     path: /
     controller: App\Controller\DefaultController::index
+portfolio:
+    path: /portfolio
+    controller: App\Controller\DefaultController::showPortfolio

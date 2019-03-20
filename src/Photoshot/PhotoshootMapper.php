@@ -20,6 +20,7 @@ class PhotoshootMapper
             $collection->addPhotoshot($imagesMapper->entityToDtoWithoutPhotoshoot($image));
         }
         return new PhotoshotDto(
+            $entity->getId(),
             $entity->getTitle(),
             $entity->getDescription(),
             $entity->getPhotographer(),
@@ -33,6 +34,7 @@ class PhotoshootMapper
     public function entityToDtoWithoutImages(Photoshoot $entity): PhotoshotDto
     {
         return new PhotoshotDto(
+            $entity->getId(),
             $entity->getTitle(),
             $entity->getDescription(),
             $entity->getPhotographer(),

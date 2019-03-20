@@ -14,12 +14,16 @@ body {
 }
 
 .content-section {
-  padding-top: 7.5rem;
-  padding-bottom: 7.5rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .content-section-heading h2 {
   font-size: 3rem;
+}
+
+.container-custom{
+  width: 100%;
 }
 
 .content-section-heading h3 {
@@ -194,6 +198,35 @@ h6 {
   background: #343a40;
 }
 
+#overlay{
+  position: fixed;
+  z-index: 4;
+  display: none;
+  -webkit-overflow-scrolling: touch;
+  background-color: rgba(157, 154, 158, 0.59);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.text-popup{
+  position: fixed;
+  overflow: auto;
+  text-align: center;
+  z-index: 5;
+  display: none;
+  border: 1px;
+  border-radius: 5px;
+  background-color: white;
+  padding: 10px;
+  width: 70%;
+  max-height: 90%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .service-icon {
   background-color: #fff;
   color: #1D809F;
@@ -234,13 +267,23 @@ h6 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 100%;
+  height: 70%;
   width: 100%;
   background-color: rgba(33, 37, 41, 0.2);
   position: absolute;
   top: 0;
   bottom: 0;
   z-index: 1;
+}
+
+.img-portfolio {
+  object-fit: cover;
+  height: 400px;
+  width: 100%;
+}
+
+.portfolio {
+    margin-bottom: -15px;
 }
 
 .portfolio-item .caption .caption-content {
@@ -258,6 +301,51 @@ h6 {
   font-size: 1.2rem;
 }
 
+.portfolio .portfolio-item {
+  position: relative;
+  display: block;
+  max-width: 25rem;
+  margin-bottom: 15px;
+}
+
+.portfolio .portfolio-item .portfolio-item-caption {
+  -webkit-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+  opacity: 0;
+  background-color: rgba(24, 188, 156, 0.9);
+}
+
+.portfolio .portfolio-item .portfolio-item-caption:hover {
+  opacity: 1;
+}
+
+.portfolio .portfolio-item .portfolio-item-caption .portfolio-item-caption-content {
+  font-size: 1.5rem;
+}
+
+.portfolio-modal .portfolio-modal-dialog {
+  padding: 3rem 1rem;
+  min-height: calc(100vh - 2rem);
+  margin: 1rem calc(1rem - 8px);
+  position: relative;
+  z-index: 2;
+  -webkit-box-shadow: 0 0 3rem 1rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 3rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.portfolio-modal .portfolio-modal-dialog .close-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.portfolio-modal .portfolio-modal-dialog .close-button i {
+  line-height: 38px;
+}
+
+.portfolio-modal .portfolio-modal-dialog h2 {
+  font-size: 2rem;
+}
 @media (min-width: 992px) {
   .portfolio-item {
     max-width: none;
@@ -296,14 +384,14 @@ h6 {
         display: none;
     }
     .map {
-        height: 75%;
+        height: 50%;
     }
 
 }
 
 footer.footer {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
 }
 
 footer.footer .social-link {
@@ -379,7 +467,7 @@ a:hover, a:focus, a:active {
 .header{
   position: fixed;
   top: 0;
-  z-index: 1000000000;
+  z-index: 2;
   width: 100%;
   margin-bottom: 10px;
 }
@@ -395,6 +483,8 @@ a:hover, a:focus, a:active {
   -ms-flex: 0 0 58.333333%;
   flex: 0 0 58.333333%;
   max-width: 58.333333%;
+  width: 60%;
+  height: 60%;
 }
 
 .about_us{
@@ -427,33 +517,9 @@ a:hover, a:focus, a:active {
     padding-top: 2rem;
     padding-bottom: 2rem;
   }
+  .btn-primary{
+    position: static;
+    margin-left: 25%;
+  }
 }
 
-@font-face {
-  font-family: 'Ostrich Sans';
-  src: url('ostrich-sans-black.eot');
-  src: local('☺'), url('ostrich-sans-black.woff') format('woff'), url('ostrich-sans-black.ttf') format('truetype'), url('ostrich-sans-black.svg') format('svg');
-  font-weight: 900;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Ostrich Sans';
-  src: url('ostrich-sans-bold.eot');
-  src: local('☺'), url('ostrich-sans-bold.woff') format('woff'), url('ostrich-sans-bold.ttf') format('truetype'), url('ostrich-sans-bold.svg') format('svg');
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Ostrich Sans';
-  src: url('ostrich-sans-regular.eot');
-  src: local('☺'), url('ostrich-sans-regular.woff') format('woff'), url('ostrich-sans-regular.ttf') format('truetype'), url('ostrich-sans-regular.svg') format('svg');
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Ostrich Sans';
-  src: url('ostrich-sans-light.eot');
-  src: local('☺'), url('ostrich-sans-light.woff') format('woff'), url('ostrich-sans-light.ttf') format('truetype'), url('ostrich-sans-light.svg') format('svg');
-  font-weight: 300;
-  font-style: normal;
-}

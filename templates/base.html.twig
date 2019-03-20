@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
@@ -10,21 +10,34 @@
 
     <title>Stylish Portfolio - Start Bootstrap Template</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    {% block stylesheets %}
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+        <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Spectral" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="css/stylish-portfolio.css" rel="stylesheet">
-
+        <!-- Custom CSS -->
+        <link href="css/stylish-portfolio.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    {% endblock %}
 </head>
 
 <body id="page-top">
 
+<div>
+    <div id="overlay">
+
+    </div>
+</div>
+
+
+
+
+<!-- Header -->
+{% block header %}
 <header>
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light header">
@@ -75,88 +88,14 @@
         </li>
     </ul>
 </nav>
+{% endblock %}
+{% block body %}
 
-<!-- Header -->
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="{{ asset('1.jpg') }}" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="{{ asset('2.jpg') }}" class="d-block w-100" alt="...">
-        </div>
-    </div>
-</div>
-<!-- About -->
-<section class="content-section bg-light" id="about">
-    <div class="modified-row">
-        <div class="instagram">
-            <div class='embedsocial-instagram' data-ref="90d01f284d3fd7c12c3af1f58bb41d51d7bdff22"></div>
-            <script>(function(d, s, id){var js; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/embedscript/in.js"; d.getElementsByTagName("head")[0].appendChild(js);}(document, "script", "EmbedSocialInstagramScript"));</script>
-        </div>
-        <div class="about_us">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci, architecto beatae, commodi dignissimos ex explicabo fugiat, harum illum ipsa iste iure molestias necessitatibus neque nihil optio pariatur quaerat sequi!
-           <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci, asperiores assumenda delectus
-                dolor dolore doloribus modi, molestias mollitia nesciunt odit, perferendis qui quisquam recusandae
-                repellendus rerum sunt. Cumque, ea.
-            </div>
-            <div>Autem corporis reprehenderit sunt vel! Ad eos est fuga nulla, odio reprehenderit sapiente suscipit?
-                Alias amet beatae dolores, explicabo hic nostrum saepe sequi? Aliquid facilis iste itaque numquam omnis,
-                repudiandae?
-            </div>
-            <div>Aliquam beatae corporis deserunt dolores, dolorum excepturi fuga id incidunt libero maiores, neque
-                nulla odit pariatur praesentium quo reiciendis repellat sed vel veritatis voluptatem! Distinctio dolorem
-                eaque itaque nisi non.
-            </div>
-            <div>Animi at, corporis culpa deserunt est expedita inventore iure iusto molestiae nesciunt officiis
-                pariatur, porro quam, quibusdam quo reiciendis repudiandae vero? Deserunt impedit inventore molestiae,
-                optio porro rerum unde vel!
-            </div>
-            <div>Debitis dicta dolorum eaque earum enim, eos fuga, id illo illum impedit inventore molestiae
-                necessitatibus nisi nobis nostrum nulla provident quae quam quasi quibusdam saepe tempora, ut. Quas
-                quasi, quisquam.
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Portfolio -->
-<section class="content-section" id="portfolio">
-    <div class="container">
-        <div class="content-section-heading text-center">
-            <h3 class="text-secondary mb-0">Portfolio</h3>
-            <h2 class="mb-5">Recent Projects</h2>
-        </div>
-        <div class="row no-gutters">
-            {% for photoshoot in mainPhotoshoots %}
-            <div class="col-lg-6">
-                <a class="portfolio-item" href="#">
-                    <span class="caption">
-                      <span class="caption-content">
-                        <h2>{{ photoshoot.title }}</h2>
-                        <p class="mb-0">{{ photoshoot.description | slice(0,70) }}</p>
-                      </span>
-                    </span>
-                    <img class="img-fluid" src="{{ photoshoot.images.shift.image }}" alt="">
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-
-
-<!-- Map -->
-<section id="contact" class="map">
-    <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJWTUjZY3MHkcR2U7HZ_LJC-s&key=AIzaSyB8gROgli9JUpM85XaFCC7zRoYoPRKMkls" allowfullscreen></iframe>
-    <br />
-</section>
-
+{% endblock %}
 <!-- Footer -->
 <footer class="footer text-center">
     <div class="container">
-        <ul class="list-inline mb-5">
+        <ul class="list-inline mb-3">
             <li class="list-inline-item">
                 <a class="social-link rounded-circle text-white mr-3" href="#">
                     <i class="icon-social-facebook"></i>
@@ -181,7 +120,7 @@
 <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
+{% block js %}
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -190,9 +129,37 @@
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for this template -->
-<script src="js/stylish-portfolio.min.js"></script>
-
-</div>
+<script src="js/stylish-portfolio.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+{#<script>#}
+{#    (function () {#}
+{#        var _overlay = document.getElementById('overlay');#}
+{#        var _clientY = null; // remember Y position on touch start#}
+{#        _overlay.addEventListener('touchstart', function (event) {#}
+{#            if (event.targetTouches.length === 1) {#}
+{#                _clientY = event.targetTouches[0].clientY;#}
+{#            }#}
+{#        }, false);#}
+{#        _overlay.addEventListener('touchmove', function (event) {#}
+{#            if (event.targetTouches.length === 1) {#}
+{#                disableRubberBand(event);#}
+{#            }#}
+{#        }, false);#}
+{#        function disableRubberBand(event) {#}
+{#            var clientY = event.targetTouches[0].clientY - _clientY;#}
+{#            if (_overlay.scrollTop === 0 &amp;&amp; clientY &gt; 0) {#}
+{#                event.preventDefault();#}
+{#            }#}
+{#            if (isOverlayTotallyScrolled() &amp;&amp; clientY &lt; 0) {#}
+{#                event.preventDefault();#}
+{#            }#}
+{#        }#}
+{#        function isOverlayTotallyScrolled() {#}
+{#            return _overlay.scrollHeight - _overlay.scrollTop &lt;= _overlay.clientHeight;#}
+{#        }#}
+{#    }())#}
+{#</script>#}
+{% endblock %}
 </body>
 
 </html>

@@ -49,7 +49,7 @@ class Photoshoot
     private $IsPosted;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $PublicationDate;
 
@@ -154,12 +154,12 @@ class Photoshoot
         return $this;
     }
 
-    public function getPublicationDate(): ?string
+    public function getPublicationDate(): ?\DateTime
     {
         return $this->PublicationDate;
     }
 
-    public function setPublicationDate(string $PublicationDate): self
+    public function setPublicationDate(\DateTime $PublicationDate): self
     {
         $this->PublicationDate = $PublicationDate;
 

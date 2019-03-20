@@ -18,7 +18,7 @@ class PhotoshootCollection implements \IteratorAggregate
         $this->photoshots = $photoshots;
     }
 
-    public function addPhotoshot(Photoshoot $photoshot)
+    public function addPhotoshoot(Photoshoot $photoshot)
     {
         $this->photoshots[] = $photoshot;
     }
@@ -28,12 +28,12 @@ class PhotoshootCollection implements \IteratorAggregate
         return new \ArrayIterator($this->photoshots);
     }
 
-    public function shift(): Photoshoot
+    public function shift(): ?Photoshoot
     {
         return \array_shift($this->photoshots);
     }
 
-    public function getPhotoshots(): array
+    public function getPhotoshoots(): array
     {
         return $this->photoshots;
     }

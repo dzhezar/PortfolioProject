@@ -12,16 +12,16 @@ class PhotoshootFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $photoshoot = new Photoshoot();
-
             $photoshoot
                 ->setTitle($faker->sentence(4))
                 ->setDescription($faker->realText(500))
                 ->setPhotographer($faker->firstName)
                 ->setModel($faker->firstName)
                 ->setIsPosted($faker->boolean(80))
-                ->setPublicationDate($faker->dateTimeThisYear->format('d-m-y'));
+                ->setPublicationDate($faker->dateTimeThisYear);
+
             $manager->persist($photoshoot);
             $this->addReference(Photoshoot::class . '_' . $i, $photoshoot);
         }

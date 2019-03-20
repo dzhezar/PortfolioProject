@@ -7,6 +7,7 @@ use App\PhotoshootImage\PhotoshootImageCollection;
 
 class Photoshoot
 {
+    private $id;
     private $title;
     private $description;
     private $photographer;
@@ -15,8 +16,9 @@ class Photoshoot
     private $publicationDate;
     private $images;
 
-    public function __construct(string $title, string $description,string $photographer,string $model, bool $isPosted, string $publicationDate, PhotoshootImageCollection $images = null)
+    public function __construct(int $id, string $title, string $description,string $photographer,string $model, bool $isPosted, \DateTime $publicationDate, PhotoshootImageCollection $images = null)
     {
+        $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->photographer = $photographer;
@@ -24,6 +26,12 @@ class Photoshoot
         $this->isPosted = $isPosted;
         $this->publicationDate = $publicationDate;
         $this->images = $images;
+    }
+
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getTitle(): string
@@ -51,7 +59,7 @@ class Photoshoot
         return $this->isPosted;
     }
 
-    public function getPublicationDate(): string
+    public function getPublicationDate(): \DateTime
     {
         return $this->publicationDate;
     }

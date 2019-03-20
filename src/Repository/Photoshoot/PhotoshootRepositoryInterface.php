@@ -7,4 +7,5 @@ namespace App\Repository\Photoshoot;
 interface PhotoshootRepositoryInterface
 {
     public function FindNumberOfPhotoshoots(int $count);
+    public function FindPhotoshootsWithImages();
 }

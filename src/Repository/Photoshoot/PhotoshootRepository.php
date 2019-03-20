@@ -27,4 +27,13 @@ class PhotoshootRepository extends ServiceEntityRepository implements Photoshoot
             ->getQuery()
             ->getResult();
     }
+
+    public function FindPhotoshootsWithImages()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.IsPosted = 1')
+            ->orderBy('p.PublicationDate','DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -25,7 +25,7 @@ class PhotoshootImageCollection implements \IteratorAggregate
         return new \ArrayIterator($this->images);
     }
 
-    public function shift(): PhotoshootImage
+    public function shift(): ?PhotoshootImage
     {
         return \array_shift($this->images);
     }

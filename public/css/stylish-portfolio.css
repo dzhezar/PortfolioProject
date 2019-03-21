@@ -829,11 +829,11 @@ body.compensate-for-scrollbar {
 .fancybox-spaceball {
   background: transparent;
   border: 0;
-  height: 100%;
+  height: auto;
+  width: auto;
+  text-align: center;
   left: 0;
   margin: 0;
-  max-height: none;
-  max-width: none;
   padding: 0;
   position: absolute;
   top: 0;

@@ -416,7 +416,7 @@ h6 {
   .header{
     display: none;
   }
-  .instagram{
+  .music{
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%;
@@ -577,23 +577,23 @@ a:hover, a:focus, a:active {
   flex-wrap: wrap;
 }
 
-.instagram{
-  -ms-flex: 0 0 58.333333%;
-  flex: 0 0 58.333333%;
-  max-width: 58.333333%;
-  width: 60%;
-  height: 60%;
-  text-align: center;
+.music{
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align: right;
+  overflow:hidden;
+  background:transparent
 }
 
-.fancybox-content{
-  max-width: 80%;
-}
 
 .about_us{
-  -ms-flex: 0 0 33.333333%;
-  flex: 0 0 33.333333%;
-  max-width: 33.333333%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 33%;
+  margin-left: 8.333333%;
   text-align: justify;
 }
 

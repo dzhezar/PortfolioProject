@@ -13,31 +13,27 @@
     <!-- About -->
     <section class="content-section bg-light" id="about">
         <div class="modified-row">
-            <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="550" class="music" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/flower-boy/1254572564?app=music"></iframe>
-{#                <div class='embedsocial-instagram' data-ref="33ecf2811d3f929326e79d1b3e9852f7c32eff88"></div>#}
-{#                <script>(function(d, s, id){var js; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/embedscript/in.js"; d.getElementsByTagName("head")[0].appendChild(js);}(document, "script", "EmbedSocialInstagramScript"));</script>#}
-            <div class="about_us">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci, architecto beatae, commodi dignissimos ex explicabo fugiat, harum illum ipsa iste iure molestias necessitatibus neque nihil optio pariatur quaerat sequi!
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci, asperiores assumenda delectus
+            <div class="col-sm-12 col-lg-4 music">
+                <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="550" class="width:auto;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/flower-boy/1254572564?app=music"></iframe>
+            </div>
+            <div class="col-sm-12 col-lg-8 about_us">
+                <p class="photoshoot-title page-title"><h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci, asperiores assumenda delectus
                     dolor dolore doloribus modi, molestias mollitia nesciunt odit, perferendis qui quisquam recusandae
                     repellendus rerum sunt. Cumque, ea.
-                </div>
-                <div>Autem corporis reprehenderit sunt vel! Ad eos est fuga nulla, odio reprehenderit sapiente suscipit?
+                    Autem corporis reprehenderit sunt vel! Ad eos est fuga nulla, odio reprehenderit sapiente suscipit?
                     Alias amet beatae dolores, explicabo hic nostrum saepe sequi? Aliquid facilis iste itaque numquam omnis,
                     repudiandae?
-                </div>
-                <div>Aliquam beatae corporis deserunt dolores, dolorum excepturi fuga id incidunt libero maiores, neque
+                    Aliquam beatae corporis deserunt dolores, dolorum excepturi fuga id incidunt libero maiores, neque
                     nulla odit pariatur praesentium quo reiciendis repellat sed vel veritatis voluptatem! Distinctio dolorem
                     eaque itaque nisi non.
-                </div>
-                <div>Animi at, corporis culpa deserunt est expedita inventore iure iusto molestiae nesciunt officiis
+                    Animi at, corporis culpa deserunt est expedita inventore iure iusto molestiae nesciunt officiis
                     pariatur, porro quam, quibusdam quo reiciendis repudiandae vero? Deserunt impedit inventore molestiae,
                     optio porro rerum unde vel!
-                </div>
-                <div>Debitis dicta dolorum eaque earum enim, eos fuga, id illo illum impedit inventore molestiae
+                    Debitis dicta dolorum eaque earum enim, eos fuga, id illo illum impedit inventore molestiae
                     necessitatibus nisi nobis nostrum nulla provident quae quam quasi quibusdam saepe tempora, ut. Quas
                     quasi, quisquam.
-                </div>
+                </p>
             </div>
         </div>
     </section>
@@ -137,7 +133,9 @@
                 </div>
                 {% endfor %}
             </div>
-            <a class="btn btn-primary btn-xl mt-2 offset-5" href="{{ path('portfolio') }}">Find out more</a>
+            <div class="text-center">
+                <a class="btn btn-primary btn-xl mt-2" href="{{ path('portfolio') }}">Find out more</a>
+            </div>
         </div>
         </div>
     </section>

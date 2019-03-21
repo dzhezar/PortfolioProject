@@ -427,6 +427,7 @@ h6 {
     max-width: 83.333333%;
     margin-left: 8.333333%;
   }
+
   .content-section {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -578,9 +579,9 @@ a:hover, a:focus, a:active {
 }
 
 .music{
-  -ms-flex: 0 0 50%;
-  flex: 0 0 50%;
-  max-width: 50%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
   padding-left: 5%;
   padding-right: 5%;
   text-align: right;
@@ -590,9 +591,9 @@ a:hover, a:focus, a:active {
 
 
 .about_us{
-  -ms-flex: 0 0 50%;
-  flex: 0 0 50%;
-  max-width: 33%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 83%;
   margin-left: 8.333333%;
   text-align: justify;
 }

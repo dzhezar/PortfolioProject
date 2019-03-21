@@ -21,7 +21,7 @@ class PhotoshootImageFixtures extends Fixture
 
 
             $image
-                ->setImage($faker->imageUrl(1920,1080,'fashion'))
+                ->setImage($faker->imageUrl(1080,1920,'fashion'))
                 ->setPhotoshoot($photoshoot);
             $manager->persist($image);
         }

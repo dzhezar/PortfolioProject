@@ -24,7 +24,7 @@ class DefaultController extends AbstractController
     public function showPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator): Response
     {
         $photoshoots = $service->getAllPhotoshoots();
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(),$request->query->getInt('page',1),9);
+        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(),$request->query->getInt('page',1),8);
         $pagination->setCustomParameters([
             'rounded' => true,
         ]);

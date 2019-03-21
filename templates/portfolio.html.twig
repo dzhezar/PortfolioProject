@@ -15,20 +15,19 @@
             </nav>
         </div>
     </header>
-    <!-- Navigation -->
-    <a class="menu-toggle rounded" id="menu-button" href={{ path('index') }}>
-        <i class="fas fa-angle-left"></i>
-    </a>
 {% endblock %}
 {% block body %}
     <div class="container-custom">
+        <a class="nav-link card-img-overlay" id="menu-button" href={{ path('index') }}>
+            <i class="fas fa-angle-left"></i>
+        </a>
         <div class="content-section-heading text-center">
             <h2 class="text-secondary mb-0">Portfolio</h2>
         </div>
         <div class="row no-gutters">
             {% for photoshoot in pagination %}
-                <div class="col-4">
-                    <a class="portfolio-item" href="#portfolio-item-{{ photoshoot.id }}">
+                <div class="col-lg-3">
+                    <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
                     <span class="caption">
                       <span class="caption-content">
                         <h2>{{ photoshoot.title }}</h2>
@@ -37,27 +36,27 @@
                     </span>
                         <img class="img-portfolio" src="{{ photoshoot.images.shift.image }}" alt="">
                     </a>
-                    <div class="text-popup">
-                        <div class="page-title" style="text-align: left; font-family: 'Spectral', serif;">
-                            <h2>{{ photoshoot.title }}</h2>
+                    <div style="display: none" id="portfolio-item-{{ photoshoot.id }}">
+                        <div class="page-title photoshoot-title">
+                            <h2>{{ photoshoot.title | title}}</h2>
                         </div>
-                        <div class="mb-4" style="text-align: justify; font-family: 'Spectral', serif; padding-left: 25%">
+                        <div class="photoshoot-text">
                             {{ photoshoot.description }}
                         </div>
                         <div>
-                            <a href="{{ photoshoot.images.shift.image }}" data-fancybox="gallery">
-                                <img class="img-fluid" src="{{ photoshoot.images.shift.image }}" alt="">
+                            <a href="{{ photoshoot.images.shift.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                <img class="img-photoshoot" src="{{ photoshoot.images.shift.image }}" alt="">
                             </a>
                         </div>
-                        <div class="mb-4">
-                            Model:{{ photoshoot.model }}<br>
+                        <div class="photoshoot-description">
+                            Model: {{ photoshoot.model }}<br>
                             Photographer: {{ photoshoot.photographer }}
                         </div>
                         <div class="container-custom">
                             {% for image in photoshoot.images %}
-                            <a href="{{ image.image }}" data-fancybox="gallery">
-                                <img class="img-fluid" src="{{ image.image }}" alt="">
-                            </a>
+                                <a href="{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                    <img class="img-photoshoot" src="{{ image.image }}" alt="">
+                                </a>
                             {% endfor %}
                         </div>
                     </div>

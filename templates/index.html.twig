@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ asset('img/portfolio-2.jpg') }}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('img/portfolio-1.jpg') }}" class="d-block w-100" alt="...">
-            </div>
-        </div>
-    </div>
+{#    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">#}
+{#        <div class="carousel-inner">#}
+{#            <div class="carousel-item active">#}
+{#                <img src="{{ asset('img/portfolio-2.jpg') }}" class="d-block w-100" alt="...">#}
+{#            </div>#}
+{#            <div class="carousel-item">#}
+{#                <img src="{{ asset('img/portfolio-1.jpg') }}" class="d-block w-100" alt="...">#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
     <!-- About -->
     <section class="content-section bg-light" id="about">
         <div class="modified-row">
             <div class="instagram">
+                <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="550" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/flower-boy/1254572564?app=music"></iframe>
 {#                <div class='embedsocial-instagram' data-ref="33ecf2811d3f929326e79d1b3e9852f7c32eff88"></div>#}
 {#                <script>(function(d, s, id){var js; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/embedscript/in.js"; d.getElementsByTagName("head")[0].appendChild(js);}(document, "script", "EmbedSocialInstagramScript"));</script>#}
             </div>
@@ -101,44 +102,45 @@
             </div>
             <div class="row no-gutters">
                 {% for photoshoot in mainPhotoshoots %}
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#portfolio-item-{{ photoshoot.id }}">
+                <div class="col-lg-6">
+                    <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
                     <span class="caption">
                       <span class="caption-content">
                         <h2>{{ photoshoot.title }}</h2>
                         <p class="mb-0">{{ photoshoot.description | slice(0,70) }}</p>
                       </span>
                     </span>
-                            <img class="img-portfolio" src="{{ photoshoot.images.shift.image }}" alt="">
-                        </a>
-                        <div class="text-popup">
-                            <div class="mb-3">
-                                {{ photoshoot.title }}
-                            </div>
-                            <div class="mb-4">
-                                {{ photoshoot.description }}
-                            </div>
-                            <div>
-                                <a href="{{ photoshoot.images.shift.image }}" data-fancybox="gallery">
-                                    <img class="img-fluid" src="{{ photoshoot.images.shift.image }}" alt="">
+                        <img class="img-portfolio" src="{{ photoshoot.images.shift.image }}" alt="">
+                    </a>
+                    <div style="display: none" id="portfolio-item-{{ photoshoot.id }}">
+                        <div class="page-title photoshoot-title">
+                            <h2>{{ photoshoot.title | title}}</h2>
+                        </div>
+                        <div class="photoshoot-text">
+                            {{ photoshoot.description }}
+                        </div>
+                        <div>
+                            <a href="{{ photoshoot.images.shift.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                <img class="img-photoshoot" src="{{ photoshoot.images.shift.image }}" alt="">
+                            </a>
+                        </div>
+                        <div class="photoshoot-description">
+                            Model:{{ photoshoot.model }}<br>
+                            Photographer: {{ photoshoot.photographer }}
+                        </div>
+                        <div class="container-custom">
+                            {% for image in photoshoot.images %}
+                                <a href="{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                    <img class="img-photoshoot" src="{{ image.image }}" alt="">
                                 </a>
-                            </div>
-                            <div class="mb-4">
-                                Model:{{ photoshoot.model }}<br>
-                                Photographer: {{ photoshoot.photographer }}
-                            </div>
-                            <div class="container-custom">
-                                {% for image in photoshoot.images %}
-                                    <a href="{{ image.image }}" data-fancybox="gallery">
-                                        <img class="img-fluid" src="{{ image.image }}" alt="">
-                                    </a>
-                                {% endfor %}
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
             <a class="btn btn-primary btn-xl mt-2 offset-5" href="{{ path('portfolio') }}">Find out more</a>
+        </div>
         </div>
     </section>
     <!-- Map -->
@@ -147,3 +149,74 @@
         <br />
     </section>
 {% endblock %}
+{#                {% for photoshoot in mainPhotoshoots %}#}
+{#                    <div class="col-lg-6">#}
+{#                        <a class="portfolio-item" href="#portfolio-item-{{ photoshoot.id }}">#}
+{#                    <span class="caption">#}
+{#                      <span class="caption-content">#}
+{#                        <h2>{{ photoshoot.title }}</h2>#}
+{#                        <p class="mb-0">{{ photoshoot.description | slice(0,70) }}</p>#}
+{#                      </span>#}
+{#                    </span>#}
+{#                            <img class="img-portfolio" src="{{ photoshoot.images.shift.image }}" alt="">#}
+{#                        </a>#}
+{#                        <div class="text-popup">#}
+{#                            <div class="mb-3">#}
+{#                                {{ photoshoot.title }}#}
+{#                            </div>#}
+{#                            <div class="mb-4">#}
+{#                                {{ photoshoot.description }}#}
+{#                            </div>#}
+{#                            <div>#}
+{#                                <a href="{{ photoshoot.images.shift.image }}" data-fancybox="gallery">#}
+{#                                    <img class="img-fluid" src="{{ photoshoot.images.shift.image }}" alt="">#}
+{#                                </a>#}
+{#                            </div>#}
+{#                            <div class="mb-4">#}
+{#                                Model:{{ photoshoot.model }}<br>#}
+{#                                Photographer: {{ photoshoot.photographer }}#}
+{#                            </div>#}
+{#                            <div class="container-custom">#}
+{#                                {% for image in photoshoot.images %}#}
+{#                                    <a href="{{ image.image }}" data-fancybox="gallery">#}
+{#                                        <img class="img-fluid" src="{{ image.image }}" alt="">#}
+{#                                    </a>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-6">#}
+{#                            <a class="portfolio-item" href="#portfolio-item-{{ photoshoot.id }}">#}
+{#                    <span class="caption">#}
+{#                      <span class="caption-content">#}
+{#                        <h2>{{ photoshoot.title }}</h2>#}
+{#                        <p class="mb-0">{{ photoshoot.description | slice(0,70) }}</p>#}
+{#                      </span>#}
+{#                    </span>#}
+{#                                <img class="img-portfolio" src="{{ photoshoot.images.shift.image }}" alt="">#}
+{#                            </a>#}
+{#                            <div class="text-popup">#}
+{#                                <div class="mb-3">#}
+{#                                    {{ photoshoot.title }}#}
+{#                                </div>#}
+{#                                <div class="mb-4">#}
+{#                                    {{ photoshoot.description }}#}
+{#                                </div>#}
+{#                                <div>#}
+{#                                    <a href="{{ photoshoot.images.shift.image }}" data-fancybox="gallery">#}
+{#                                        <img class="img-fluid" src="{{ photoshoot.images.shift.image }}" alt="">#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                                <div class="mb-4">#}
+{#                                    Model:{{ photoshoot.model }}<br>#}
+{#                                    Photographer: {{ photoshoot.photographer }}#}
+{#                                </div>#}
+{#                                <div class="container-custom">#}
+{#                                    {% for image in photoshoot.images %}#}
+{#                                        <a href="{{ image.image }}" data-fancybox="gallery">#}
+{#                                            <img class="img-fluid" src="{{ image.image }}" alt="">#}
+{#                                        </a>#}
+{#                                    {% endfor %}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}

@@ -62,7 +62,7 @@ class HomePageService implements HomePageServiceInterface
 
     public function getMuaPhotoshoots()
     {
-        $photoshoots = $this->photoshootRepository->findPhotoshootsByCategory('Mua');
+        $photoshoots = $this->photoshootRepository->findPhotoshootsByCategory('Make-up');
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 

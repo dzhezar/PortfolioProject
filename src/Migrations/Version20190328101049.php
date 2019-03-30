@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
+
 namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
@@ -12,15 +17,15 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190328101049 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE photoshoot_image (id INT AUTO_INCREMENT NOT NULL, photoshoot_id INT NOT NULL, image VARCHAR(255) NOT NULL, INDEX IDX_8DA99ED02191CB92 (photoshoot_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE category (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -29,10 +34,10 @@ final class Version20190328101049 extends AbstractMigration
         $this->addSql('ALTER TABLE photoshoot ADD CONSTRAINT FK_AC503E5112469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE photoshoot DROP FOREIGN KEY FK_AC503E5112469DE2');
         $this->addSql('ALTER TABLE photoshoot_image DROP FOREIGN KEY FK_8DA99ED02191CB92');

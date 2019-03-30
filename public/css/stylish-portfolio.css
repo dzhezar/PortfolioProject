@@ -41,7 +41,10 @@ body {
 .container-custom{
   width: 100%;
 }
-
+.container-custom-portfolio{
+  width: 100%;
+  margin-top: 7rem;
+}
 .container-custom-page-top{
   width: 100%;
   padding-top: 4rem;
@@ -1245,6 +1248,9 @@ body.compensate-for-scrollbar {
   #sidebar-wrapper{
     display: none;
   }
+  #portfolio-top{
+    display: none;
+  }
   #menu-button{
     display: none;
   }
@@ -1306,6 +1312,9 @@ body.compensate-for-scrollbar {
     clip-path: inset(2rem);
   }
   #sidebar-wrapper{
+    display: none;
+  }
+  #portfolio-top{
     display: none;
   }
   #menu-button{
@@ -1389,6 +1398,9 @@ body.compensate-for-scrollbar {
   .fancybox-caption {
     padding-left: 12px;
     padding-right: 12px;
+  }
+  .container-custom-portfolio{
+    margin-top: unset;
   }
 
   @supports (padding: max(0px)) {

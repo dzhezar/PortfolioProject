@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Photoshot;
-
 
 use App\DTO\Photoshoot as PhotoshotDto;
 use App\Entity\Photoshoot;
@@ -16,9 +19,11 @@ class PhotoshootMapper
         $imagesMapper = new PhotoshootImageMapper();
         $collection = new PhotoshootImageCollection();
         $images = $entity->getPhotoshootImages();
+
         foreach ($images as $image) {
             $collection->addPhotoshot($imagesMapper->entityToDtoWithoutPhotoshoot($image));
         }
+
         return new PhotoshotDto(
             $entity->getId(),
             $entity->getCategory(),

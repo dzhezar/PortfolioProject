@@ -9,10 +9,21 @@
                             <li class="nav-item">
                                 <a class="nav-link m-1" href={{ path('index') }}><h3>Back</h3></a>
                             </li>
-                            <li class="content-section-heading offset-11">
+                            <li class="nav-item offset-2">
+                                <a class="nav-link m-1" href={{ path('portfolio') }}><h3>All</h3></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link m-1" href={{ path('stylePortfolio') }}><h3>Style</h3></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link m-1" href={{ path('muaPortfolio') }}><h3>Makeup</h3></a>
+                            </li>
+                            <li class="content-section-heading offset-8">
                                     <h2 class="text-secondary mb-0 mt-1">Portfolio</h2>
                                 {% if category is defined%}
                                     <h4 class="text-dark mb-0 mt-1 text-right">{{ category }}</h4>
+                                {% else %}
+                                    <h4 class="text-dark mb-0 mt-1 text-right">All</h4>
                                 {% endif %}
                             </li>
                         </ul>
@@ -28,6 +39,9 @@
         <nav id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-item">
+                    <h3><a class="nav-link m-1" href="{{ path('portfolio') }}">All</a></h3>
+                </li>
+                <li class="sidebar-nav-item">
                     <h3><a class="nav-link m-1" href="{{ path('stylePortfolio') }}">Style</a></h3>
                 </li>
                 <li class="sidebar-nav-item">
@@ -38,17 +52,19 @@
     </header>
 {% endblock %}
 {% block body %}
-    <div class="container-custom">
+    <div class="container-custom-portfolio">
         <a class="nav-link card-img-overlay" id="menu-button" href={{ path('index') }}>
             <i class="fas fa-angle-left"></i>
         </a>
-        <div class="content-section-heading text-center" id="page-top">
+        <div class="content-section-heading text-center" id="portfolio-top">
             <h2 class="text-secondary mb-0 mt-3">Portfolio</h2>
             {% if category is defined %}
                 <h4 class="text-dark mt-2 offset-2">{{ category }}</h4>
+            {% else %}
+                <h4 class="text-dark mb-2 offset-2">All</h4>
             {% endif %}
         </div>
-        <div class="row no-gutters mt-0">
+        <div class="row no-gutters pt-6">
             {% for photoshoot in pagination %}
                 <div class="col-lg-4">
                     <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
@@ -58,7 +74,7 @@
                         <p class="mb-0">{{ photoshoot.shortDescription }}</p>
                       </span>
                     </span>
-                        <img class="img-portfolio" src="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" alt="">
+                        <img class="img-portfolio" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" alt="">
                     </a>
                     <div style="display: none" id="portfolio-item-{{ photoshoot.id }}">
                         <div class="page-title photoshoot-title">
@@ -68,8 +84,8 @@
                             {{ photoshoot.description }}
                         </div>
                         <div>
-                            <a href="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
-                                <img class="img-photoshoot" src="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
+                            <a href="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
                             </a>
                         </div>
                         <div class="photoshoot-description">
@@ -78,8 +94,8 @@
                         </div>
                         <div class="container-custom">
                             {% for image in photoshoot.images %}
-                                <a href="uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
-                                    <img class="img-photoshoot" src="uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
+                                <a href="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                    <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
                                 </a>
                             {% endfor %}
                         </div>

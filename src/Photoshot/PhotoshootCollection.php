@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "HouseBooking-project" package.
+ * This file is part of the "Stylish Portfolio" project.
  * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
  */
 

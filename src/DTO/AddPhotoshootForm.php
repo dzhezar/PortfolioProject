@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\DTO;
-
 
 use App\Entity\Category;
 
@@ -96,6 +99,4 @@ class AddPhotoshootForm
     {
         $this->images = $images;
     }
-
-
 }

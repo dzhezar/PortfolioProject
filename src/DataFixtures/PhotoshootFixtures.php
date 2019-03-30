@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\Category;
@@ -13,6 +18,7 @@ class PhotoshootFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
+
         for ($i = 0; $i < 30; $i++) {
             $category = $this->getReference(Category::class . '_' . $faker->numberBetween(0, 1));
             $photoshoot = new Photoshoot();

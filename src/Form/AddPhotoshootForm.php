@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Form;
-
 
 use App\DTO\AddPhotoshootForm as AddPhotoshootFormDto;
 use App\Entity\Category;
@@ -36,7 +39,11 @@ class AddPhotoshootForm extends AbstractType
                 },
             ])
             ->add('shortDescription', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add(
+                'description',
+                TextareaType::class,
+                ['attr'=>['rows'=> 7]]
+            )
             ->add('photographer', TextType::class)
             ->add('model', TextType::class)
             ->add('images', FileType::class, [

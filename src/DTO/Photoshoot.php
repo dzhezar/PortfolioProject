@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\DTO;
 
@@ -19,7 +23,7 @@ class Photoshoot
     private $publicationDate;
     private $images;
 
-    public function __construct(int $id, Category $category, string $title, string $description,string $shortDescription, string $photographer,string $model, bool $isPosted, \DateTime $publicationDate, PhotoshootImageCollection $images=null)
+    public function __construct(int $id, Category $category, string $title, string $description, string $shortDescription, string $photographer, string $model, bool $isPosted, \DateTime $publicationDate, PhotoshootImageCollection $images=null)
     {
         $this->id = $id;
         $this->category = $category;

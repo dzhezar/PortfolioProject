@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\DataFixtures;
-
 
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,6 +24,5 @@ class CategoryFixtures extends Fixture
             $this->addReference(Category::class . '_' . $key, $category);
         }
         $manager->flush();
-
     }
 }

@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Controller\Admin;
-
 
 use App\DTO\AddPhotoshootForm as AddPhotoshootFormDto;
 use App\Form\AddPhotoshootForm;
@@ -24,19 +27,23 @@ class AdminController extends AbstractController
     public function addPhotoshoot(Request $request): Response
     {
         $formDto = new AddPhotoshootFormDto();
-        $form = $this->createForm(AddPhotoshootForm::class,$formDto);
+        $form = $this->createForm(AddPhotoshootForm::class, $formDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             $id= $this->service->addPhotoshoot($formDto);
+
             foreach ($formDto->getImages() as $image) {
                 $this->service->addImages($image, $id);
             }
+
             return $this->redirectToRoute('admin');
         }
-        return $this->render('admin/addPhotoshoot.html.twig',
-            ['form' => $form->createView()]);
 
+        return $this->render(
+            'admin/addPhotoshoot.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 
     public function deletePhotoshoot($id)
@@ -53,18 +60,20 @@ class AdminController extends AbstractController
     {
         $is_posted = $request->get('is_posted');
         $id = $request->get('id');
-        $this->service->setIsPosted($id,$is_posted);
+        $this->service->setIsPosted($id, $is_posted);
+
         return new Response('');
     }
     public function showAdminPanel(Request $request, PaginatorInterface $paginator)
     {
         $photoshoots = $this->service->getPhotoshoots();
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(),$request->query->getInt('page',1),11);
+        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 11);
         $pagination->setCustomParameters([
             'rounded' => true,
         ]);
-        return $this->render('admin/admin.html.twig',[
-            'pagination' => $pagination
+
+        return $this->render('admin/admin.html.twig', [
+            'pagination' => $pagination,
         ]);
     }
 }

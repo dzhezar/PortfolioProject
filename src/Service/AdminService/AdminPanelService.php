@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Service\AdminService;
-
 
 use App\DTO\AddPhotoshootForm;
 use App\Entity\Photoshoot;
@@ -41,11 +44,11 @@ class AdminPanelService implements AdminPanelServiceInterface
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
-        foreach ($photoshoots as $item){
+        foreach ($photoshoots as $item) {
             $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
         }
-        return $collection;
 
+        return $collection;
     }
 
     public function addPhotoshoot(AddPhotoshootForm $form): Photoshoot
@@ -68,9 +71,9 @@ class AdminPanelService implements AdminPanelServiceInterface
 
     public function addImages(UploadedFile $image, Photoshoot $photoshoot)
     {
-        $filename = sha1(uniqid()).'.'.$image->guessExtension();
+        $filename = \sha1(\uniqid()) . '.' . $image->guessExtension();
 
-        $image->move($this->getTargetDirectory().'/'.$photoshoot->getId(),$filename);
+        $image->move($this->getTargetDirectory() . '/' . $photoshoot->getId(), $filename);
 
         $photoshootImage = new PhotoshootImage();
         $photoshootImage

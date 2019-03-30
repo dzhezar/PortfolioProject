@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\PhotoshootImage;
-
 
 use App\DTO\PhotoshootImage;
 
@@ -28,13 +31,14 @@ class PhotoshootImageCollection implements \IteratorAggregate
     public function shiftU(): ?PhotoshootImage
     {
         $image = \array_shift($this->images);
-        array_unshift($this->images,$image);
+        \array_unshift($this->images, $image);
+
         return $image;
     }
 
     public function shift()
     {
-        return array_shift($this->images);
+        return \array_shift($this->images);
     }
 
     public function getPhotoshots(): array

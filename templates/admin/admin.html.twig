@@ -29,7 +29,7 @@
                         <tr>
                             <td>{{ photoshoot.title }}</td>
                             <td>{{ photoshoot.shortDescription }}</td>
-                            <td>{{ photoshoot.description | slice(0,100) }}</td>
+                            <td>{{ photoshoot.description | slice(0,500) }}</td>
                             <td>{{ photoshoot.photographer }}</td>
                             <td>{{ photoshoot.model }}</td>
                             <td><input class="set_posted" style="border: thin solid #000000" id="{{ photoshoot.id }}" type="checkbox" {% if photoshoot.isPosted == true %}checked{% endif %} data-toggle="toggle"></td>

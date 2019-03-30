@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Controller;
-
 
 use App\DTO\ContactForm as ContactFormDto;
 use App\Form\ContactForm;
@@ -14,33 +17,33 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends AbstractController
 {
-    public function index(HomePageServiceInterface $service, Request $request) :Response
+    public function index(HomePageServiceInterface $service, Request $request): Response
     {
         $mainPhotoshoots = $service->getHomePhotoshoots(4);
         $formDto = new ContactFormDto();
-        $form = $this->createForm(ContactForm::class,$formDto);
+        $form = $this->createForm(ContactForm::class, $formDto);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             dd($formDto);
         }
 
-        return $this->render('index.html.twig',[
+        return $this->render('index.html.twig', [
             'mainPhotoshoots' => $mainPhotoshoots,
-            'contactForm' =>$form->createView()
+            'contactForm' =>$form->createView(),
         ]);
     }
 
     public function showPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator): Response
     {
         $photoshoots = $service->getAllPhotoshoots();
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(),$request->query->getInt('page',1),9);
+        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 9);
         $pagination->setCustomParameters([
             'rounded' => true,
         ]);
-        return $this->render('portfolio.html.twig',[
-            'pagination' => $pagination
+
+        return $this->render('portfolio.html.twig', [
+            'pagination' => $pagination,
         ]);
     }
 
@@ -48,27 +51,29 @@ class DefaultController extends AbstractController
     {
         $photoshoots = $service->getStylePhotoshoots();
         $category = 'Style';
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(),$request->query->getInt('page',1),9);
+        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 9);
         $pagination->setCustomParameters([
             'rounded' => true,
         ]);
-        return $this->render('portfolio.html.twig',[
+
+        return $this->render('portfolio.html.twig', [
             'pagination' => $pagination,
-            'category' => $category
+            'category' => $category,
         ]);
     }
 
     public function showMuaPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator): Response
     {
-        $photoshoots = $service->getStylePhotoshoots();
+        $photoshoots = $service->getMuaPhotoshoots();
         $category = 'Make-up';
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(),$request->query->getInt('page',1),9);
+        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 9);
         $pagination->setCustomParameters([
             'rounded' => true,
         ]);
-        return $this->render('portfolio.html.twig',[
+
+        return $this->render('portfolio.html.twig', [
             'pagination' => $pagination,
-            'category' => $category
+            'category' => $category,
         ]);
     }
 }

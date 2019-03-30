@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
+
 namespace App\Repository\PhotoshootImage;
 
 use App\Entity\PhotoshootImage;
@@ -7,8 +12,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method PhotoshootImage|null find($id, $lockMode = null, $lockVersion = null)
- * @method PhotoshootImage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|PhotoshootImage find($id, $lockMode = null, $lockVersion = null)
+ * @method null|PhotoshootImage findOneBy(array $criteria, array $orderBy = null)
  * @method PhotoshootImage[]    findAll()
  * @method PhotoshootImage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

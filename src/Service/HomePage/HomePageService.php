@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Service\HomePage;
-
 
 use App\Photoshot\PhotoshootCollection;
 use App\Photoshot\PhotoshootMapper;
@@ -23,9 +26,10 @@ class HomePageService implements HomePageServiceInterface
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
-        foreach ($mainPhotoshoots as $item){
+        foreach ($mainPhotoshoots as $item) {
             $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
         }
+
         return $collection;
     }
 
@@ -36,9 +40,10 @@ class HomePageService implements HomePageServiceInterface
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
-        foreach ($photoshoots as $item){
+        foreach ($photoshoots as $item) {
             $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
         }
+
         return $collection;
     }
 
@@ -48,9 +53,10 @@ class HomePageService implements HomePageServiceInterface
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
-        foreach ($photoshoots as $item){
+        foreach ($photoshoots as $item) {
             $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
         }
+
         return $collection;
     }
 
@@ -60,9 +66,10 @@ class HomePageService implements HomePageServiceInterface
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
-        foreach ($photoshoots as $item){
+        foreach ($photoshoots as $item) {
             $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
         }
+
         return $collection;
     }
 }

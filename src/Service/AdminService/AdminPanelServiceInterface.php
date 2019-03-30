@@ -19,4 +19,5 @@ interface AdminPanelServiceInterface
     public function addPhotoshoot(AddPhotoshootForm $form): Photoshoot;
     public function addImages(UploadedFile $image, Photoshoot $photoshoot);
     public function editPhotoshoot(int $id);
+    public function deletePhotoshoot(int $id);
 }

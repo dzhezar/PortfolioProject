@@ -96,4 +96,20 @@ class AdminPanelService implements AdminPanelServiceInterface
     {
         // TODO: Implement editPhotoshoot() method.
     }
+
+    public function deletePhotoshoot(int $id)
+    {
+        $photoshoot = $this->photoshootRepository->findOneBy(['id' => $id]);
+        $images = $this->imageRepository->findBy(['Photoshoot' => $photoshoot]);
+
+        foreach ($images as $image) {
+            \unlink($this->getTargetDirectory() . '/' . $photoshoot->getId().'/'.$image->getImage());
+            $this->em->remove($image);
+        }
+        $this->em->flush();
+        rmdir($this->getTargetDirectory() . '/' . $photoshoot->getId());
+        $this->em->remove($photoshoot);
+        $this->em->flush();
+
+    }
 }

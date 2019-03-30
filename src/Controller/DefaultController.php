@@ -26,8 +26,6 @@ class DefaultController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('success', 'Success!');
-            
-
         }
 
         return $this->render('index.html.twig', [

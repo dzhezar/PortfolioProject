@@ -48,7 +48,8 @@ class AdminController extends AbstractController
 
     public function deletePhotoshoot($id)
     {
-        return new Response('delete');
+        $this->service->deletePhotoshoot($id);
+        return $this->redirectToRoute('admin');
     }
 
     public function editPhotoshoot($id, Request $request)

@@ -8,4 +8,6 @@ interface HomePageServiceInterface
 {
     public function getHomePhotoshoots(int $count);
     public function getAllPhotoshoots();
+    public function getStylePhotoshoots();
+    public function getMuaPhotoshoots();
 }

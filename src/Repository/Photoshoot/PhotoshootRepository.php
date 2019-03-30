@@ -19,19 +19,43 @@ class PhotoshootRepository extends ServiceEntityRepository implements Photoshoot
         parent::__construct($registry, Photoshoot::class);
     }
 
-    public function FindNumberOfPhotoshoots(int $count)
+    public function findNumberOfPhotoshoots(int $count)
     {
         return $this->createQueryBuilder('p')
             ->where('p.IsPosted = 1')
             ->setMaxResults($count)
+            ->orderBy('p.PublicationDate','DESC')
             ->getQuery()
             ->getResult();
     }
 
-    public function FindPhotoshootsWithImages()
+
+
+    public function findPostedPhotoshoots()
     {
         return $this->createQueryBuilder('p')
             ->where('p.IsPosted = 1')
+            ->orderBy('p.PublicationDate','DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPhotoshootsByCategory(string $category)
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.Category', 'c')
+            ->addSelect('c')
+            ->where('c.Name = :category')
+            ->andWhere('p.IsPosted = 1')
+            ->setParameter('category', $category)
+            ->orderBy('p.PublicationDate','DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllPhotoshoots()
+    {
+        return $this->createQueryBuilder('p')
             ->orderBy('p.PublicationDate','DESC')
             ->getQuery()
             ->getResult();

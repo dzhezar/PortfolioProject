@@ -6,6 +6,8 @@ namespace App\Repository\Photoshoot;
 
 interface PhotoshootRepositoryInterface
 {
-    public function FindNumberOfPhotoshoots(int $count);
-    public function FindPhotoshootsWithImages();
+    public function findNumberOfPhotoshoots(int $count);
+    public function findPostedPhotoshoots();
+    public function findAllPhotoshoots();
+    public function findPhotoshootsByCategory(string $category);
 }

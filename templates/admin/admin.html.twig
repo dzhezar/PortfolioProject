@@ -1,0 +1,48 @@
+{% extends "admin/base.html.twig" %}
+{% block body %}
+    <div class="container-fluid">
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Photoshoots
+                <a class="btn btn-primary btn-lg btn text-light offset-10" href="{{ path('addPhotoshoot') }}">Add</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Short Description</th>
+                            <th>Description</th>
+                            <th>Photographer</th>
+                            <th>Model</th>
+                            <th>Is Posted</th>
+                            <th>Publication Date</th>
+                            <th>Image Preview</th>
+                            <th>Manipulations</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for photoshoot in pagination %}
+                        <tr>
+                            <td>{{ photoshoot.title }}</td>
+                            <td>{{ photoshoot.shortDescription }}</td>
+                            <td>{{ photoshoot.description | slice(0,100) }}</td>
+                            <td>{{ photoshoot.photographer }}</td>
+                            <td>{{ photoshoot.model }}</td>
+                            <td><input class="set_posted" style="border: thin solid #000000" id="{{ photoshoot.id }}" type="checkbox" {% if photoshoot.isPosted == true %}checked{% endif %} data-toggle="toggle"></td>
+                            <td>{{ photoshoot.publicationDate.format('d-m-y') }}</td>
+                            <td><img style="height: 200px;width: 200px; object-fit: contain" src ='uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}'></td>
+                            <td><a class="btn btn-info text-light" href="{{ path('editPhotoshoot', {'id': photoshoot.id}) }}">Edit</a>
+                            <br><br><a class="btn btn-danger text-light" href="{{ path('deletePhotoshoot', {'id': photoshoot.id}) }}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {{ knp_pagination_render(pagination) }}
+        </div>
+{% endblock %}

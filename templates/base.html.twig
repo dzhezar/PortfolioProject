@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 
@@ -8,32 +8,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Stylish Portfolio - Start Bootstrap Template</title>
+    <title>Stylish Portfolio</title>
 
     {% block stylesheets %}
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-        <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+        <link href="/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Spectral" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="css/stylish-portfolio.css" rel="stylesheet">
+        <link href="/css/stylish-portfolio.css" rel="stylesheet">
     {% endblock %}
 </head>
-
-<body id="page-top">
-
-<div>
-    <div id="overlay">
-
-    </div>
-</div>
-
-
-
 
 <!-- Header -->
 {% block header %}
@@ -47,13 +36,13 @@
                             <h3><a class="nav-link m-1" href="#page-top">Home</a></h3>
                         </li>
                         <li class="nav-item">
-                            <h3><a class="nav-link m-1" href="#about">About</a></h3>
+                            <h3><a class="nav-link m-1" href="#portfolio">Portfolio</a></h3>
                         </li>
                         <li class="nav-item">
                             <h3><a class="nav-link m-1" href="#services">Services</a></h3>
                         </li>
                         <li class="nav-item">
-                            <h3><a class="nav-link m-1" href="#portfolio">Portfolio</a></h3>
+                            <h3><a class="nav-link m-1" href="#about">About</a></h3>
                         </li>
                         <li class="nav-item">
                             <h3><a class="nav-link m-1" href="#contact">Contact</a></h3>
@@ -74,13 +63,13 @@
             <h3><a class="nav-link m-1" href="#page-top">Home</a></h3>
         </li>
         <li class="sidebar-nav-item">
-            <h3><a class="nav-link m-1" href="#about">About</a></h3>
+            <h3><a class="nav-link m-1" href="#portfolio">Potrfolio</a></h3>
         </li>
         <li class="sidebar-nav-item">
             <h3><a class="nav-link m-1" href="#services">Services</a></h3>
         </li>
         <li class="sidebar-nav-item">
-            <h3><a class="nav-link m-1" href="#portfolio">Portfolio</a></h3>
+            <h3><a class="nav-link m-1" href="#about">About</a></h3>
         </li>
         <li class="sidebar-nav-item">
             <h3><a class="nav-link m-1" href="#contact">Contact</a></h3>
@@ -121,86 +110,16 @@
 </a>
 {% block js %}
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for this template -->
-<script src="js/stylish-portfolio.js"></script>
+<script src="/js/stylish-portfolio.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 {% endblock %}
 </body>
 
 </html>
-
-
-{#<!-- Services -->#}
-{#<section class="content-section bg-primary text-white text-center" id="services">#}
-{#    <div class="container">#}
-{#        <div class="content-section-heading">#}
-{#            <h3 class="text-secondary mb-0">Services</h3>#}
-{#            <h2 class="mb-5">What We Offer</h2>#}
-{#        </div>#}
-{#        <div class="row">#}
-{#            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">#}
-{#          <span class="service-icon rounded-circle mx-auto mb-3">#}
-{#            <i class="icon-screen-smartphone"></i>#}
-{#          </span>#}
-{#                <h4>#}
-{#                    <strong>Responsive</strong>#}
-{#                </h4>#}
-{#                <p class="text-faded mb-0">Looks great on any screen size!</p>#}
-{#            </div>#}
-{#            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">#}
-{#          <span class="service-icon rounded-circle mx-auto mb-3">#}
-{#            <i class="icon-pencil"></i>#}
-{#          </span>#}
-{#                <h4>#}
-{#                    <strong>Redesigned</strong>#}
-{#                </h4>#}
-{#                <p class="text-faded mb-0">Freshly redesigned for Bootstrap 4.</p>#}
-{#            </div>#}
-{#            <div class="col-lg-3 col-md-6 mb-5 mb-md-0">#}
-{#          <span class="service-icon rounded-circle mx-auto mb-3">#}
-{#            <i class="icon-like"></i>#}
-{#          </span>#}
-{#                <h4>#}
-{#                    <strong>Favorited</strong>#}
-{#                </h4>#}
-{#                <p class="text-faded mb-0">Millions of users#}
-{#                    <i class="fas fa-heart"></i>#}
-{#                    Start Bootstrap!</p>#}
-{#            </div>#}
-{#            <div class="col-lg-3 col-md-6">#}
-{#          <span class="service-icon rounded-circle mx-auto mb-3">#}
-{#            <i class="icon-mustache"></i>#}
-{#          </span>#}
-{#                <h4>#}
-{#                    <strong>Question</strong>#}
-{#                </h4>#}
-{#                <p class="text-faded mb-0">I mustache you a question...</p>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</section>#}
-
-{#<!-- Callout -->#}
-{#<section class="callout">#}
-{#    <div class="container text-center">#}
-{#        <h2 class="mx-auto mb-5">Welcome to#}
-{#            <em>your</em>#}
-{#            next website!</h2>#}
-{#        <a class="btn btn-primary btn-xl" href="https://startbootstrap.com/template-overviews/stylish-portfolio/">Download Now!</a>#}
-{#    </div>#}
-{#</section>#}
-
-
-{#<!-- Call to Action -->#}
-{#<section class="content-section bg-primary text-white">#}
-{#    <div class="container text-center">#}
-{#        <h2 class="mb-4">The buttons below are impossible to resist...</h2>#}
-{#        <a href="#" class="btn btn-xl btn-light mr-4">Click Me!</a>#}
-{#        <a href="#" class="btn btn-xl btn-dark">Look at Me!</a>#}
-{#    </div>#}
-{#</section>#}

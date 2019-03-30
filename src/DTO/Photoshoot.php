@@ -3,24 +3,29 @@
 
 namespace App\DTO;
 
+use App\Entity\Category;
 use App\PhotoshootImage\PhotoshootImageCollection;
 
 class Photoshoot
 {
     private $id;
+    private $category;
     private $title;
     private $description;
+    private $shortDescription;
     private $photographer;
     private $model;
     private $isPosted;
     private $publicationDate;
     private $images;
 
-    public function __construct(int $id, string $title, string $description,string $photographer,string $model, bool $isPosted, \DateTime $publicationDate, PhotoshootImageCollection $images = null)
+    public function __construct(int $id, Category $category, string $title, string $description,string $shortDescription, string $photographer,string $model, bool $isPosted, \DateTime $publicationDate, PhotoshootImageCollection $images=null)
     {
         $this->id = $id;
+        $this->category = $category;
         $this->title = $title;
         $this->description = $description;
+        $this->shortDescription = $shortDescription;
         $this->photographer = $photographer;
         $this->model = $model;
         $this->isPosted = $isPosted;
@@ -39,9 +44,19 @@ class Photoshoot
         return $this->title;
     }
 
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
     }
 
     public function getPhotographer(): string

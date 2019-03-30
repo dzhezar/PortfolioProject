@@ -4,3 +4,24 @@ index:
 portfolio:
     path: /portfolio
     controller: App\Controller\DefaultController::showPortfolio
+stylePortfolio:
+    path: /portfolio/style
+    controller: App\Controller\DefaultController::showStylePortfolio
+muaPortfolio:
+    path: /portfolio/makeup
+    controller: App\Controller\DefaultController::showMuaPortfolio
+admin:
+    path: /admin
+    controller: App\Controller\Admin\AdminController::showAdminPanel
+is_posted:
+    path: /admin/is_posted
+    controller: App\Controller\Admin\AdminController::setIsPosted
+editPhotoshoot:
+    path: /admin/edit/{id}
+    controller: App\Controller\Admin\AdminController::editPhotoshoot
+deletePhotoshoot:
+    path: /admin/delete/{id}
+    controller: App\Controller\Admin\AdminController::deletePhotoshoot
+addPhotoshoot:
+    path: /admin/add
+    controller: App\Controller\Admin\AdminController::addPhotoshoot

@@ -19,28 +19,11 @@ class PhotoshootImageRepository extends ServiceEntityRepository
         parent::__construct($registry, PhotoshootImage::class);
     }
 
-    // /**
-    //  * @return PhotoshootImage[] Returns an array of PhotoshootImage objects
-    //  */
     /*
-    public function findByExampleField($value)
+    public function findOneBySomeField($value): ?Category
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?PhotoshootImage
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

@@ -15,14 +15,16 @@ class PhotoshootMapper
     {
         $imagesMapper = new PhotoshootImageMapper();
         $collection = new PhotoshootImageCollection();
-        $images = $entity->getPhotoshotImages();
+        $images = $entity->getPhotoshootImages();
         foreach ($images as $image) {
             $collection->addPhotoshot($imagesMapper->entityToDtoWithoutPhotoshoot($image));
         }
         return new PhotoshotDto(
             $entity->getId(),
+            $entity->getCategory(),
             $entity->getTitle(),
             $entity->getDescription(),
+            $entity->getShortDescription(),
             $entity->getPhotographer(),
             $entity->getModel(),
             $entity->getIsPosted(),
@@ -35,8 +37,10 @@ class PhotoshootMapper
     {
         return new PhotoshotDto(
             $entity->getId(),
+            $entity->getCategory(),
             $entity->getTitle(),
             $entity->getDescription(),
+            $entity->getShortDescription(),
             $entity->getPhotographer(),
             $entity->getModel(),
             $entity->getIsPosted(),

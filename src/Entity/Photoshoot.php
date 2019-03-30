@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PhotoshootRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Photoshoot\PhotoshootRepository")
  */
 class Photoshoot
 {
@@ -41,7 +41,7 @@ class Photoshoot
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\PhotoshootImage", mappedBy="Photoshoot", orphanRemoval=true)
      */
-    private $photoshotImages;
+    private $photoshootImages;
 
     /**
      * @ORM\Column(type="boolean")
@@ -52,6 +52,17 @@ class Photoshoot
      * @ORM\Column(type="date", nullable=true)
      */
     private $PublicationDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="photoshoots")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Category;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ShortDescription;
 
     public function __construct()
     {
@@ -114,28 +125,28 @@ class Photoshoot
     /**
      * @return Collection|PhotoshootImage[]
      */
-    public function getPhotoshotImages(): Collection
+    public function getPhotoshootImages(): Collection
     {
-        return $this->photoshotImages;
+        return $this->photoshootImages;
     }
 
-    public function addPhotoshotImage(PhotoshootImage $photoshotImage): self
+    public function addPhotoshootImage(PhotoshootImage $photoshootImage): self
     {
-        if (!$this->photoshotImages->contains($photoshotImage)) {
-            $this->photoshotImages[] = $photoshotImage;
-            $photoshotImage->setPhotoshot($this);
+        if (!$this->photoshootImages->contains($photoshootImage)) {
+            $this->photoshootImages[] = $photoshootImage;
+            $photoshootImage->setPhotoshoot($this);
         }
 
         return $this;
     }
 
-    public function removePhotoshotImage(PhotoshootImage $photoshotImage): self
+    public function removePhotoshotImage(PhotoshootImage $photoshootImage): self
     {
-        if ($this->photoshotImages->contains($photoshotImage)) {
-            $this->photoshotImages->removeElement($photoshotImage);
+        if ($this->photoshootImages->contains($photoshootImage)) {
+            $this->photoshootImages->removeElement($photoshootImage);
             // set the owning side to null (unless already changed)
-            if ($photoshotImage->getPhotoshot() === $this) {
-                $photoshotImage->setPhotoshot(null);
+            if ($photoshootImage->getPhotoshoot() === $this) {
+                $photoshootImage->setPhotoshoot(null);
             }
         }
 
@@ -162,6 +173,30 @@ class Photoshoot
     public function setPublicationDate(\DateTime $PublicationDate): self
     {
         $this->PublicationDate = $PublicationDate;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(?Category $Category): self
+    {
+        $this->Category = $Category;
+
+        return $this;
+    }
+
+    public function getShortDescription(): ?string
+    {
+        return $this->ShortDescription;
+    }
+
+    public function setShortDescription(string $ShortDescription): self
+    {
+        $this->ShortDescription = $ShortDescription;
 
         return $this;
     }

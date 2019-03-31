@@ -20,9 +20,9 @@
                 <h3 class="text-secondary mb-0">Portfolio</h3>
                 <h2 class="mb-3">Recent Projects</h2>
             </div>
-            <div class="row no-gutters">
+            <div class="row">
                 {% for photoshoot in mainPhotoshoots %}
-                    <div class="col-lg-6 col-sm-6">
+                    <div class="portfolio-window col-lg-6 col-sm-6">
                         <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
                     <span class="caption">
                       <span class="caption-content">
@@ -119,11 +119,62 @@
         </div>
     </section>
 
+    <!-- Blog -->
+    <section class="content-section" id="blog">
+        <div class="content-section-heading text-center">
+            <h3 class="text-secondary mb-0">Sneak peaks</h3>
+            <h2 class="mb-3">Soon...❤️</h2>
+        </div>
+        <div class="scrolling-wrapper">
+            {% for photoshoot in mainPhotoshoots %}
+                <div class="col-lg-5 col-sm-5 col-10 card portfolio-window px-1">
+                    <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
+                    <span class="caption">
+                      <span class="caption-content">
+                        <h2>{{ photoshoot.title }}</h2>
+                        <p class="mb-0">{{ photoshoot.shortDescription }}</p>
+                      </span>
+                    </span>
+                        <img class="img-portfolio" src="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" alt="">
+                    </a>
+                    <div style="display: none" id="portfolio-item-{{ photoshoot.id }}">
+                        <div class="page-title photoshoot-title">
+                            <h2>{{ photoshoot.title | title}}</h2>
+                        </div>
+                        <div class="photoshoot-text">
+                            {{ photoshoot.description }}
+                        </div>
+                        <div>
+                            <a href="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                <img class="img-photoshoot" src="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
+                            </a>
+                        </div>
+                        <div class="photoshoot-description">
+                            Model: <em>{{ photoshoot.model }}</em><br>
+                            Photographer: <em>{{ photoshoot.photographer }}</em>
+                        </div>
+                        <div class="container-custom">
+                            {% for image in photoshoot.images %}
+                                <a href="uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                    <img class="img-photoshoot" src="uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <a class="next-button card rounded-circle mx-3" href="{{ path('portfolio') }}">
+                <i class="far fa-arrow-alt-circle-right"></i>
+            </a>
+        </div>
+    </section>
+
     <!-- About -->
     <section class="about_us-section" id="about">
         <div class="content-section-heading text-center">
             <h3 class="text-secondary mb-0">A few words</h3>
-            <h2 class="mb-3">Abous us</h2>
+            <h2 class="mb-3 text-light">Abous us</h2>
         </div>
         <div class="modified-row portfolio-section">
             <div class="col-sm-12 col-lg-8 pt-4 pb-4">
@@ -191,4 +242,8 @@
         </div>
     </div>
 </section>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 {% endblock %}

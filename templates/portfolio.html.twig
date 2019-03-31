@@ -39,14 +39,16 @@
         <nav id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-item">
-                    <h3><a class="nav-link m-1" href="{{ path('portfolio') }}">All</a></h3>
+                    <h3><a class="nav-link m-1" href="{{ path('portfolio') }}">Projects</a></h3>
                 </li>
-                <li class="sidebar-nav-item">
-                    <h3><a class="nav-link m-1" href="{{ path('stylePortfolio') }}">Style</a></h3>
-                </li>
-                <li class="sidebar-nav-item">
-                    <h3><a class="nav-link m-1" href="{{ path('muaPortfolio') }}">Make-up</a></h3>
-                </li>
+                <ul>
+                    <li class="sidebar-nav-item">
+                        <h3><a class="nav-link m-1" href="{{ path('stylePortfolio') }}">Style</a></h3>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <h3><a class="nav-link m-1" href="{{ path('muaPortfolio') }}">Make-up</a></h3>
+                    </li>
+                </ul>
             </ul>
         </nav>
     </header>
@@ -66,7 +68,7 @@
         </div>
         <div class="row no-gutters pt-6">
             {% for photoshoot in pagination %}
-                <div class="col-lg-4 col-sm-6">
+                <div class="col-lg-4 col-sm-6 portfolio-window">
                     <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
                     <span class="caption">
                       <span class="caption-content">
@@ -108,4 +110,8 @@
         {{ knp_pagination_render(pagination) }}
         </div>
     </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#portfolio-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 {% endblock %}

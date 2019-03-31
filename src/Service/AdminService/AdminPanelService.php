@@ -8,6 +8,7 @@
 namespace App\Service\AdminService;
 
 use App\DTO\AddPhotoshootForm;
+use App\DTO\EditPhotoshootForm;
 use App\Entity\Photoshoot;
 use App\Entity\PhotoshootImage;
 use App\Photoshot\PhotoshootCollection;
@@ -92,9 +93,19 @@ class AdminPanelService implements AdminPanelServiceInterface
         $this->em->flush();
     }
 
-    public function editPhotoshoot(int $id)
+    public function editPhotoshoot(int $id, EditPhotoshootForm $form)
     {
-        // TODO: Implement editPhotoshoot() method.
+        $photoshoot = $this->photoshootRepository->findOneBy(['id' => $id]);
+            $photoshoot
+                ->setTitle($form->getTitle())
+                ->setCategory($form->getCategory())
+                ->setShortDescription($form->getShortDescription())
+                ->setDescription($form->getDescription())
+                ->setPhotographer($form->getPhotographer())
+                ->setModel($form->getModel());
+        $this->em->persist($photoshoot);
+        $this->em->flush();
+
     }
 
     public function deletePhotoshoot(int $id)
@@ -110,6 +121,14 @@ class AdminPanelService implements AdminPanelServiceInterface
         rmdir($this->getTargetDirectory() . '/' . $photoshoot->getId());
         $this->em->remove($photoshoot);
         $this->em->flush();
+
+    }
+
+    public function getPhotoshootById(int $id)
+    {
+        $photoshoot = $this->photoshootRepository->findOneBy(['id' => $id]);
+        $mapper = new PhotoshootMapper();
+        return $mapper->entityToEditFormDto($photoshoot);
 
     }
 }

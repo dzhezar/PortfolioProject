@@ -40,4 +40,9 @@
     }
   });
 
+  $('#contactForm').on('submit', function(e){
+    $('#contactModal').modal('show');
+    e.preventDefault();
+  });
+
 })(jQuery); // End of use strict

@@ -7,6 +7,7 @@
 
 namespace App\Photoshot;
 
+use App\DTO\EditPhotoshootForm;
 use App\DTO\Photoshoot as PhotoshotDto;
 use App\Entity\Photoshoot;
 use App\PhotoshootImage\PhotoshootImageCollection;
@@ -50,6 +51,18 @@ class PhotoshootMapper
             $entity->getModel(),
             $entity->getIsPosted(),
             $entity->getPublicationDate()
+        );
+    }
+
+    public function entityToEditFormDto(Photoshoot $entity): EditPhotoshootForm
+    {
+        return new EditPhotoshootForm(
+            $entity->getTitle(),
+            $entity->getCategory(),
+            $entity->getShortDescription(),
+            $entity->getDescription(),
+            $entity->getPhotographer(),
+            $entity->getModel()
         );
     }
 }

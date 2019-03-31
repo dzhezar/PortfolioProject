@@ -18,7 +18,7 @@
                             <li class="nav-item">
                                 <a class="nav-link m-1" href={{ path('muaPortfolio') }}><h3>Makeup</h3></a>
                             </li>
-                            <li class="content-section-heading offset-8">
+                            <li class="content-section-heading offset-6">
                                     <h2 class="text-secondary mb-0 mt-1">Portfolio</h2>
                                 {% if category is defined%}
                                     <h4 class="text-dark mb-0 mt-1 text-right">{{ category }}</h4>
@@ -66,7 +66,7 @@
         </div>
         <div class="row no-gutters pt-6">
             {% for photoshoot in pagination %}
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-sm-6">
                     <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
                     <span class="caption">
                       <span class="caption-content">

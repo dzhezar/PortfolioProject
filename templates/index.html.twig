@@ -22,7 +22,7 @@
             </div>
             <div class="row no-gutters">
                 {% for photoshoot in mainPhotoshoots %}
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-sm-6">
                         <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
                     <span class="caption">
                       <span class="caption-content">
@@ -74,7 +74,7 @@
                 <h2 class="mb-5">What We Offer</h2>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-12 mb-5 mb-lg-4">
+                <div class="col-lg-6 col-sm-6 mb-5 mb-lg-4">
           <span class="service-icon rounded-circle mx-auto mb-3">
             <i class="icon-screen-smartphone"></i>
           </span>
@@ -83,7 +83,7 @@
                     </h4>
                     <p class="text-faded mb-0">Looks great on any screen size!</p>
                 </div>
-                <div class="col-lg-6 col-md-12 mb-5 mb-lg-4">
+                <div class="col-lg-6 col-sm-6 mb-5 mb-lg-4">
           <span class="service-icon rounded-circle mx-auto mb-3">
             <i class="icon-pencil"></i>
           </span>
@@ -94,7 +94,7 @@
                 </div>
             </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 mb-5 mb-lg-4">
+                    <div class="col-lg-6 col-sm-6 mb-5 mb-lg-4">
           <span class="service-icon rounded-circle mx-auto mb-3">
             <i class="icon-like"></i>
           </span>
@@ -105,7 +105,7 @@
                         <i class="fas fa-heart"></i>
                         Start Bootstrap!</p>
                 </div>
-                <div class="col-lg-6 col-md-12 mb-5 mb-lg-4">
+                <div class="col-lg-6 col-sm-6 mb-5 mb-lg-4">
           <span class="service-icon rounded-circle mx-auto mb-3">
             <i class="icon-mustache"></i>
           </span>
@@ -160,7 +160,7 @@
         </div>
     </section>
 
-    <!-- Map -->
+    <!-- Contact -->
 <section id="contact" class="contact-section text-white text-center">
     <span class="service-icon contact-form-symbol mx-auto">
         <i class="far fa-envelope"></i>
@@ -169,17 +169,26 @@
         <span class="content-section-heading text-center">
             <p class="text-dark h2">Drop us a message</p>
         </span>
-            {{ form_start(contactForm) }}
+            {{ form_start(contactForm, {'attr': {'id':'contactForm'} } ) }}
                 {{ form_row(contactForm.name) }}
                 {{ form_widget(contactForm.email) }}
                 {{ form_row(contactForm.text) }}
                  <button type="submit" class="btn btn-outline-info btn-lg">Send</button>
             {{ form_end(contactForm) }}
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="contactModal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <br>
+                        <p class="text-dark h3">Thank you!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
-        {% endfor %}
+        </div>
     </div>
 </section>
 {% endblock %}

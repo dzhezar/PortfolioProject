@@ -9,6 +9,7 @@ namespace App\Controller\Admin;
 
 use App\DTO\AddPhotoshootForm as AddPhotoshootFormDto;
 use App\Form\AddPhotoshootForm;
+use App\Form\EditPhotoshootForm;
 use App\Service\AdminService\AdminPanelServiceInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,7 +55,18 @@ class AdminController extends AbstractController
 
     public function editPhotoshoot($id, Request $request)
     {
-        return new Response('edit');
+        $photoshoot = $this->service->getPhotoshootById($id);
+        $form = $this->createForm(EditPhotoshootForm::class,$photoshoot);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $this->service->editPhotoshoot($id, $photoshoot);
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/editPhotoshoot.html.twig',
+            ['form' => $form->createView()]);
+
     }
 
     public function setIsPosted(Request $request)

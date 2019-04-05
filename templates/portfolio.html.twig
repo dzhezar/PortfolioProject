@@ -18,7 +18,10 @@
                             <li class="nav-item">
                                 <a class="nav-link m-1" href={{ path('muaPortfolio') }}><h3>Makeup</h3></a>
                             </li>
-                            <li class="content-section-heading offset-6">
+                            <li class="nav-item">
+                                <a class="nav-link m-1 h3" style="border: 2px solid #E5D9F2; border-radius: 3px" href={{ path('sneakPeakPortfolio') }}>Backstage</a>
+                            </li>
+                            <li class="content-section-heading offset-3">
                                     <h2 class="text-secondary mb-0 mt-1">Portfolio</h2>
                                 {% if category is defined%}
                                     <h4 class="text-dark mb-0 mt-1 text-right">{{ category }}</h4>
@@ -49,6 +52,9 @@
                         <h3><a class="nav-link m-1" href="{{ path('muaPortfolio') }}">Make-up</a></h3>
                     </li>
                 </ul>
+                <li class="sidebar-nav-item">
+                    <a class="nav-link m-1 h3" href="{{ path('sneakPeakPortfolio') }}">Backstage</a>
+                </li>
             </ul>
         </nav>
     </header>

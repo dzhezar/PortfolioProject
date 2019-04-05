@@ -9,20 +9,23 @@ namespace App\Service\HomePage;
 
 use App\Photoshot\PhotoshootCollection;
 use App\Photoshot\PhotoshootMapper;
+use App\Repository\MainPageRepository;
 use App\Repository\Photoshoot\PhotoshootRepository;
 
 class HomePageService implements HomePageServiceInterface
 {
     private $photoshootRepository;
+    private $mainPageRepository;
 
-    public function __construct(PhotoshootRepository $photoshootRepository)
+    public function __construct(PhotoshootRepository $photoshootRepository, MainPageRepository $mainPageRepository)
     {
         $this->photoshootRepository = $photoshootRepository;
+        $this->mainPageRepository = $mainPageRepository;
     }
 
-    public function getHomePhotoshoots(int $count)
+    public function getPhotoshoots(int $count = null)
     {
-        $mainPhotoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count);
+        $mainPhotoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Style','Make-up'],[1]);
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
@@ -33,10 +36,23 @@ class HomePageService implements HomePageServiceInterface
         return $collection;
     }
 
-
-    public function getAllPhotoshoots()
+    public function getSneakPeaks(int $count = null)
     {
-        $photoshoots = $this->photoshootRepository->findPostedPhotoshoots();
+        $mainSneakPeaks = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Sneak peak'],[1]);
+        $photoshootMapper = new PhotoshootMapper();
+        $collection = new PhotoshootCollection();
+
+        foreach ($mainSneakPeaks as $item) {
+            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+        }
+
+        return $collection;
+
+    }
+
+    public function getStylePhotoshoots(int $count =null)
+    {
+        $photoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Style'],[1]);
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
@@ -47,9 +63,9 @@ class HomePageService implements HomePageServiceInterface
         return $collection;
     }
 
-    public function getStylePhotoshoots()
+    public function getMuaPhotoshoots(int $count = null)
     {
-        $photoshoots = $this->photoshootRepository->findPhotoshootsByCategory('Style');
+        $photoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count, ['Make-up'], [1]);
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
@@ -60,16 +76,8 @@ class HomePageService implements HomePageServiceInterface
         return $collection;
     }
 
-    public function getMuaPhotoshoots()
+    public function getMainPageInfo()
     {
-        $photoshoots = $this->photoshootRepository->findPhotoshootsByCategory('Make-up');
-        $photoshootMapper = new PhotoshootMapper();
-        $collection = new PhotoshootCollection();
-
-        foreach ($photoshoots as $item) {
-            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
-        }
-
-        return $collection;
+        return $this->mainPageRepository->findOneBy(['id' => 1]);
     }
 }

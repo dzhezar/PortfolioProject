@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+
 class AddPhotoshootForm extends AbstractType
 {
     private $em;
@@ -37,13 +38,13 @@ class AddPhotoshootForm extends AbstractType
                     /* @var Category $category */
                     return $category->getName();
                 },
+                'placeholder' => 'Choose an option'
             ])
             ->add('shortDescription', TextType::class)
             ->add(
                 'description',
                 TextareaType::class,
-                ['attr'=>['rows'=> 7]]
-            )
+                ['attr'=>['rows'=> 7]])
             ->add('photographer', TextType::class)
             ->add('model', TextType::class)
             ->add('images', FileType::class, [

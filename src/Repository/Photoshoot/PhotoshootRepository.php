@@ -9,6 +9,7 @@ namespace App\Repository\Photoshoot;
 
 use App\Entity\Photoshoot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Connection;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -24,35 +25,26 @@ class PhotoshootRepository extends ServiceEntityRepository implements Photoshoot
         parent::__construct($registry, Photoshoot::class);
     }
 
-    public function findNumberOfPhotoshoots(int $count)
+    public function findNumberOfPhotoshoots(int $count = null, array $category = null, array $isPosted = null)
     {
         return $this->createQueryBuilder('p')
-            ->where('p.IsPosted = 1')
+            ->innerJoin('p.Category', 'c')
+            ->addSelect('c')
+            ->where("c.Name IN (:category)")
+            ->andwhere('p.IsPosted IN (:isPosted)')
+            ->setParameter('category',$category,Connection::PARAM_STR_ARRAY)
+            ->setParameter('isPosted',$isPosted,Connection::PARAM_INT_ARRAY)
             ->setMaxResults($count)
             ->orderBy('p.PublicationDate', 'DESC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+            ;
     }
-
-
 
     public function findPostedPhotoshoots()
     {
         return $this->createQueryBuilder('p')
             ->where('p.IsPosted = 1')
-            ->orderBy('p.PublicationDate', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findPhotoshootsByCategory(string $category)
-    {
-        return $this->createQueryBuilder('p')
-            ->innerJoin('p.Category', 'c')
-            ->addSelect('c')
-            ->where('c.Name = :category')
-            ->andWhere('p.IsPosted = 1')
-            ->setParameter('category', $category)
             ->orderBy('p.PublicationDate', 'DESC')
             ->getQuery()
             ->getResult();

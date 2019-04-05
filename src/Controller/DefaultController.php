@@ -19,7 +19,9 @@ class DefaultController extends AbstractController
 {
     public function index(HomePageServiceInterface $service, Request $request): Response
     {
-        $mainPhotoshoots = $service->getHomePhotoshoots(4);
+        $mainPhotoshoots = $service->getPhotoshoots(4);
+        $mainPageInfo = $service->getMainPageInfo();
+        $sneakPeaks = $service->getSneakPeaks(5);
         $formDto = new ContactFormDto();
         $form = $this->createForm(ContactForm::class, $formDto);
         $form->handleRequest($request);
@@ -29,14 +31,16 @@ class DefaultController extends AbstractController
         }
 
         return $this->render('index.html.twig', [
+            'info' => $mainPageInfo,
             'mainPhotoshoots' => $mainPhotoshoots,
+            'mainSneakPeaks' => $sneakPeaks,
             'contactForm' =>$form->createView(),
         ]);
     }
 
     public function showPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator): Response
     {
-        $photoshoots = $service->getAllPhotoshoots();
+        $photoshoots = $service->getPhotoshoots();
         $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 12);
         $pagination->setCustomParameters([
             'rounded' => true,
@@ -44,6 +48,21 @@ class DefaultController extends AbstractController
 
         return $this->render('portfolio.html.twig', [
             'pagination' => $pagination,
+        ]);
+    }
+
+    public function showSneakPeakPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator)
+    {
+        $photoshoots = $service->getSneakPeaks();
+        $category = 'Sneak Peak';
+        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 9);
+        $pagination->setCustomParameters([
+            'rounded' => true,
+        ]);
+
+        return $this->render('portfolio.html.twig', [
+            'pagination' => $pagination,
+            'category' => $category,
         ]);
     }
 

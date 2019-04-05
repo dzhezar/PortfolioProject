@@ -33,6 +33,11 @@ class Category
      */
     private $photoshoots;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_Required;
+
     public function __construct()
     {
         $this->photoshoots = new ArrayCollection();
@@ -82,6 +87,18 @@ class Category
                 $photoshoot->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsRequired(): ?bool
+    {
+        return $this->is_Required;
+    }
+
+    public function setIsRequired(bool $is_Required): self
+    {
+        $this->is_Required = $is_Required;
 
         return $this;
     }

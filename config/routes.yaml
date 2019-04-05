@@ -10,6 +10,9 @@ stylePortfolio:
 muaPortfolio:
     path: /portfolio/makeup
     controller: App\Controller\DefaultController::showMuaPortfolio
+sneakPeakPortfolio:
+    path: /portfolio/sneakPeak
+    controller: App\Controller\DefaultController::showSneakPeakPortfolio
 admin:
     path: /admin
     controller: App\Controller\Admin\AdminController::showAdminPanel
@@ -23,5 +26,23 @@ deletePhotoshoot:
     path: /admin/delete/{id}
     controller: App\Controller\Admin\AdminController::deletePhotoshoot
 addPhotoshoot:
-    path: /admin/add
+    path: /admin/addPhotoshoot
     controller: App\Controller\Admin\AdminController::addPhotoshoot
+editPhotoshootImages:
+    path: /admin/editImages/{id}
+    controller: App\Controller\Admin\AdminController::editPhotoshootImages
+deleteImage:
+    path: /admin/deleteImage/{id}
+    controller: App\Controller\Admin\AdminController::deleteImage
+addCategory:
+    path: /admin/addCategory
+    controller: App\Controller\Admin\AdminController::addCategory
+adminStylePortfolio:
+    path: /admin/style
+    controller: App\Controller\Admin\AdminController::adminStylePortfolio
+adminMuaPortfolio:
+    path: /admin/makeup
+    controller: App\Controller\Admin\AdminController::adminMuaPortfolio
+adminSneakPeakPortfolio:
+    path: /admin/sneakPeak
+    controller: App\Controller\Admin\AdminController::adminSneakPeakPortfolio

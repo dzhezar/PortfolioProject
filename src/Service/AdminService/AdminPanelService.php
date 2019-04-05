@@ -7,8 +7,11 @@
 
 namespace App\Service\AdminService;
 
+use App\DTO\AddCategoryForm;
+use App\DTO\AddPhotoForm;
 use App\DTO\AddPhotoshootForm;
 use App\DTO\EditPhotoshootForm;
+use App\Entity\Category;
 use App\Entity\Photoshoot;
 use App\Entity\PhotoshootImage;
 use App\Photoshot\PhotoshootCollection;
@@ -121,7 +124,6 @@ class AdminPanelService implements AdminPanelServiceInterface
         rmdir($this->getTargetDirectory() . '/' . $photoshoot->getId());
         $this->em->remove($photoshoot);
         $this->em->flush();
-
     }
 
     public function getPhotoshootById(int $id)
@@ -130,5 +132,88 @@ class AdminPanelService implements AdminPanelServiceInterface
         $mapper = new PhotoshootMapper();
         return $mapper->entityToEditFormDto($photoshoot);
 
+    }
+
+    public function editPhotoshootImages(int $id)
+    {
+        return $this->imageRepository->findBy(['Photoshoot' => $id]);
+
+    }
+
+    public function deleteImage(int $id)
+    {
+        $image = $this->imageRepository->findOneBy(['id' => $id]);
+        \unlink($this->getTargetDirectory() . '/' . $image->getPhotoshoot()->getId().'/'.$image->getImage());
+        $this->em->remove($image);
+        $this->em->flush();
+        return $image->getPhotoshoot()->getId();
+    }
+
+    public function addImage(AddPhotoForm $form, int $id)
+    {
+        $photoshoot = $this->photoshootRepository->findOneBy(['id' => $id]);
+        $images = $form->getImages();
+
+        foreach ($images as $image){
+            $filename = \sha1(\uniqid()) . '.' . $image->guessExtension();
+
+            $image->move($this->getTargetDirectory() . '/' . $id, $filename);
+
+            $photoshootImage = new PhotoshootImage();
+            $photoshootImage
+                ->setPhotoshoot($photoshoot)
+                ->setImage($filename);
+            $this->em->persist($photoshootImage);
+            $this->em->flush();
+        }
+    }
+
+    public function addCategory(AddCategoryForm $form)
+    {
+        $category = new Category();
+        $category
+            ->setName($form->getName());
+
+        $this->em->persist($category);
+        $this->em->flush();
+    }
+
+    public function getMuaPhotoshoots(int $count = null): PhotoshootCollection
+    {
+        $muaPhotoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Make-up'],[0,1]);
+        $photoshootMapper = new PhotoshootMapper();
+        $collection = new PhotoshootCollection();
+
+        foreach ($muaPhotoshoots as $item) {
+            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+        }
+
+        return $collection;
+    }
+
+    public function getStylePhotoshoots(int $count = null): PhotoshootCollection
+    {
+        $stylePhotoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Style'],[0,1]);
+        $photoshootMapper = new PhotoshootMapper();
+        $collection = new PhotoshootCollection();
+
+        foreach ($stylePhotoshoots as $item) {
+            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+        }
+
+        return $collection;
+    }
+
+    public function getSneakPeakPhotoshoots(int $count = null): PhotoshootCollection
+    {
+        $sneakPeakPhotoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Sneak peak'],[0,1]);
+        $photoshootMapper = new PhotoshootMapper();
+        $collection = new PhotoshootCollection();
+
+        foreach ($sneakPeakPhotoshoots as $item) {
+            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+        }
+
+        return $collection;
     }
 }

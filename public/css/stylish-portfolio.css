@@ -103,7 +103,7 @@ h6 {
 }
 
 .next-button{
-  transform: translateY(-200px);
+  transform: translateY(-170px);
   text-align: center;
   background-color: #fff;
   color: #1D809F;
@@ -112,8 +112,10 @@ h6 {
   display: block;
   line-height: 7.5rem;
   font-size: 5rem;
-  -webkit-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.text-stroke {
+  -webkit-text-stroke: thin grey;
 }
 
 .masthead {
@@ -148,7 +150,7 @@ h6 {
   transition: all 0.4s ease 0s;
   -webkit-transform: translateX(250px);
   transform: translateX(250px);
-  background: #1D809F;
+  background: #58c5cf;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -264,6 +266,7 @@ h6 {
   background-size: cover;
 }
 
+
 .callout h2 {
   font-size: 3.5rem;
   font-weight: 700;
@@ -285,7 +288,7 @@ h6 {
   display: flex;
   height: 100%;
   width: 100%;
-  border: thin solid #1d809f;
+  border: 2px solid #E5D9F2;
   border-radius: 5px;
     background-color: rgba(33, 37, 41, 0.31);
   position: absolute;
@@ -354,7 +357,7 @@ h6 {
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
   opacity: 0;
-  background-color: rgba(24, 188, 156, 0.9);
+  background-color: rgba(188, 19, 132, 0.9);
 }
 
 .portfolio .portfolio-item .portfolio-item-caption:hover {
@@ -492,6 +495,7 @@ a:hover, a:focus, a:active {
 
 .card {
   display: inline-block;
+  border: unset;
 }
 
 

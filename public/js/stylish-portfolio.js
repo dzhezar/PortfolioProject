@@ -5,6 +5,7 @@
   $(".menu-toggle").click(function(e) {
     e.preventDefault();
     $("#sidebar-wrapper").toggleClass("active");
+    $('html').css('-webkit-overflow-scrolling','hidden');
     $(".menu-toggle > .fa-bars, .menu-toggle > .fa-times").toggleClass("fa-bars fa-times");
     $(this).toggleClass("active");
   });
@@ -44,5 +45,20 @@
     $('#contactModal').modal('show');
     e.preventDefault();
   });
+
+  $('.sidebar-link').on('click',function () {
+      $('#menu-button').click();
+      $('html').css('overflow','auto');
+  });
+
+  $('.active').on('click',function () {
+    $('html').css('overflow','auto');
+  });
+
+  $('#send-button').on('click',function () {
+    $('#contact_form_name').val('');
+    $('#contact_form_email').val('');
+    $('#contact_form_text').val('');
+  })
 
 })(jQuery); // End of use strict

@@ -27,19 +27,21 @@ class MainPage
     private $MainImage2;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $MainImage3;
+
+    /**
      * @ORM\Column(type="text")
      */
-    private $AboutUs;
+    private $AboutLina;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
-    private $AboutImage1;
+    private $AboutKatya;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $AboutImage2;
+
 
     public function getId(): ?int
     {
@@ -70,38 +72,38 @@ class MainPage
         return $this;
     }
 
-    public function getAboutUs(): ?string
+    public function getMainImage3(): ?string
     {
-        return $this->AboutUs;
+        return $this->MainImage3;
     }
 
-    public function setAboutUs(string $AboutUs): self
+    public function setMainImage3(string $MainImage3): self
     {
-        $this->AboutUs = $AboutUs;
+        $this->MainImage3 = $MainImage3;
 
         return $this;
     }
 
-    public function getAboutImage1(): ?string
+    public function getAboutLina(): ?string
     {
-        return $this->AboutImage1;
+        return $this->AboutLina;
     }
 
-    public function setAboutImage1(string $AboutImage1): self
+    public function setAboutLina(string $AboutLina): self
     {
-        $this->AboutImage1 = $AboutImage1;
+        $this->AboutLina = $AboutLina;
 
         return $this;
     }
 
-    public function getAboutImage2(): ?string
+    public function getAboutKatya(): ?string
     {
-        return $this->AboutImage2;
+        return $this->AboutKatya;
     }
 
-    public function setAboutImage2(string $AboutImage2): self
+    public function setAboutKatya(string $AboutKatya): self
     {
-        $this->AboutImage2 = $AboutImage2;
+        $this->AboutKatya = $AboutKatya;
 
         return $this;
     }

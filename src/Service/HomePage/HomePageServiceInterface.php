@@ -11,5 +11,7 @@ interface HomePageServiceInterface
 {
     public function getPhotoshoots(int $count = null);
     public function getSneakPeaks(int $count = null);
+    public function getStylePhotoshoots(int $count =null);
+    public function getMuaPhotoshoots(int $count = null);
     public function getMainPageInfo();
 }

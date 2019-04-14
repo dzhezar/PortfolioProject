@@ -39,7 +39,7 @@ body {
   margin-right: 8rem;
   background-color: white;
   border: medium solid gray;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .content-section-heading h2 {
@@ -150,7 +150,7 @@ h6 {
   transition: all 0.4s ease 0s;
   -webkit-transform: translateX(250px);
   transform: translateX(250px);
-  background: #58c5cf;
+  background: #568EA3;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -272,6 +272,12 @@ h6 {
   font-weight: 700;
   display: block;
   max-width: 30rem;
+}
+
+.img-preview {
+  height: 200px !important;
+  width: 200px;
+  object-fit: contain
 }
 
 .portfolio-item {
@@ -427,6 +433,7 @@ a:hover, a:focus, a:active {
   background-color: #1D809F !important;
   border-color: #1D809F !important;
   color: #fff !important;
+  font-size: 1.5rem !important;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {

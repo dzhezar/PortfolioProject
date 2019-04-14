@@ -46,3 +46,9 @@ adminMuaPortfolio:
 adminSneakPeakPortfolio:
     path: /admin/sneakPeak
     controller: App\Controller\Admin\AdminController::adminSneakPeakPortfolio
+editIndexInfo:
+    path: /admin/editIndex
+    controller: App\Controller\Admin\AdminController::editIndexInfo
+sendMail:
+    path: /sendMail
+    controller: App\Controller\DefaultController::sendMail

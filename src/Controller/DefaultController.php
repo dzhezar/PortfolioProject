@@ -10,6 +10,7 @@ namespace App\Controller;
 use App\DTO\ContactForm as ContactFormDto;
 use App\Form\ContactForm;
 use App\Service\HomePage\HomePageServiceInterface;
+use App\Service\Mailer\MailerServiceInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,16 +27,22 @@ class DefaultController extends AbstractController
         $form = $this->createForm(ContactForm::class, $formDto);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('success', 'Success!');
-        }
-
         return $this->render('index.html.twig', [
             'info' => $mainPageInfo,
             'mainPhotoshoots' => $mainPhotoshoots,
             'mainSneakPeaks' => $sneakPeaks,
             'contactForm' =>$form->createView(),
         ]);
+    }
+
+    public function sendMail(Request $request, MailerServiceInterface $mailerService)
+    {
+        $name = $request->get('name');
+        $email = $request->get('email');
+        $text = $request->get('text');
+
+        $mailerService->mail($name,$email,$text);
+        return new Response();
     }
 
     public function showPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator): Response

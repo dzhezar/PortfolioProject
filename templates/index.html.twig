@@ -5,10 +5,13 @@
         <div id="carousel-top" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ info.mainImage1 }}" class="d-block w-100" alt="...">
+                    <img src="/uploads/indexImages/{{ info.mainImage1 }}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ info.mainImage2}}" class="d-block w-100" alt="...">
+                    <img src="/uploads/indexImages/{{ info.mainImage2 }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/uploads/indexImages/{{ info.mainImage3 }}" class="d-block w-100" alt="...">
                 </div>
             </div>
         </div>
@@ -60,7 +63,7 @@
                 {% endfor %}
             </div>
             <div class="text-center">
-                <a class="btn btn-primary btn-xl mt-4" href="{{ path('portfolio') }}">Find out more</a>
+                <a class="btn btn-primary btn-xl mt-4" href="{{ path('portfolio') }}">See more</a>
             </div>
         </div>
         </div>
@@ -185,17 +188,17 @@
                 <p class="photoshoot-title font-weight-bold h3">Lina</p>
                 <p class="h4">Donec non erat at quam aliquam pulvinar. Praesent efficitur accumsan hendrerit. Morbi elementum quis eros sit amet molestie. Sed laoreet magna facilisis, volutpat diam et, fringilla nulla. Sed a lectus placerat, aliquam erat eu, lobortis nibh. Pellentesque tristique magna elit, ac cursus turpis ornare et. Nulla congue eros tellus, vitae sollicitudin tortor faucibus non.</p>
             </div>
-            <div class="col-sm-12 col-lg-4 text-justify my-auto">
-                <p class="photoshoot-title font-weight-bold h3">Katya</p>
-                <p class="h4">Suspendisse ligula nibh, rhoncus id nisi a, pulvinar consectetur leo. Sed volutpat felis non odio semper, quis varius lectus vulputate. Pellentesque sollicitudin nisi ut sem commodo laoreet. Quisque blandit nec mi sed vulputate. Cras at sem urna. Duis vitae odio mi. Pellentesque ultrices dolor sem. Vestibulum et magna id eros tempus ultrices.</p>
+{#            <div class="col-sm-12 col-lg-4 text-justify my-auto">#}
+{#                <p class="photoshoot-title font-weight-bold h3">Katya</p>#}
+{#                <p class="h4">Suspendisse ligula nibh, rhoncus id nisi a, pulvinar consectetur leo. Sed volutpat felis non odio semper, quis varius lectus vulputate. Pellentesque sollicitudin nisi ut sem commodo laoreet. Quisque blandit nec mi sed vulputate. Cras at sem urna. Duis vitae odio mi. Pellentesque ultrices dolor sem. Vestibulum et magna id eros tempus ultrices.</p>#}
 
-            </div>
-                <div class="col-sm-12 col-lg-8 py-4">
-                    <!-- Instagram WIDGET -->
-                    <!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/f19df67f2b7257b7a7046728869b4c49.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
-                </div>
-            </div>
-
+{#            </div>#}
+{#                <div class="col-sm-12 col-lg-8 py-4">#}
+{#                    <!-- Instagram WIDGET -->#}
+{#                    <!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/f19df67f2b7257b7a7046728869b4c49.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
     </section>
 
     <!-- Contact -->
@@ -211,7 +214,7 @@
                 {{ form_row(contactForm.name) }}
                 {{ form_widget(contactForm.email) }}
                 {{ form_row(contactForm.text) }}
-                 <button type="submit" class="btn btn-outline-info btn-lg">Send</button>
+                 <button type="submit" class="btn btn-outline-info btn-lg" id="send-button">Send</button>
             {{ form_end(contactForm) }}
 
         <div class="modal fade" tabindex="-1" role="dialog" id="contactModal">
@@ -222,7 +225,7 @@
                         <p class="text-dark h3">Thank you!</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="send-button" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

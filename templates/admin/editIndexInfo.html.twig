@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Current</th>
+                <th>Change below</th>
+            </tr>
+            {{ form_start(form) }}
+            </thead>
+                <tr>
+                    <td class="text-center"><img style="height: 300px;width: 300px; object-fit: contain" src="/uploads/indexImages/{{ img.mainImg1 }}"></td>
+                    <td>{{ form_row(form.mainImg1) }}</td>
+                </tr>
+            <tr>
+                <td class="text-center"><img style="height: 300px;width: 300px; object-fit: contain" src="/uploads/indexImages/{{ img.mainImg2 }}"></td>
+                <td>{{ form_row(form.mainImg2) }}</td>
+            </tr>
+            <tr>
+                <td class="text-center"><img style="height: 300px;width: 300px; object-fit: contain" src="/uploads/indexImages/{{ img.mainImg3 }}"></td>
+                <td>{{ form_row(form.mainImg3) }}</td>
+            </tr>
+            <tr><td>{{ form_row(form.aboutLina) }}</td></tr>
+            <tr><td>{{ form_row(form.aboutKatya) }}</td></tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
+

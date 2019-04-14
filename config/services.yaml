@@ -6,6 +6,7 @@
 parameters:
     locale: 'en'
     images_directory: '%kernel.project_dir%/public/uploads/images'
+    main_images_directory : '%kernel.project_dir%/public/uploads/indexImages'
 
 services:
     # default configuration for services in *this* file
@@ -27,6 +28,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Service\AdminService\AdminPanelService:
+    App\Service\AdminService\AdminPanelAddService:
         arguments:
             $targetDirectory: '%images_directory%'
+    App\Service\AdminService\AdminPanelDeleteService:
+        arguments:
+            $targetDirectory: '%images_directory%'
+    App\Service\AdminService\AdminPanelEditService:
+        arguments:
+            $targetDirectory: '%main_images_directory%'

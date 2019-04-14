@@ -7,13 +7,7 @@
 
 namespace App\Service\AdminService;
 
-use App\DTO\AddCategoryForm;
-use App\DTO\AddPhotoForm;
-use App\DTO\AddPhotoshootForm;
-use App\DTO\EditPhotoshootForm;
-use App\Entity\Photoshoot;
 use App\Photoshot\PhotoshootCollection;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface AdminPanelServiceInterface
 {
@@ -21,14 +15,8 @@ interface AdminPanelServiceInterface
     public function getMuaPhotoshoots(int $count = null): PhotoshootCollection;
     public function getStylePhotoshoots(int $count = null): PhotoshootCollection;
     public function getSneakPeakPhotoshoots(int $count = null): PhotoshootCollection;
-    public function setIsPosted(int $id, int $val);
-    public function addPhotoshoot(AddPhotoshootForm $form): Photoshoot;
-    public function addImages(UploadedFile $image, Photoshoot $photoshoot);
-    public function editPhotoshoot(int $id, EditPhotoshootForm $form);
-    public function deletePhotoshoot(int $id);
     public function getPhotoshootById(int $id);
-    public function editPhotoshootImages(int $id);
-    public function deleteImage(int $id);
-    public function addImage(AddPhotoForm $form, int $id);
-    public function addCategory(AddCategoryForm $form);
+    public function getIndexInfo();
+    public function getIndexImg();
+    public function setIsPosted(int $id, int $val);
 }

@@ -41,24 +41,44 @@
     }
   });
 
-  $('#contactForm').on('submit', function(e){
-    $('#contactModal').modal('show');
-    e.preventDefault();
+  $('#contactForm').on('submit', function(event){
+    event.preventDefault();
+    submitForm();
   });
+
+  function submitForm(){
+    var name = $('#contact_form_name').val();
+    var email = $('#contact_form_email').val();
+    var text = $('#contact_form_text').val();
+
+    $.ajax({
+      url: "/sendMail",
+      data: {
+            name: name,
+            email: email,
+            text : text
+          },
+    })
+    .done(function () {
+      $('#contact_form_name').val('');
+      $('#contact_form_email').val('');
+      $('#contact_form_text').val('');
+      $('#contactModal').modal('show');
+    })
+
+  }
 
   $('.sidebar-link').on('click',function () {
       $('#menu-button').click();
       $('html').css('overflow','auto');
   });
 
-  $('.active').on('click',function () {
-    $('html').css('overflow','auto');
-  });
 
-  $('#send-button').on('click',function () {
-    $('#contact_form_name').val('');
-    $('#contact_form_email').val('');
-    $('#contact_form_text').val('');
-  })
-
+  // $('.custom-file input').change(function (e) {
+  //   var files = [];
+  //   for (var i = 0; i < $(this)[0].files.length; i++) {
+  //     files.push($(this)[0].files[i].name);
+  //   }
+  //   $(this).next('.custom-file-label').html(files.join(', '));
+  // });
 })(jQuery); // End of use strict

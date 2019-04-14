@@ -58,19 +58,25 @@ class AdminPanelEditService implements AdminPanelEditServiceInderface
         $indexInfo = $this->indexRepository->findOneBy([]);
         if ($form->getMainImg1() != null) {
             $filename1 = \sha1(\uniqid()) . '.' . $form->getMainImg1()->guessExtension();
-            unlink($this->getTargetDirectory().'/'.$indexInfo->getMainImage1());
+            if (file_exists($this->getTargetDirectory().'/'.$indexInfo->getMainImage1())){
+                unlink($this->getTargetDirectory().'/'.$indexInfo->getMainImage1());
+            }
             $form->getMainImg1()->move($this->getTargetDirectory(), $filename1);
             $indexInfo->setMainImage1($filename1);
         }
         if ($form->getMainImg2() != null) {
             $filename2 = \sha1(\uniqid()) . '.' . $form->getMainImg2()->guessExtension();
-            unlink($this->getTargetDirectory().'/'.$indexInfo->getMainImage2());
+            if (file_exists($this->getTargetDirectory().'/'.$indexInfo->getMainImage2())) {
+                unlink($this->getTargetDirectory() . '/' . $indexInfo->getMainImage2());
+            }
             $form->getMainImg2()->move($this->getTargetDirectory(), $filename2);
             $indexInfo->setMainImage2($filename2);
         }
         if ($form->getMainImg3() != null) {
             $filename3 = \sha1(\uniqid()) . '.' . $form->getMainImg3()->guessExtension();
-            unlink($this->getTargetDirectory().'/'.$indexInfo->getMainImage3());
+            if (file_exists($this->getTargetDirectory().'/'.$indexInfo->getMainImage3())) {
+                unlink($this->getTargetDirectory() . '/' . $indexInfo->getMainImage3());
+            }
             $form->getMainImg3()->move($this->getTargetDirectory(), $filename3);
             $indexInfo->setMainImage3($filename3);
         }

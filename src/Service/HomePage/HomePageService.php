@@ -78,6 +78,6 @@ class HomePageService implements HomePageServiceInterface
 
     public function getMainPageInfo()
     {
-        return $this->mainPageRepository->findOneBy(['id' => 1]);
+        return $this->mainPageRepository->findOneBy([]);
     }
 }

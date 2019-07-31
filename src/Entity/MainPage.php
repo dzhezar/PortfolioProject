@@ -22,24 +22,19 @@ class MainPage
     private $MainImage1;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $MainImage2;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $MainImage3;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $AboutLina;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $AboutKatya;
+    private $AboutMe;
 
 
 
@@ -84,26 +79,14 @@ class MainPage
         return $this;
     }
 
-    public function getAboutLina(): ?string
+    public function getAboutMe(): ?string
     {
-        return $this->AboutLina;
+        return $this->AboutMe;
     }
 
-    public function setAboutLina(string $AboutLina): self
+    public function setAboutMe(?string $AboutMe): self
     {
-        $this->AboutLina = $AboutLina;
-
-        return $this;
-    }
-
-    public function getAboutKatya(): ?string
-    {
-        return $this->AboutKatya;
-    }
-
-    public function setAboutKatya(string $AboutKatya): self
-    {
-        $this->AboutKatya = $AboutKatya;
+        $this->AboutMe = $AboutMe;
 
         return $this;
     }

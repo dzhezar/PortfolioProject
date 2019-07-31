@@ -10,6 +10,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Photoshoot\PhotoshootRepository")
@@ -27,21 +28,6 @@ class Photoshoot
      * @ORM\Column(type="string", length=255)
      */
     private $Title;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $Description;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Photographer;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Model;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\PhotoshootImage", mappedBy="Photoshoot", orphanRemoval=true)
@@ -68,6 +54,17 @@ class Photoshoot
      * @ORM\Column(type="string", length=255)
      */
     private $ShortDescription;
+
+    /**
+     * @Gedmo\Slug(fields={"Title"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $Backstage;
 
     public function __construct()
     {
@@ -103,29 +100,6 @@ class Photoshoot
         return $this;
     }
 
-    public function getPhotographer(): ?string
-    {
-        return $this->Photographer;
-    }
-
-    public function setPhotographer(string $Photographer): self
-    {
-        $this->Photographer = $Photographer;
-
-        return $this;
-    }
-
-    public function getModel(): ?string
-    {
-        return $this->Model;
-    }
-
-    public function setModel(string $Model): self
-    {
-        $this->Model = $Model;
-
-        return $this;
-    }
 
     /**
      * @return Collection|PhotoshootImage[]
@@ -202,6 +176,28 @@ class Photoshoot
     public function setShortDescription(string $ShortDescription): self
     {
         $this->ShortDescription = $ShortDescription;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    public function getBackstage(): ?bool
+    {
+        return $this->Backstage;
+    }
+
+    public function setBackstage(bool $Backstage): self
+    {
+        $this->Backstage = $Backstage;
 
         return $this;
     }

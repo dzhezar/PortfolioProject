@@ -29,13 +29,10 @@ class EditIndexInfoForm extends AbstractType
                 FileType::class,
                 ['required' => false])
             ->add(
-                'aboutLina',
+                'aboutMe',
                 TextareaType::class,
-                ['attr' => ['rows' => 3]])
-            ->add(
-                'aboutKatya',
-                TextareaType::class,
-                ['attr' => ['rows' => 3]])
+                ['attr' =>
+                    ['rows' => 3, 'class' => 'summernote']])
             ;
     }
 

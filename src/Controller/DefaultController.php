@@ -9,6 +9,7 @@ namespace App\Controller;
 
 use App\DTO\ContactForm as ContactFormDto;
 use App\Form\ContactForm;
+use App\Repository\Category\CategoryRepository;
 use App\Service\HomePage\HomePageServiceInterface;
 use App\Service\Mailer\MailerServiceInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -21,14 +22,19 @@ class DefaultController extends AbstractController
     public function index(HomePageServiceInterface $service, Request $request): Response
     {
         $mainPhotoshoots = $service->getPhotoshoots(4);
-        $mainPageInfo = $service->getMainPageInfo();
+        $aboutMe = $service->getMainPageInfo()->getAboutMe();
+        $mainImgs = $service->getIndexImg();
+        $firstImg = $mainImgs->getMainImg1();
+        $otherImgs = array_filter([$mainImgs->getMainImg2(),$mainImgs->getMainImg3()]);
         $sneakPeaks = $service->getSneakPeaks(5);
         $formDto = new ContactFormDto();
         $form = $this->createForm(ContactForm::class, $formDto);
         $form->handleRequest($request);
 
         return $this->render('index.html.twig', [
-            'info' => $mainPageInfo,
+            'aboutMe' => $aboutMe,
+            'firstImg' => $firstImg,
+            'otherImages' => $otherImgs,
             'mainPhotoshoots' => $mainPhotoshoots,
             'mainSneakPeaks' => $sneakPeaks,
             'contactForm' =>$form->createView(),
@@ -45,9 +51,11 @@ class DefaultController extends AbstractController
         return new Response();
     }
 
-    public function showPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator): Response
+    public function showPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator, CategoryRepository $categoryRepository): Response
     {
         $photoshoots = $service->getPhotoshoots();
+        $backstage = $service->getSneakPeaks();
+        $categories = $categoryRepository->findBy(['is_visible' => 1]);
         $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 12);
         $pagination->setCustomParameters([
             'rounded' => true,
@@ -55,51 +63,45 @@ class DefaultController extends AbstractController
 
         return $this->render('portfolio.html.twig', [
             'pagination' => $pagination,
+            'categories' => $categories,
+            'backstage' => $backstage,
         ]);
     }
 
-    public function showSneakPeakPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator)
+    public function showBackstagePortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator, CategoryRepository $categoryRepository)
     {
         $photoshoots = $service->getSneakPeaks();
-        $category = 'Sneak Peak';
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 9);
+        $categoryName = 'Backstage';
+        $categories = $categoryRepository->findBy(['is_visible' => 1]);
+        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 12);
         $pagination->setCustomParameters([
             'rounded' => true,
         ]);
 
         return $this->render('portfolio.html.twig', [
             'pagination' => $pagination,
-            'category' => $category,
+            'categories' => $categories,
+            'categoryName' => $categoryName,
+            'backstage' => $photoshoots,
         ]);
     }
 
-    public function showStylePortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator): Response
+    public function showPortfolioCategory(string $slug, Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator, CategoryRepository $categoryRepository)
     {
-        $photoshoots = $service->getStylePhotoshoots();
-        $category = 'Style';
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 9);
+        $photoshoots = $service->getPhotoshootsByCategory($slug);
+        $categories = $categoryRepository->findBy(['is_visible' => 1]);
+        $backstage = $service->getSneakPeaks();
+        $categoryName = $categoryRepository->findOneBy(['slug' => $slug])->getName();
+        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 12);
         $pagination->setCustomParameters([
             'rounded' => true,
         ]);
 
         return $this->render('portfolio.html.twig', [
             'pagination' => $pagination,
-            'category' => $category,
-        ]);
-    }
-
-    public function showMuaPortfolio(Request $request, HomePageServiceInterface $service, PaginatorInterface $paginator): Response
-    {
-        $photoshoots = $service->getMuaPhotoshoots();
-        $category = 'Make-up';
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 9);
-        $pagination->setCustomParameters([
-            'rounded' => true,
-        ]);
-
-        return $this->render('portfolio.html.twig', [
-            'pagination' => $pagination,
-            'category' => $category,
+            'categoryName' => $categoryName,
+            'categories' => $categories,
+            'backstage' => $backstage,
         ]);
     }
 }

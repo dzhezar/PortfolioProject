@@ -13,8 +13,7 @@ class MainPageMapper
     public function entityToDtoWithoutImages(MainPage $entity): EditIndexInfoForm
     {
         return new EditIndexInfoForm(
-            $entity->getAboutLina(),
-            $entity->getAboutKatya()
+            $entity->getAboutMe()
         );
     }
 

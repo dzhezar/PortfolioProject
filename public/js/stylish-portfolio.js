@@ -65,20 +65,64 @@
       $('#contact_form_text').val('');
       $('#contactModal').modal('show');
     })
-
   }
 
+  $('.set_posted').change(function () {
+    let value = $(this).prop('checked');
+    let id = $(this).attr('id');
+    if(value === true)
+      value = 1;
+    else
+      value = 0;
+    $.ajax({
+          url:'/admin/is_posted',
+          data: {
+            id: id,
+            is_posted: value,
+          }
+        }
+    )
+  });
+
+  $('#menu-button').on('click', function () {
+    if($('#sidebar-wrapper').hasClass('active')){
+      $('html').css('overflow-y','hidden').css('position','fixed');
+    }
+    else{
+      $('html').css('overflow-y','auto').css('position','unset');
+    }
+  });
   $('.sidebar-link').on('click',function () {
       $('#menu-button').click();
       $('html').css('overflow','auto');
   });
 
 
-  // $('.custom-file input').change(function (e) {
-  //   var files = [];
-  //   for (var i = 0; i < $(this)[0].files.length; i++) {
-  //     files.push($(this)[0].files[i].name);
-  //   }
-  //   $(this).next('.custom-file-label').html(files.join(', '));
-  // });
+  document.querySelectorAll('section[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  $('input').each(function () {
+    var attr = $(this).attr('maxlength');
+    if (typeof attr !== typeof undefined && attr !== false) {
+      let label = $(this).parent().find('label');
+      label.append(' <span>0/'+attr+'</span>');
+    }
+
+    $('input').on('change paste keyup keydown',function () {
+      let attr = $(this).attr('maxlength');
+      let inputlength = $(this).val().length;
+      if (typeof attr !== typeof undefined && attr !== false) {
+        let span = $(this).parent().find('span');
+        span.text(inputlength+'/'+attr);
+      }
+    });
+
+  });
 })(jQuery); // End of use strict

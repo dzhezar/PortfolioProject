@@ -47,9 +47,7 @@ class AdminPanelAddService implements AdminPanelAddServiceInterface
             ->setTitle($form->getTitle())
             ->setCategory($form->getCategory())
             ->setShortDescription($form->getShortDescription())
-            ->setDescription($form->getDescription())
-            ->setPhotographer($form->getPhotographer())
-            ->setModel($form->getModel())
+            ->setBackstage(false)
             ->setIsPosted(false)
             ->setPublicationDate(new DateTime());
         $this->em->persist($photoshoot);
@@ -61,8 +59,8 @@ class AdminPanelAddService implements AdminPanelAddServiceInterface
     public function addImages(UploadedFile $image, Photoshoot $photoshoot)
     {
         $filename = \sha1(\uniqid()) . '.' . $image->guessExtension();
-
-        $image->move($this->getTargetDirectory() . '/' . $photoshoot->getId(), $filename);
+        $path = $this->getTargetDirectory() . '/' . $photoshoot->getId();
+        $image->move($path, $filename);
 
         $photoshootImage = new PhotoshootImage();
         $photoshootImage
@@ -79,8 +77,8 @@ class AdminPanelAddService implements AdminPanelAddServiceInterface
 
         foreach ($images as $image){
             $filename = \sha1(\uniqid()) . '.' . $image->guessExtension();
-
-            $image->move($this->getTargetDirectory() . '/' . $id, $filename);
+            $path = $this->getTargetDirectory() . '/' . $id;
+            $image->move($path, $filename);
 
             $photoshootImage = new PhotoshootImage();
             $photoshootImage
@@ -95,7 +93,8 @@ class AdminPanelAddService implements AdminPanelAddServiceInterface
     {
         $category = new Category();
         $category
-            ->setName($form->getName());
+            ->setName($form->getName())
+            ->setIsVisible(true);
 
         $this->em->persist($category);
         $this->em->flush();

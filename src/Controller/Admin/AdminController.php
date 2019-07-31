@@ -7,18 +7,24 @@
 
 namespace App\Controller\Admin;
 
+use App\Category\CategoryMapper;
 use App\DTO\AddCategoryForm as AddCategoryFormDto;
 use App\DTO\AddPhotoForm as AddPhotoFormDto;
 use App\DTO\AddPhotoshootForm as AddPhotoshootFormDto;
+use App\Entity\Category;
 use App\Form\AddCategoryForm;
 use App\Form\AddPhotoForm;
 use App\Form\AddPhotoshootForm;
+use App\Form\EditCategoryForm;
 use App\Form\EditIndexInfoForm;
 use App\Form\EditPhotoshootForm;
+use App\Repository\Category\CategoryRepository;
+use App\Repository\Photoshoot\PhotoshootRepository;
 use App\Service\AdminService\AdminPanelAddServiceInterface;
 use App\Service\AdminService\AdminPanelDeleteServiceInterface;
 use App\Service\AdminService\AdminPanelEditServiceInderface;
 use App\Service\AdminService\AdminPanelServiceInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,6 +53,7 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addService->addCategory($formDto);
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('admin/addCategory.html.twig',
@@ -66,7 +73,7 @@ class AdminController extends AbstractController
                 $this->addService->addImages($image, $id);
             }
 
-            return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('adminPortfolioCategory',['slug' => $formDto->getCategory()->getSlug()]);
         }
 
         return $this->render(
@@ -75,10 +82,9 @@ class AdminController extends AbstractController
         );
     }
 
-    public function adminMuaPortfolio(Request $request, PaginatorInterface $paginator)
+    public function adminBackstages(Request $request, PaginatorInterface $paginator)
     {
-        $photoshoots = $this->service->getMuaPhotoshoots();
-        $category = 'Make-up';
+        $photoshoots = $this->service->getBackstages();
         $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 11);
         $pagination->setCustomParameters([
             'rounded' => true,
@@ -86,14 +92,14 @@ class AdminController extends AbstractController
 
         return $this->render('admin/admin.html.twig', [
             'pagination' => $pagination,
-            'category' => $category
+            'backstage' => true
         ]);
     }
 
-    public function adminSneakPeakPortfolio(Request $request, PaginatorInterface $paginator)
+    public function adminPortfolioCategory(string $slug, Request $request, PaginatorInterface $paginator, EntityManagerInterface $manager)
     {
-        $photoshoots = $this->service->getPhotoshoots();
-        $category = 'Sneak peak';
+        $photoshoots = $this->service->getPhotoshootsByCategory($slug);
+        $categoryName = $manager->getRepository(Category::class)->findOneBy(['slug' => $slug]);
         $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 11);
         $pagination->setCustomParameters([
             'rounded' => true,
@@ -101,22 +107,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/admin.html.twig', [
             'pagination' => $pagination,
-            'category' => $category
-        ]);
-    }
-
-    public function adminStylePortfolio(Request $request, PaginatorInterface $paginator)
-    {
-        $photoshoots = $this->service->getPhotoshoots();
-        $category = 'Style';
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 11);
-        $pagination->setCustomParameters([
-            'rounded' => true,
-        ]);
-
-        return $this->render('admin/admin.html.twig', [
-            'pagination' => $pagination,
-            'category' => $category
+            'categoryName' => $categoryName
         ]);
     }
 
@@ -127,10 +118,30 @@ class AdminController extends AbstractController
             ['id' =>$photoshoot]);
     }
 
-    public function deletePhotoshoot($id)
+    public function deletePhotoshoot($id, PhotoshootRepository $photoshootRepository)
     {
+        $photoshoot = $photoshootRepository->findOneBy(['id' => $id]);
         $this->deleteService->deletePhotoshoot($id);
-        return $this->redirectToRoute('admin');
+        if ($photoshoot->getBackstage() == true)
+            return $this->redirectToRoute('adminBackstages');
+        elseif ($category = $photoshoot->getCategory()->getSlug())
+            return $this->redirectToRoute('adminPortfolioCategory',['slug' => $category]);
+        else
+            return $this->redirectToRoute('admin');
+    }
+
+    public function editCategory(string $slug, Request $request, CategoryRepository $repository, CategoryMapper $mapper)
+    {
+        $category = $mapper->entityToFormDto($repository->findOneBy(['slug' => $slug]));
+        $form = $this->createForm(EditCategoryForm::class,$category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->editService->editCategory($slug,$category);
+            $this->redirectToRoute('adminPortfolioCategory',['slug' => $slug]);
+        }
+        return $this->render('admin/editCategory.html.twig',[
+            'form' => $form->createView()
+        ]);
     }
 
     public function editIndexInfo(Request $request)
@@ -160,7 +171,12 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $this->editService->editPhotoshoot($id, $photoshoot);
-            return $this->redirectToRoute('admin');
+            if ($photoshoot->isBackstage() == true) {
+                return $this->redirectToRoute('adminBackstages');
+            }
+            else {
+                return $this->redirectToRoute('adminPortfolioCategory', ['slug' => $photoshoot->getCategory()->getSlug()]);
+            }
         }
 
         return $this->render('admin/editPhotoshoot.html.twig',
@@ -177,7 +193,8 @@ class AdminController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $this->addService->addImage($formDto, $id);
-            $images = $this->editService->editPhotoshootImages($id);
+            $this->editService->editPhotoshootImages($id);
+            return $this->redirectToRoute('editPhotoshootImages',['id' => $id]);
         }
 
         return $this->render('admin/editPhotos.html.twig',
@@ -195,15 +212,31 @@ class AdminController extends AbstractController
     public function showAdminPanel(Request $request, PaginatorInterface $paginator)
     {
         $photoshoots = $this->service->getPhotoshoots();
-        $category = 'All Photoshoots';
         $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 10);
         $pagination->setCustomParameters([
             'rounded' => true,
         ]);
 
         return $this->render('admin/admin.html.twig', [
-            'pagination' => $pagination,
-            'category' => $category
+            'pagination' => $pagination
         ]);
+    }
+
+    public function categoryMenu(CategoryRepository $categoryRepository)
+    {
+        $categories = $categoryRepository->findAll();
+        $backstage = $this->service->getBackstages();
+        return $this->render('admin/categoryMenu.html.twig', ['categories' => $categories, 'backstage' => $backstage]);
+    }
+
+    public function deleteCategory($slug, CategoryRepository $categoryRepository, PhotoshootRepository $photoshootRepository)
+    {
+        $category = $categoryRepository->findOneBy(['slug' => $slug]);
+        $photoshoots = $photoshootRepository->findBy(['Category' => $category]);
+        foreach ($photoshoots as $photoshoot) {
+            $this->deleteService->deletePhotoshoot($photoshoot->getId());
+        }
+        $this->deleteService->deleteCategory($slug);
+        return $this->redirectToRoute('admin');
     }
 }

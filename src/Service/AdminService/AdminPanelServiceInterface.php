@@ -12,9 +12,8 @@ use App\Photoshot\PhotoshootCollection;
 interface AdminPanelServiceInterface
 {
     public function getPhotoshoots(): PhotoshootCollection;
-    public function getMuaPhotoshoots(int $count = null): PhotoshootCollection;
-    public function getStylePhotoshoots(int $count = null): PhotoshootCollection;
-    public function getSneakPeakPhotoshoots(int $count = null): PhotoshootCollection;
+    public function getPhotoshootsByCategory(string $slug, int $count = null): PhotoshootCollection;
+    public function getBackstages(): PhotoshootCollection;
     public function getPhotoshootById(int $id);
     public function getIndexInfo();
     public function getIndexImg();

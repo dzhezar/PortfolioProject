@@ -9,17 +9,15 @@ class EditIndexInfoForm
     private $main_img1;
     private $main_img2;
     private $main_img3;
-    private $aboutLina;
-    private $aboutKatya;
+    private $aboutMe;
 
 
-    public function __construct(string $aboutLina, string $aboutKatya,$main_img1 = null, $main_img2 = null, $main_img3 = null)
+    public function __construct(string $aboutMe = null, $main_img1 = null, $main_img2 = null, $main_img3 = null)
     {
         $this->main_img1 = $main_img1;
         $this->main_img2 = $main_img2;
         $this->main_img3 = $main_img3;
-        $this->aboutLina = $aboutLina;
-        $this->aboutKatya = $aboutKatya;
+        $this->aboutMe = $aboutMe;
     }
 
 
@@ -56,31 +54,14 @@ class EditIndexInfoForm
     {
         $this->main_img3 = $main_img3;
     }
-
-
-    public function getAboutLina(): ?string
+    public function getAboutMe(): ?string
     {
-        return $this->aboutLina;
+        return $this->aboutMe;
     }
 
-
-    public function setAboutLina(string $aboutLina): void
+    public function setAboutMe(string $aboutMe): void
     {
-        $this->aboutLina = $aboutLina;
+        $this->aboutMe = $aboutMe;
     }
-
-
-    public function getAboutKatya(): ?string
-    {
-        return $this->aboutKatya;
-    }
-
-
-    public function setAboutKatya(string $aboutKatya): void
-    {
-        $this->aboutKatya = $aboutKatya;
-    }
-
-
 
 }

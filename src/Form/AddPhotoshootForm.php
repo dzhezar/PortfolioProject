@@ -40,13 +40,9 @@ class AddPhotoshootForm extends AbstractType
                 },
                 'placeholder' => 'Choose an option'
             ])
-            ->add('shortDescription', TextType::class)
-            ->add(
-                'description',
-                TextareaType::class,
-                ['attr'=>['rows'=> 7]])
-            ->add('photographer', TextType::class)
-            ->add('model', TextType::class)
+            ->add('shortDescription', TextType::class,[
+                'attr' => ['maxlength' => 255]
+            ])
             ->add('images', FileType::class, [
                 'label' => 'Images',
                 'multiple' => true,

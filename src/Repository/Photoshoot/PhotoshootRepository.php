@@ -30,7 +30,7 @@ class PhotoshootRepository extends ServiceEntityRepository implements Photoshoot
         return $this->createQueryBuilder('p')
             ->innerJoin('p.Category', 'c')
             ->addSelect('c')
-            ->where("c.Name IN (:category)")
+            ->where("c.slug IN (:category)")
             ->andwhere('p.IsPosted IN (:isPosted)')
             ->setParameter('category',$category,Connection::PARAM_STR_ARRAY)
             ->setParameter('isPosted',$isPosted,Connection::PARAM_INT_ARRAY)

@@ -4,18 +4,21 @@ index:
 portfolio:
     path: /portfolio
     controller: App\Controller\DefaultController::showPortfolio
-stylePortfolio:
-    path: /portfolio/style
-    controller: App\Controller\DefaultController::showStylePortfolio
-muaPortfolio:
-    path: /portfolio/makeup
-    controller: App\Controller\DefaultController::showMuaPortfolio
-sneakPeakPortfolio:
-    path: /portfolio/sneakPeak
-    controller: App\Controller\DefaultController::showSneakPeakPortfolio
+portfolioCategory:
+    path: /portfolio/{slug}
+    controller: App\Controller\DefaultController::showPortfolioCategory
+backstagePortfolio:
+    path: /backstage
+    controller: App\Controller\DefaultController::showBackstagePortfolio
 admin:
     path: /admin
     controller: App\Controller\Admin\AdminController::showAdminPanel
+editCategory:
+    path: /edit/category/{slug}
+    controller: App\Controller\Admin\AdminController::editCategory
+deleteCategory:
+    path: /delete/category/{slug}
+    controller: App\Controller\Admin\AdminController::deleteCategory
 is_posted:
     path: /admin/is_posted
     controller: App\Controller\Admin\AdminController::setIsPosted
@@ -37,15 +40,12 @@ deleteImage:
 addCategory:
     path: /admin/addCategory
     controller: App\Controller\Admin\AdminController::addCategory
-adminStylePortfolio:
-    path: /admin/style
-    controller: App\Controller\Admin\AdminController::adminStylePortfolio
-adminMuaPortfolio:
-    path: /admin/makeup
-    controller: App\Controller\Admin\AdminController::adminMuaPortfolio
-adminSneakPeakPortfolio:
-    path: /admin/sneakPeak
-    controller: App\Controller\Admin\AdminController::adminSneakPeakPortfolio
+adminPortfolioCategory:
+    path: /admin/category/{slug}
+    controller: App\Controller\Admin\AdminController::adminPortfolioCategory
+adminBackstages:
+    path: /admin/backstage
+    controller: App\Controller\Admin\AdminController::adminBackstages
 editIndexInfo:
     path: /admin/editIndex
     controller: App\Controller\Admin\AdminController::editIndexInfo

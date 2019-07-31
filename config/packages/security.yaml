@@ -4,7 +4,7 @@ security:
             memory:
                 users:
                     popov:
-                        password: $2y$12$yL3Vp74Z0BMxVLSLNmuUzOED8HOPYJYOFfYIdiB/C1DKpJEnSDcqS
+                        password: $2y$12$CSQfx4EAeDJ88P8E2e0u3eeaEqjAPBWy9su1wleMePyl7GntZdXZu
                         roles: 'ROLE_ADMIN'
     firewalls:
         dev:

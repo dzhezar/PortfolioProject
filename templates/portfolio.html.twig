@@ -1,39 +1,55 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .header
+        {
+            position: inherit;
+            z-index: 0;
+        }
+    </style>
+{% endblock %}
 {% block header %}
     <header>
         <div>
             <nav class="navbar navbar-expand-lg  bg-light header">
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <ul class="navbar-nav">
+                <div class="collapse navbar-collapse row" id="navbarNavAltMarkup">
+                    <div class="col-2">
+                        <a class="nav-link m-1" style="color: #af82df;" href={{ path('index') }}><h3>Back</h3></a>
+                    </div>
+                    <div class="col-8 ">
+                        <ul class="nav justify-content-around">
                             <li class="nav-item my-auto">
-                                <a class="nav-link m-1" href={{ path('index') }}><h3>Back</h3></a>
-                            </li>
-                            <li class="nav-item offset-2 my-auto">
                                 <a class="nav-link m-1" href={{ path('portfolio') }}><h3>All</h3></a>
                             </li>
+                        {% for category in categories %}
                             <li class="nav-item my-auto">
-                                <a class="nav-link m-1" href={{ path('stylePortfolio') }}><h3>Style</h3></a>
+                                <a class="nav-link m-1"style="width: max-content" href={{ path('portfolioCategory', {'slug': category.slug}) }}>
+                                    <h3>{{ category.name }}</h3>
+                                </a>
                             </li>
+                        {% endfor %}
+                        {% if backstage is not empty %}
                             <li class="nav-item my-auto">
-                                <a class="nav-link m-1" href={{ path('muaPortfolio') }}><h3>Makeup</h3></a>
+                                <a class="nav-link m-1" style="font-style: italic" href={{ path('backstagePortfolio') }}><h3>Backstage</h3></a>
                             </li>
-                            <li class="nav-item my-auto">
-                                <a class="nav-link m-1 h3" style="border: 2px solid #E5D9F2; border-radius: 3px" href={{ path('sneakPeakPortfolio') }}>Backstage</a>
-                            </li>
-                            <li class="content-section-heading offset-3">
-                                    <h2 class="text-secondary mb-0 mt-1">Portfolio</h2>
-                                {% if category is defined%}
-                                    <h4 class="text-dark mb-0 mt-1 text-right">{{ category }}</h4>
-                                {% else %}
-                                    <h4 class="text-dark mb-0 mt-1 text-right">All</h4>
-                                {% endif %}
-                            </li>
+                        {% endif %}
                         </ul>
+                    </div>
+                    <div class="col-2 px-5">
+                        <div class="text-right">
+                            <h2 class="text-secondary mb-0 mt-1">Portfolio</h2>
+                            <h4 class="text-dark mb-0 mt-1">
+                            {% if categoryName is defined %}
+                                {{ categoryName }}
+                            {% else %}
+                                All
+                            {% endif %}
+                            </h4>
+                        </div>
                     </div>
                 </div>
             </nav>
-
         </div>
         <!-- Navigation -->
         <a class="menu-toggle rounded" id="menu-button" href="#">
@@ -42,67 +58,60 @@
         <nav id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-item">
-                    <h3><a class="nav-link m-1" href="{{ path('portfolio') }}">Projects</a></h3>
+                    <a class="nav-link m-1" style="width: max-content" href={{ path('portfolio') }}><h3>All</h3></a>
                 </li>
-                <ul>
+                {% for category in categories %}
                     <li class="sidebar-nav-item">
-                        <h3><a class="nav-link m-1" href="{{ path('stylePortfolio') }}">Style</a></h3>
+                        <a class="nav-link m-1" style="width: max-content" href={{ path('portfolioCategory', {'slug': category.slug}) }}><h3>{{ category.name }}</h3></a>
                     </li>
+                {% endfor %}
+                {% if backstage is not empty %}
                     <li class="sidebar-nav-item">
-                        <h3><a class="nav-link m-1" href="{{ path('muaPortfolio') }}">Make-up</a></h3>
+                        <a class="nav-link m-1" style="width: max-content; font-style: italic" href={{ path('backstagePortfolio') }}><h3>Backstage</h3></a>
                     </li>
-                </ul>
-                <li class="sidebar-nav-item">
-                    <a class="nav-link m-1 h3" href="{{ path('sneakPeakPortfolio') }}">Backstage</a>
-                </li>
+                {% endif %}
             </ul>
         </nav>
     </header>
 {% endblock %}
 {% block body %}
     <div class="container-custom-portfolio">
-        <a class="nav-link card-img-overlay" id="menu-button" href={{ path('index') }}>
-            <i class="fas fa-angle-left"></i>
+        <a class="nav-link position-absolute" id="menu-button" href={{ path('index') }}>
+            <i class="fas fa-2x py-2 fa-angle-left"></i>
         </a>
         <div class="content-section-heading text-center" id="portfolio-top">
-            <h2 class="text-secondary mb-0 mt-3">Portfolio</h2>
-            {% if category is defined %}
-                <h4 class="text-dark mt-2 offset-2">{{ category }}</h4>
+            <a href="{{ path('portfolio') }}"><h2 class="portfolio_title text-secondary mb-0 mt-3">Portfolio</h2></a>
+            {% if categoryName is defined %}
+                <h4 class="text-dark mt-2 offset-2">{{ categoryName }}</h4>
             {% else %}
                 <h4 class="text-dark mb-2 offset-2">All</h4>
             {% endif %}
         </div>
+        {% if pagination is not empty %}
         <div class="row no-gutters pt-6">
             {% for photoshoot in pagination %}
                 <div class="col-lg-4 col-sm-6 portfolio-window">
-                    <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
-                    <span class="caption">
-                      <span class="caption-content">
-                        <h2>{{ photoshoot.title }}</h2>
-                        <p class="mb-0">{{ photoshoot.shortDescription }}</p>
-                      </span>
-                    </span>
+                    <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="#">
+                            <span class="caption">
+                              <span class="caption-content">
+                                <h2>{{ photoshoot.title }}</h2>
+                                <p class="mb-0">{{ photoshoot.shortDescription }}</p>
+                              </span>
+                            </span>
                         <img class="img-portfolio" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" alt="">
                     </a>
                     <div style="display: none" id="portfolio-item-{{ photoshoot.id }}">
                         <div class="page-title photoshoot-title">
                             <h2>{{ photoshoot.title | title}}</h2>
                         </div>
-                        <div class="photoshoot-text">
-                            {{ photoshoot.description }}
-                        </div>
-                        <div>
-                            <a href="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                        <div class="pt-2">
+                            <a href="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
                                 <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
                             </a>
                         </div>
-                        <div class="photoshoot-description">
-                            Model: <em>{{ photoshoot.model }}</em><br>
-                            Photographer: <em>{{ photoshoot.photographer }}</em>
-                        </div>
                         <div class="container-custom">
                             {% for image in photoshoot.images %}
-                                <a href="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                <a href="uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
                                     <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
                                 </a>
                             {% endfor %}
@@ -110,14 +119,19 @@
                     </div>
                 </div>
             {% endfor %}
-
         </div>
         <div class=" mt-4">
         {{ knp_pagination_render(pagination) }}
         </div>
+        {% else %}
+            <div class="text-center">
+                <img style="max-width: 100vw" src="{{ asset('No-not-yet.png') }}" alt="">
+            </div>
+        {% endif %}
     </div>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#portfolio-top">
-        <i class="fas fa-angle-up"></i>
+        <i class="fas fa-2x align-middle fa-angle-up"></i>
     </a>
+</div>
 {% endblock %}

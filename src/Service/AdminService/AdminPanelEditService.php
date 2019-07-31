@@ -4,8 +4,10 @@
 namespace App\Service\AdminService;
 
 
+use App\DTO\EditCategoryForm;
 use App\DTO\EditIndexInfoForm;
 use App\DTO\EditPhotoshootForm;
+use App\Entity\Category;
 use App\Repository\MainPageRepository;
 use App\Repository\Photoshoot\PhotoshootRepository;
 use App\Repository\PhotoshootImage\PhotoshootImageRepository;
@@ -41,9 +43,7 @@ class AdminPanelEditService implements AdminPanelEditServiceInderface
             ->setTitle($form->getTitle())
             ->setCategory($form->getCategory())
             ->setShortDescription($form->getShortDescription())
-            ->setDescription($form->getDescription())
-            ->setPhotographer($form->getPhotographer())
-            ->setModel($form->getModel());
+            ->setBackstage($form->isBackstage());
         $this->em->persist($photoshoot);
         $this->em->flush();
     }
@@ -81,10 +81,18 @@ class AdminPanelEditService implements AdminPanelEditServiceInderface
             $indexInfo->setMainImage3($filename3);
         }
         $indexInfo
-            ->setAboutLina($form->getAboutLina())
-            ->setAboutKatya($form->getAboutKatya());
+            ->setAboutMe($form->getAboutMe());
 
         $this->em->persist($indexInfo);
+        $this->em->flush();
+    }
+
+    public function editCategory(string $slug, EditCategoryForm $form)
+    {
+        $category = $this->em->getRepository(Category::class)->findOneBy(['slug' => $slug]);
+        $category->setName($form->getName())
+                 ->setIsVisible($form->IsVisible());
+        $this->em->persist($category);
         $this->em->flush();
     }
 }

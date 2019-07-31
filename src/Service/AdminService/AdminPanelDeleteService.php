@@ -4,6 +4,7 @@
 namespace App\Service\AdminService;
 
 
+use App\Repository\Category\CategoryRepository;
 use App\Repository\Photoshoot\PhotoshootRepository;
 use App\Repository\PhotoshootImage\PhotoshootImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,13 +13,15 @@ class AdminPanelDeleteService implements AdminPanelDeleteServiceInterface
 {
     private $photoshootRepository;
     private $imageRepository;
+    private $categoryRepository;
     private $em;
     private $targetDirectory;
 
-    public function __construct(PhotoshootRepository $photoshootRepository, PhotoshootImageRepository $imageRepository, EntityManagerInterface $em, $targetDirectory)
+    public function __construct(PhotoshootRepository $photoshootRepository, PhotoshootImageRepository $imageRepository, CategoryRepository$categoryRepository, EntityManagerInterface $em, $targetDirectory)
     {
         $this->photoshootRepository = $photoshootRepository;
         $this->imageRepository = $imageRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->em = $em;
         $this->targetDirectory = $targetDirectory;
     }
@@ -50,5 +53,12 @@ class AdminPanelDeleteService implements AdminPanelDeleteServiceInterface
         $this->em->remove($image);
         $this->em->flush();
         return $image->getPhotoshoot()->getId();
+    }
+
+    public function deleteCategory(string $slug)
+    {
+        $category = $this->categoryRepository->findOneBy(['slug' => $slug]);
+        $this->em->remove($category);
+        $this->em->flush();
     }
 }

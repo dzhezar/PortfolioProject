@@ -8,8 +8,8 @@ use App\DTO\EditPhotoshootForm as EditPhotoshootFormDto;
 use App\Entity\Category;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,14 +34,12 @@ class EditPhotoshootForm extends AbstractType
                     return $category->getName();
                 },
             ])
-            ->add('shortDescription', TextType::class)
-            ->add(
-                'description',
-                TextareaType::class,
-                ['attr'=>['rows'=> 7]]
-            )
-            ->add('photographer', TextType::class)
-            ->add('model', TextType::class)
+            ->add('shortDescription', TextType::class,[
+                'attr' => ['maxlength' => 255]
+            ])
+            ->add('backstage', CheckboxType::class,[
+                'required' => false
+            ])
         ;
     }
 

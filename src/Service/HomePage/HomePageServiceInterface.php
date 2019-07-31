@@ -7,11 +7,13 @@
 
 namespace App\Service\HomePage;
 
+use Doctrine\ORM\EntityManagerInterface;
+
 interface HomePageServiceInterface
 {
     public function getPhotoshoots(int $count = null);
     public function getSneakPeaks(int $count = null);
-    public function getStylePhotoshoots(int $count =null);
-    public function getMuaPhotoshoots(int $count = null);
+    public function getPhotoshootsByCategory(string $slug, int $count = null);
     public function getMainPageInfo();
+    public function getIndexImg();
 }

@@ -9,31 +9,28 @@ namespace App\DTO;
 
 use App\Entity\Category;
 use App\PhotoshootImage\PhotoshootImageCollection;
+use DateTime;
 
 class Photoshoot
 {
     private $id;
     private $category;
     private $title;
-    private $description;
     private $shortDescription;
-    private $photographer;
-    private $model;
     private $isPosted;
     private $publicationDate;
     private $images;
+    private $slug;
 
-    public function __construct(int $id, Category $category, string $title, string $description, string $shortDescription, string $photographer, string $model, bool $isPosted, \DateTime $publicationDate, PhotoshootImageCollection $images=null)
+    public function __construct(int $id, Category $category, string $title, string $shortDescription, bool $isPosted, DateTime $publicationDate, string $slug, PhotoshootImageCollection $images = null)
     {
         $this->id = $id;
         $this->category = $category;
         $this->title = $title;
-        $this->description = $description;
         $this->shortDescription = $shortDescription;
-        $this->photographer = $photographer;
-        $this->model = $model;
         $this->isPosted = $isPosted;
         $this->publicationDate = $publicationDate;
+        $this->slug = $slug;
         $this->images = $images;
     }
 
@@ -53,24 +50,9 @@ class Photoshoot
         return $this->category;
     }
 
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
     public function getShortDescription()
     {
         return $this->shortDescription;
-    }
-
-    public function getPhotographer(): string
-    {
-        return $this->photographer;
-    }
-
-    public function getModel(): string
-    {
-        return $this->model;
     }
 
     public function isPosted(): bool
@@ -81,6 +63,11 @@ class Photoshoot
     public function getPublicationDate(): \DateTime
     {
         return $this->publicationDate;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 
     public function getImages(): PhotoshootImageCollection

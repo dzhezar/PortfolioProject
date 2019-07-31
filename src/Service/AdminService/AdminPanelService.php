@@ -61,39 +61,13 @@ class AdminPanelService implements AdminPanelServiceInterface
 
     }
 
-    public function getMuaPhotoshoots(int $count = null): PhotoshootCollection
+    public function getPhotoshootsByCategory(string $category, int $count = null): PhotoshootCollection
     {
-        $muaPhotoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Make-up'],[0,1]);
+        $photoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,[$category],[0,1]);
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
-        foreach ($muaPhotoshoots as $item) {
-            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
-        }
-
-        return $collection;
-    }
-
-    public function getStylePhotoshoots(int $count = null): PhotoshootCollection
-    {
-        $stylePhotoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Style'],[0,1]);
-        $photoshootMapper = new PhotoshootMapper();
-        $collection = new PhotoshootCollection();
-
-        foreach ($stylePhotoshoots as $item) {
-            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
-        }
-
-        return $collection;
-    }
-
-    public function getSneakPeakPhotoshoots(int $count = null): PhotoshootCollection
-    {
-        $sneakPeakPhotoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,['Sneak peak'],[0,1]);
-        $photoshootMapper = new PhotoshootMapper();
-        $collection = new PhotoshootCollection();
-
-        foreach ($sneakPeakPhotoshoots as $item) {
+        foreach ($photoshoots as $item) {
             $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
         }
 
@@ -119,4 +93,16 @@ class AdminPanelService implements AdminPanelServiceInterface
         return $mainPageMapper->entityToDto($indexImg);
     }
 
+    public function getBackstages(): PhotoshootCollection
+    {
+        $backstages = $this->photoshootRepository->findBy(['Backstage' => true]);
+        $photoshootMapper = new PhotoshootMapper();
+        $collection = new PhotoshootCollection();
+
+        foreach ($backstages as $item) {
+            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+        }
+
+        return $collection;
+    }
 }

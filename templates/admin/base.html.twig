@@ -22,13 +22,14 @@
     <!-- Custom styles for this template-->
     <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin@5.0.3/css/sb-admin.min.css" rel="stylesheet">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Admin Panel</a>
+    <a class="navbar-brand mr-1" href="{{ path('admin') }}">Admin Panel</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -57,11 +58,8 @@
                 <i class="fas fa-fw fa-folder"></i>
                 <span>By Categories</span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item" href="{{ path('adminStylePortfolio') }}">Style</a>
-                <a class="dropdown-item" href="{{ path('adminMuaPortfolio') }}">Make-up</a>
-                <a class="dropdown-item" href="{{ path('adminSneakPeakPortfolio') }}">Sneak peak</a>
-                <a class="dropdown-item" href="{{ path('addCategory') }}">Add Category</a>
+            <div id="categoryMenu">
+                {{ render(controller('App\\Controller\\Admin\\AdminController::categoryMenu')) }}
             </div>
         </li>
     </ul>
@@ -102,9 +100,29 @@
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 <!-- Custom scripts for all pages-->
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin@5.0.3/js/sb-admin.min.js"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
+<script src="{{ asset('js/stylish-portfolio.js') }}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+<script>
+    $(document).ready(function () {
+        bsCustomFileInput.init()
+    })
+</script>
+<script>
+    $('.summernote').summernote({
+        height: 300,
+        popover: {
+            image: [],
+            link: [],
+            air: []
+        },
+        codemirror: {
+            theme: 'paper'
+        }
+    });
+</script>
 
 </body>
 

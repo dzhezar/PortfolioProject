@@ -29,12 +29,10 @@ class PhotoshootMapper
             $entity->getId(),
             $entity->getCategory(),
             $entity->getTitle(),
-            $entity->getDescription(),
             $entity->getShortDescription(),
-            $entity->getPhotographer(),
-            $entity->getModel(),
             $entity->getIsPosted(),
             $entity->getPublicationDate(),
+            $entity->getSlug(),
             $collection
         );
     }
@@ -45,12 +43,10 @@ class PhotoshootMapper
             $entity->getId(),
             $entity->getCategory(),
             $entity->getTitle(),
-            $entity->getDescription(),
             $entity->getShortDescription(),
-            $entity->getPhotographer(),
-            $entity->getModel(),
             $entity->getIsPosted(),
-            $entity->getPublicationDate()
+            $entity->getPublicationDate(),
+            $entity->getSlug()
         );
     }
 
@@ -60,9 +56,7 @@ class PhotoshootMapper
             $entity->getTitle(),
             $entity->getCategory(),
             $entity->getShortDescription(),
-            $entity->getDescription(),
-            $entity->getPhotographer(),
-            $entity->getModel()
+            $entity->getBackstage()
         );
     }
 }

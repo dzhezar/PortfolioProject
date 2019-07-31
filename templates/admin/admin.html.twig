@@ -4,8 +4,22 @@
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header row">
-                <p class="header h3" >{{ category }}</p>
-                <a class="btn btn-primary btn-lg btn text-light offset-8" href="{{ path('addPhotoshoot') }}">Add Photoshoot</a>
+                <p class="header h3 col-lg-3 col-sm-12 m-auto" >
+                    {% if categoryName is defined %}
+                    {{ categoryName.name }}
+                    {% elseif backstage is defined %}
+                        Backstages
+                    {% else %}
+                        All Photoshoots
+                    {% endif %}
+                </p>
+                <div class="col-lg-9 col-sm-12 text-right">
+                    <a class="btn btn-primary btn-lg btn text-light" href="{{ path('addPhotoshoot') }}">Add Photoshoot</a>
+                    {% if categoryName is defined %}
+                        <a class="btn btn-warning btn-lg btn text-light" href="{{ path('editCategory', {'slug' : categoryName.slug}) }}">Edit Category</a>
+                        <a class="btn btn-danger btn-lg btn text-light" href="{{ path('deleteCategory', {'slug' : categoryName.slug}) }}">Delete Category</a>
+                    {% endif %}
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -15,9 +29,6 @@
                             <th>Title</th>
                             <th>Category</th>
                             <th>Short Description</th>
-                            <th>Description</th>
-                            <th>Photographer</th>
-                            <th>Model</th>
                             <th>Is Posted</th>
                             <th>Publication Date</th>
                             <th>Image Preview</th>
@@ -30,14 +41,11 @@
                             <td>{{ photoshoot.title }}</td>
                             <td>{{ photoshoot.category.name }}</td>
                             <td>{{ photoshoot.shortDescription }}</td>
-                            <td>{{ photoshoot.description | slice(0,200) }}...</td>
-                            <td>{{ photoshoot.photographer }}</td>
-                            <td>{{ photoshoot.model }}</td>
                             <td><input class="set_posted" id="{{ photoshoot.id }}" type="checkbox" {% if photoshoot.isPosted == true %}checked{% endif %} data-toggle="toggle"></td>
-                            <td>{{ photoshoot.publicationDate.format('d-m-y') }}</td>
+                            <td>{{ photoshoot.publicationDate.format('d/m/y') }}</td>
                             <td><img style="height: 200px;width: 200px; object-fit: contain" src ='/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}'></td>
                             <td><a class="btn btn-info text-light" href="{{ path('editPhotoshoot', {'id': photoshoot.id}) }}">Edit Info</a>
-                            <br><br><a class="btn btn-info text-light" href="{{ path('editPhotoshootImages', {'id': photoshoot.id}) }}">Edit Photos</a>
+                            <br><br><a class="btn btn-warning text-light" href="{{ path('editPhotoshootImages', {'id': photoshoot.id}) }}">Edit Photos</a>
                             <br><br><a class="btn btn-danger text-light" href="{{ path('deletePhotoshoot', {'id': photoshoot.id}) }}">Delete</a></td>
 
                         </tr>

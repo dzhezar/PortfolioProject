@@ -11,18 +11,14 @@ class EditPhotoshootForm
     private $title;
     private $category;
     private $shortDescription;
-    private $description;
-    private $photographer;
-    private $model;
+    private $backstage;
 
-    public function __construct(string $title = null, Category $category = null, string $shortDescription = null, string $description = null, string $photographer = null, string $model = null)
+    public function __construct(string $title = null, Category $category = null, string $shortDescription = null, bool $backstage = null)
     {
         $this->title = $title;
         $this->category = $category;
         $this->shortDescription = $shortDescription;
-        $this->description = $description;
-        $this->photographer = $photographer;
-        $this->model = $model;
+        $this->backstage = $backstage;
     }
 
     public function getTitle(): ?string
@@ -40,21 +36,6 @@ class EditPhotoshootForm
         return $this->shortDescription;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function getPhotographer(): ?string
-    {
-        return $this->photographer;
-    }
-
-    public function getModel(): ?string
-    {
-        return $this->model;
-    }
-
     public function setTitle(string $title): void
     {
         $this->title = $title;
@@ -70,18 +51,14 @@ class EditPhotoshootForm
         $this->shortDescription = $shortDescription;
     }
 
-    public function setDescription(string $description): void
+    public function isBackstage(): ?bool
     {
-        $this->description = $description;
+        return $this->backstage;
     }
 
-    public function setPhotographer(string $photographer): void
+    public function setBackstage(bool $backstage): void
     {
-        $this->photographer = $photographer;
+        $this->backstage = $backstage;
     }
 
-    public function setModel(string $model): void
-    {
-        $this->model = $model;
-    }
 }

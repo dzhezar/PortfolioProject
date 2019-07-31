@@ -2,19 +2,31 @@
 {% block body %}
     <!-- Page-Top -->
     <div class="container-custom-page-top" id="page-top">
-        <div id="carousel-top" class="carousel slide" data-ride="carousel">
+        <div id="carousel-top" class="carousel slide" data-ride="carousel" style="height: fit-content">
             <div class="carousel-inner">
+                {% if firstImg is defined %}
                 <div class="carousel-item active">
-                    <img src="/uploads/indexImages/{{ info.mainImage1 }}" class="d-block w-100" alt="...">
+                    <img src="/uploads/indexImages/{{ firstImg }}" class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item">
-                    <img src="/uploads/indexImages/{{ info.mainImage2 }}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="/uploads/indexImages/{{ info.mainImage3 }}" class="d-block w-100" alt="...">
-                </div>
+                {% else %}
+                    <div class="text-center">
+                        <img style="max-width: 100vw" src="{{ asset('No-not-yet.png') }}" alt="">
+                    </div>
+                {% endif %}
+                {% if otherImages is not empty %}
+                    {% for img in otherImages %}
+                        <div class="carousel-item">
+                            <img src="/uploads/indexImages/{{ img }}" class="d-block w-100" alt="...">
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
+            <div style="text-align: center; position:absolute; bottom: 1rem; margin: auto; width: 100%;">
+                <a style="font-size: large;" href="#portfolio">
+                    <i class="far fa-5x fa-arrow-alt-circle-down"></i>
+                </a>
+            </div>
     </div>
     <!-- Portfolio -->
     <section class="content-section" id="portfolio">
@@ -26,35 +38,28 @@
             <div class="row">
                 {% for photoshoot in mainPhotoshoots %}
                     <div class="portfolio-window col-lg-6 col-sm-6">
-                        <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="javascript:;">
-                    <span class="caption">
-                      <span class="caption-content">
-                        <h2>{{ photoshoot.title }}</h2>
-                        <p class="mb-0">{{ photoshoot.shortDescription }}</p>
-                      </span>
-                    </span>
-                            <img class="img-portfolio" src="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" alt="">
+                        <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="#">
+                            <span class="caption">
+                              <span class="caption-content">
+                                <h2>{{ photoshoot.title }}</h2>
+                                <p class="mb-0">{{ photoshoot.shortDescription }}</p>
+                              </span>
+                            </span>
+                            <img class="img-portfolio" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" alt="">
                         </a>
                         <div style="display: none" id="portfolio-item-{{ photoshoot.id }}">
                             <div class="page-title photoshoot-title">
                                 <h2>{{ photoshoot.title | title}}</h2>
                             </div>
-                            <div class="photoshoot-text">
-                                {{ photoshoot.description }}
-                            </div>
-                            <div>
+                            <div class="pt-2">
                                 <a href="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
-                                    <img class="img-photoshoot" src="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
+                                    <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
                                 </a>
-                            </div>
-                            <div class="photoshoot-description">
-                                Model: <em>{{ photoshoot.model }}</em><br>
-                                Photographer: <em>{{ photoshoot.photographer }}</em>
                             </div>
                             <div class="container-custom">
                                 {% for image in photoshoot.images %}
                                     <a href="uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
-                                        <img class="img-photoshoot" src="uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
+                                        <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
                                     </a>
                                 {% endfor %}
                             </div>
@@ -66,108 +71,46 @@
                 <a class="btn btn-primary btn-xl mt-4" href="{{ path('portfolio') }}">See more</a>
             </div>
         </div>
-        </div>
     </section>
 
-    <!-- Services -->
-    <section class="content-section bg-primary text-white text-center" id="services">
-        <div class="container">
-            <div class="content-section-heading">
-                <h3 class="text-secondary mb-0">Services</h3>
-                <h2 class="mb-5">What We Offer</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-sm-6 mb-5 mb-lg-4">
-          <span class="service-icon rounded-circle mx-auto mb-3">
-            <i class="icon-screen-smartphone"></i>
-          </span>
-                    <h4>
-                        <strong>Responsive</strong>
-                    </h4>
-                    <p class="text-faded mb-0">Looks great on any screen size!</p>
-                </div>
-                <div class="col-lg-6 col-sm-6 mb-5 mb-lg-4">
-          <span class="service-icon rounded-circle mx-auto mb-3">
-            <i class="icon-pencil"></i>
-          </span>
-                    <h4>
-                        <strong>Redesigned</strong>
-                    </h4>
-                    <p class="text-faded mb-0">Freshly redesigned for Bootstrap 4.</p>
-                </div>
-            </div>
-                <div class="row">
-                    <div class="col-lg-6 col-sm-6 mb-5 mb-lg-4">
-          <span class="service-icon rounded-circle mx-auto mb-3">
-            <i class="icon-like"></i>
-          </span>
-                    <h4>
-                        <strong>Favorited</strong>
-                    </h4>
-                    <p class="text-faded mb-0">Millions of users
-                        <i class="fas fa-heart"></i>
-                        Start Bootstrap!</p>
-                </div>
-                <div class="col-lg-6 col-sm-6 mb-5 mb-lg-4">
-          <span class="service-icon rounded-circle mx-auto mb-3">
-            <i class="icon-mustache"></i>
-          </span>
-                    <h4>
-                        <strong>Question</strong>
-                    </h4>
-                    <p class="text-faded mb-0">I mustache you a question...</p>
-                </div>
-            </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog -->
-    <section class="content-section" id="blog">
+    <!-- Backstage -->
+    <section class="content-section" id="soon">
         <div class="content-section-heading text-center">
-            <h3 class="text-secondary mb-0">Sneak peaks</h3>
+            <h3 class="text-secondary mb-0">Backstages</h3>
             <h2 class="mb-3">Soon...❤️</h2>
         </div>
-        <div class="scrolling-wrapper">
+        <div class="scrolling-wrapper px-lg-4 px-sm-1 px-md-2 container">
             {% for sneakPeak in mainSneakPeaks %}
-                <div class="col-lg-5 col-sm-5 col-10 card portfolio-window mx-1">
-                    <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ sneakPeak.id }}" href="javascript:;">
-                    <span class="caption">
-                      <span class="caption-content">
-                        <h2>{{ sneakPeak.title }}</h2>
-                        <p class="mb-0">{{ sneakPeak.shortDescription }}</p>
-                      </span>
-                    </span>
-                        <img class="img-portfolio" src="uploads/images/{{ sneakPeak.id }}/{{ sneakPeak.images.shiftU.image }}" alt="">
+                <div class="col-lg-5 col-sm-5 card portfolio-window mx-1">
+                    <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ sneakPeak.id }}" href="#">
+                        <span class="caption">
+                          <span class="caption-content">
+                            <h2>{{ sneakPeak.title }}</h2>
+                            <p class="mb-0">{{ sneakPeak.shortDescription }}</p>
+                          </span>
+                        </span>
+                        <img class="img-portfolio" src="/uploads/images/{{ sneakPeak.id }}/{{ sneakPeak.images.shiftU.image }}" alt="">
                     </a>
                     <div style="display: none" id="portfolio-item-{{ sneakPeak.id }}">
                         <div class="page-title photoshoot-title">
                             <h2>{{ sneakPeak.title | title}}</h2>
                         </div>
-                        <div class="photoshoot-text">
-                            {{ sneakPeak.description }}
-                        </div>
-                        <div>
+                        <div class="pt-2">
                             <a href="uploads/images/{{ sneakPeak.id }}/{{ sneakPeak.images.shiftU.image }}" data-fancybox="gallery-{{ sneakPeak.id }}">
-                                <img class="img-photoshoot" src="uploads/images/{{ sneakPeak.id }}/{{ sneakPeak.images.shift.image }}" alt="">
+                                <img class="img-photoshoot" src="/uploads/images/{{ sneakPeak.id }}/{{ sneakPeak.images.shift.image }}" alt="">
                             </a>
-                        </div>
-                        <div class="photoshoot-description">
-                            Model: <em>{{ sneakPeak.model }}</em><br>
-                            Photographer: <em>{{ sneakPeak.photographer }}</em>
                         </div>
                         <div class="container-custom">
                             {% for image in sneakPeak.images %}
                                 <a href="uploads/images/{{ sneakPeak.id }}/{{ image.image }}" data-fancybox="gallery-{{ sneakPeak.id }}">
-                                    <img class="img-photoshoot" src="uploads/images/{{ sneakPeak.id }}/{{ image.image }}" alt="">
+                                    <img class="img-photoshoot" src="/uploads/images/{{ sneakPeak.id }}/{{ image.image }}" alt="">
                                 </a>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
             {% endfor %}
-
-            <a class="next-button card mx-3" style="box-shadow: unset" href="{{ path('sneakPeakPortfolio') }}">
+            <a class="next-button card ml-3" style="box-shadow: unset" href="{{ path('backstagePortfolio') }}">
                 <i class="far fa-arrow-alt-circle-right"></i>
             </a>
         </div>
@@ -177,27 +120,16 @@
     <section class="about_us-section" id="about">
         <div class="content-section-heading text-center">
             <h3 class="text-secondary mb-0">A few words</h3>
-            <h2 class="mb-3 text-light text-stroke">Abous us</h2>
+            <h2 class="mb-3 text-light text-stroke">Abous me</h2>
         </div>
-        <div class="modified-row portfolio-section">
-            <div class="col-sm-12 col-lg-8 py-4">
+        <div class="modified-row portfolio-section container">
+            <div class="col-sm-12 col-lg-7 py-3">
                 <!-- Instagram WIDGET -->
                 <!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/f19df67f2b7257b7a7046728869b4c49.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
                 </div>
-            <div class="col-sm-12 col-lg-4 text-justify my-auto">
-                <p class="photoshoot-title font-weight-bold h3">Lina</p>
-                <p class="h4">{{ info.aboutLina }}</p>
+            <div class="col-sm-12 col-lg-5 py-3 text-justify my-auto">
+                {{ aboutMe|raw }}
             </div>
-{#            <div class="col-sm-12 col-lg-4 text-justify my-auto">#}
-{#                <p class="photoshoot-title font-weight-bold h3">Katya</p>#}
-{#                <p class="h4">Suspendisse ligula nibh, rhoncus id nisi a, pulvinar consectetur leo. Sed volutpat felis non odio semper, quis varius lectus vulputate. Pellentesque sollicitudin nisi ut sem commodo laoreet. Quisque blandit nec mi sed vulputate. Cras at sem urna. Duis vitae odio mi. Pellentesque ultrices dolor sem. Vestibulum et magna id eros tempus ultrices.</p>#}
-
-{#            </div>#}
-{#                <div class="col-sm-12 col-lg-8 py-4">#}
-{#                    <!-- Instagram WIDGET -->#}
-{#                    <!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/f19df67f2b7257b7a7046728869b4c49.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>#}
-{#                </div>#}
-{#            </div>#}
         </div>
     </section>
 
@@ -206,9 +138,9 @@
     <span class="service-icon contact-form-symbol mx-auto">
         <i class="far fa-envelope"></i>
     </span>
-    <div class="contactform">
+    <div class="contactform container">
         <span class="content-section-heading text-center">
-            <p class="text-dark h2">Drop us a message</p>
+            <p class="text-dark h2">Drop me a message</p>
         </span>
             {{ form_start(contactForm, {'attr': {'id':'contactForm'} } ) }}
                 {{ form_row(contactForm.name) }}
@@ -234,6 +166,6 @@
 </section>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
+        <i class="fas fa-2x align-middle fa-angle-up"></i>
     </a>
 {% endblock %}

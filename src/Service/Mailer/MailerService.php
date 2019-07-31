@@ -13,11 +13,6 @@ class MailerService implements MailerServiceInterface
     private $environment;
     private $mailer;
 
-    /**
-     * MailerService constructor.
-     * @param $environment
-     * @param $mailer
-     */
     public function __construct(Environment $environment, Swift_Mailer $mailer)
     {
         $this->environment = $environment;

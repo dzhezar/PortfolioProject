@@ -67,9 +67,11 @@
                     </div>
                 {% endfor %}
             </div>
+            {% if mainPhotoshoots.photoshoots is not empty %}
             <div class="text-center">
                 <a class="btn btn-primary btn-xl mt-4" href="{{ path('portfolio') }}">See more</a>
             </div>
+            {% endif %}
         </div>
     </section>
 
@@ -110,9 +112,11 @@
                     </div>
                 </div>
             {% endfor %}
+            {% if mainSneakPeaks.photoshoots is not empty %}
             <a class="next-button card ml-3" style="box-shadow: unset" href="{{ path('backstagePortfolio') }}">
                 <i class="far fa-arrow-alt-circle-right"></i>
             </a>
+            {% endif %}
         </div>
     </section>
 

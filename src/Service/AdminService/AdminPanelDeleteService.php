@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Service\AdminService;
-
 
 use App\Repository\Category\CategoryRepository;
 use App\Repository\Photoshoot\PhotoshootRepository;
@@ -17,7 +20,7 @@ class AdminPanelDeleteService implements AdminPanelDeleteServiceInterface
     private $em;
     private $targetDirectory;
 
-    public function __construct(PhotoshootRepository $photoshootRepository, PhotoshootImageRepository $imageRepository, CategoryRepository$categoryRepository, EntityManagerInterface $em, $targetDirectory)
+    public function __construct(PhotoshootRepository $photoshootRepository, PhotoshootImageRepository $imageRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em, $targetDirectory)
     {
         $this->photoshootRepository = $photoshootRepository;
         $this->imageRepository = $imageRepository;
@@ -34,13 +37,14 @@ class AdminPanelDeleteService implements AdminPanelDeleteServiceInterface
     public function deletePhotoshoot(int $id)
     {
         $photoshoot = $this->photoshootRepository->findOneBy(['id' => $id]);
+        dump($photoshoot);
         $images = $this->imageRepository->findBy(['Photoshoot' => $photoshoot]);
-
+        dump($images);
         foreach ($images as $image) {
-            unlink($this->getTargetDirectory() . '/' . $photoshoot->getId().'/'.$image->getImage());
+            dump(unlink($this->getTargetDirectory() . '/' . $photoshoot->getId() . '/' . $image->getImage()));
             $this->em->remove($image);
         }
-        $this->em->flush();
+
         rmdir($this->getTargetDirectory() . '/' . $photoshoot->getId());
         $this->em->remove($photoshoot);
         $this->em->flush();
@@ -49,9 +53,10 @@ class AdminPanelDeleteService implements AdminPanelDeleteServiceInterface
     public function deleteImage(int $id)
     {
         $image = $this->imageRepository->findOneBy(['id' => $id]);
-        unlink($this->getTargetDirectory() . '/' . $image->getPhotoshoot()->getId().'/'.$image->getImage());
+        unlink($this->getTargetDirectory() . '/' . $image->getPhotoshoot()->getId() . '/' . $image->getImage());
         $this->em->remove($image);
         $this->em->flush();
+
         return $image->getPhotoshoot()->getId();
     }
 

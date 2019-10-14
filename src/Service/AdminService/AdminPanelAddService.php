@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Service\AdminService;
-
 
 use App\DTO\AddCategoryForm;
 use App\DTO\AddPhotoForm;
@@ -19,7 +22,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AdminPanelAddService implements AdminPanelAddServiceInterface
 {
-
     private $photoshootRepository;
     private $imageRepository;
     private $em;
@@ -47,7 +49,6 @@ class AdminPanelAddService implements AdminPanelAddServiceInterface
             ->setTitle($form->getTitle())
             ->setCategory($form->getCategory())
             ->setShortDescription($form->getShortDescription())
-            ->setBackstage(false)
             ->setIsPosted(false)
             ->setPublicationDate(new DateTime());
         $this->em->persist($photoshoot);
@@ -75,7 +76,7 @@ class AdminPanelAddService implements AdminPanelAddServiceInterface
         $photoshoot = $this->photoshootRepository->findOneBy(['id' => $id]);
         $images = $form->getImages();
 
-        foreach ($images as $image){
+        foreach ($images as $image) {
             $filename = \sha1(\uniqid()) . '.' . $image->guessExtension();
             $path = $this->getTargetDirectory() . '/' . $id;
             $image->move($path, $filename);

@@ -1,13 +1,17 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Service\AdminService;
-
 
 use App\DTO\EditCategoryForm;
 use App\DTO\EditIndexInfoForm;
 use App\DTO\EditPhotoshootForm;
 use App\Entity\Category;
+use App\Entity\MainPage;
 use App\Repository\MainPageRepository;
 use App\Repository\Photoshoot\PhotoshootRepository;
 use App\Repository\PhotoshootImage\PhotoshootImageRepository;
@@ -15,7 +19,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class AdminPanelEditService implements AdminPanelEditServiceInderface
 {
-
     private $photoshootRepository;
     private $imageRepository;
     private $em;
@@ -42,8 +45,7 @@ class AdminPanelEditService implements AdminPanelEditServiceInderface
         $photoshoot
             ->setTitle($form->getTitle())
             ->setCategory($form->getCategory())
-            ->setShortDescription($form->getShortDescription())
-            ->setBackstage($form->isBackstage());
+            ->setShortDescription($form->getShortDescription());
         $this->em->persist($photoshoot);
         $this->em->flush();
     }
@@ -55,28 +57,34 @@ class AdminPanelEditService implements AdminPanelEditServiceInderface
 
     public function editIndexInfo(EditIndexInfoForm $form)
     {
-        $indexInfo = $this->indexRepository->findOneBy([]);
-        if ($form->getMainImg1() != null) {
-            $filename1 = sha1(uniqid()) . '.' . $form->getMainImg1()->guessExtension();
+        $indexInfo = $this->indexRepository->findOneBy([]) ?? new MainPage();
+
+        if (null != $form->getMainImg1()) {
+            $filename1 = \sha1(\uniqid()) . '.' . $form->getMainImg1()->guessExtension();
             $form->getMainImg1()->move($this->getTargetDirectory(), $filename1);
-            if (file_exists($this->getTargetDirectory().'/'.$indexInfo->getMainImage1())){
-                unlink($this->getTargetDirectory().'/'.$indexInfo->getMainImage1());
+
+            if (\file_exists($this->getTargetDirectory() . '/' . $indexInfo->getMainImage1()) && !\is_dir($this->getTargetDirectory() . '/' . $indexInfo->getMainImage1())) {
+                \unlink($this->getTargetDirectory() . '/' . $indexInfo->getMainImage1());
             }
             $indexInfo->setMainImage1($filename1);
         }
-        if ($form->getMainImg2() != null) {
-            $filename2 = sha1(uniqid()) . '.' . $form->getMainImg2()->guessExtension();
+
+        if (null != $form->getMainImg2()) {
+            $filename2 = \sha1(\uniqid()) . '.' . $form->getMainImg2()->guessExtension();
             $form->getMainImg2()->move($this->getTargetDirectory(), $filename2);
-            if (file_exists($this->getTargetDirectory().'/'.$indexInfo->getMainImage2())) {
-                unlink($this->getTargetDirectory() . '/' . $indexInfo->getMainImage2());
+
+            if (\file_exists($this->getTargetDirectory() . '/' . $indexInfo->getMainImage2()) && !\is_dir($this->getTargetDirectory() . '/' . $indexInfo->getMainImage2())) {
+                \unlink($this->getTargetDirectory() . '/' . $indexInfo->getMainImage2());
             }
             $indexInfo->setMainImage2($filename2);
         }
-        if ($form->getMainImg3() != null) {
-            $filename3 = sha1(uniqid()) . '.' . $form->getMainImg3()->guessExtension();
+
+        if (null != $form->getMainImg3()) {
+            $filename3 = \sha1(\uniqid()) . '.' . $form->getMainImg3()->guessExtension();
             $form->getMainImg3()->move($this->getTargetDirectory(), $filename3);
-            if (file_exists($this->getTargetDirectory().'/'.$indexInfo->getMainImage3())) {
-                unlink($this->getTargetDirectory() . '/' . $indexInfo->getMainImage3());
+
+            if (\file_exists($this->getTargetDirectory() . '/' . $indexInfo->getMainImage3()) && !\is_dir($this->getTargetDirectory() . '/' . $indexInfo->getMainImage3())) {
+                \unlink($this->getTargetDirectory() . '/' . $indexInfo->getMainImage3());
             }
             $indexInfo->setMainImage3($filename3);
         }

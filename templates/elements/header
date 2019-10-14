@@ -1,0 +1,15 @@
+<nav id='main-nav' class="navbar navbar-expand-lg navbar-light bg-light header">
+    <div class="row w-75 m-auto">
+        <div class="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <ul class="navbar-nav">
+                    {% for category in categories %}
+                    <li class="nav-item">
+                        <h3><a class="nav-link my-1 mx-4" href="{{ path('portfolioCategory', {'slug': category.slug}) }}">{{ category.Name }}</a></h3>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

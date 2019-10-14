@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Service\AdminService;
-
 
 use App\DTO\AddCategoryForm;
 use App\DTO\AddPhotoForm;

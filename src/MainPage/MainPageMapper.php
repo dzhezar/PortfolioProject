@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\MainPage;
-
 
 use App\DTO\EditIndexInfoForm;
 use App\DTO\IndexInfo;

@@ -61,10 +61,6 @@ class Photoshoot
      */
     private $slug;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $Backstage;
 
     public function __construct()
     {
@@ -84,18 +80,6 @@ class Photoshoot
     public function setTitle(string $Title): self
     {
         $this->Title = $Title;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->Description;
-    }
-
-    public function setDescription(string $Description): self
-    {
-        $this->Description = $Description;
 
         return $this;
     }
@@ -190,15 +174,4 @@ class Photoshoot
         $this->slug = $slug;
     }
 
-    public function getBackstage(): ?bool
-    {
-        return $this->Backstage;
-    }
-
-    public function setBackstage(bool $Backstage): self
-    {
-        $this->Backstage = $Backstage;
-
-        return $this;
-    }
 }

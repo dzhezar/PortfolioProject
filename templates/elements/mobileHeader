@@ -1,0 +1,12 @@
+<a class="menu-toggle rounded" id="menu-button" href="#">
+    <i class="fas fa-bars"></i>
+</a>
+<nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        {% for category in categories %}
+        <li class="sidebar-nav-item">
+            <h3><a class="nav-link m-1 sidebar-link" href="{{ path('portfolioCategory', {'slug': category.slug}) }}">{{ category.Name }}</a></h3>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>

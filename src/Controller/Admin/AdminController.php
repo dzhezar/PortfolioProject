@@ -48,16 +48,19 @@ class AdminController extends AbstractController
     public function addCategory(Request $request)
     {
         $formDto = new AddCategoryFormDto();
-        $form = $this->createForm(AddCategoryForm::class,$formDto);
+        $form = $this->createForm(AddCategoryForm::class, $formDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addService->addCategory($formDto);
+
             return $this->redirectToRoute('admin');
         }
 
-        return $this->render('admin/addCategory.html.twig',
-            ['form' => $form->createView()]);
+        return $this->render(
+            'admin/addCategory.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 
     public function addPhotoshoot(Request $request): Response
@@ -73,7 +76,7 @@ class AdminController extends AbstractController
                 $this->addService->addImages($image, $id);
             }
 
-            return $this->redirectToRoute('adminPortfolioCategory',['slug' => $formDto->getCategory()->getSlug()]);
+            return $this->redirectToRoute('adminPortfolioCategory', ['slug' => $formDto->getCategory()->getSlug()]);
         }
 
         return $this->render(
@@ -82,19 +85,6 @@ class AdminController extends AbstractController
         );
     }
 
-    public function adminBackstages(Request $request, PaginatorInterface $paginator)
-    {
-        $photoshoots = $this->service->getBackstages();
-        $pagination = $paginator->paginate($photoshoots->getPhotoshoots(), $request->query->getInt('page', 1), 11);
-        $pagination->setCustomParameters([
-            'rounded' => true,
-        ]);
-
-        return $this->render('admin/admin.html.twig', [
-            'pagination' => $pagination,
-            'backstage' => true
-        ]);
-    }
 
     public function adminPortfolioCategory(string $slug, Request $request, PaginatorInterface $paginator, EntityManagerInterface $manager)
     {
@@ -107,40 +97,46 @@ class AdminController extends AbstractController
 
         return $this->render('admin/admin.html.twig', [
             'pagination' => $pagination,
-            'categoryName' => $categoryName
+            'categoryName' => $categoryName,
         ]);
     }
 
     public function deleteImage($id)
     {
         $photoshoot = $this->deleteService->deleteImage($id);
-        return $this->redirectToRoute('editPhotoshootImages',
-            ['id' =>$photoshoot]);
+
+        return $this->redirectToRoute(
+            'editPhotoshootImages',
+            ['id' =>$photoshoot]
+        );
     }
 
     public function deletePhotoshoot($id, PhotoshootRepository $photoshootRepository)
     {
         $photoshoot = $photoshootRepository->findOneBy(['id' => $id]);
+        $category = $photoshoot->getCategory()->getSlug();
         $this->deleteService->deletePhotoshoot($id);
-        if ($photoshoot->getBackstage() == true)
-            return $this->redirectToRoute('adminBackstages');
-        elseif ($category = $photoshoot->getCategory()->getSlug())
-            return $this->redirectToRoute('adminPortfolioCategory',['slug' => $category]);
-        else
-            return $this->redirectToRoute('admin');
+
+        if ($category) {
+            return $this->redirectToRoute('adminPortfolioCategory', ['slug' => $category]);
+        }
+        
+        return $this->redirectToRoute('admin');
     }
 
     public function editCategory(string $slug, Request $request, CategoryRepository $repository, CategoryMapper $mapper)
     {
         $category = $mapper->entityToFormDto($repository->findOneBy(['slug' => $slug]));
-        $form = $this->createForm(EditCategoryForm::class,$category);
+        $form = $this->createForm(EditCategoryForm::class, $category);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->editService->editCategory($slug,$category);
-            $this->redirectToRoute('adminPortfolioCategory',['slug' => $slug]);
+            $this->editService->editCategory($slug, $category);
+            $this->redirectToRoute('adminPortfolioCategory', ['slug' => $slug]);
         }
-        return $this->render('admin/editCategory.html.twig',[
-            'form' => $form->createView()
+
+        return $this->render('admin/editCategory.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
@@ -148,57 +144,57 @@ class AdminController extends AbstractController
     {
         $indexInfo = $this->service->getIndexInfo();
         $indexImg= $this->service->getIndexImg();
-        $form = $this->createForm(EditIndexInfoForm::class,$indexInfo);
+        $form = $this->createForm(EditIndexInfoForm::class, $indexInfo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->editService->editIndexInfo($indexInfo);
+
             return $this->redirectToRoute('editIndexInfo');
         }
 
         return $this->render('admin/editIndexInfo.html.twig', [
             'form' => $form->createView(),
             'info' => $indexInfo,
-            'img' => $indexImg]);
-
+            'img' => $indexImg, ]);
     }
 
     public function editPhotoshoot($id, Request $request)
     {
         $photoshoot = $this->service->getPhotoshootById($id);
-        $form = $this->createForm(EditPhotoshootForm::class,$photoshoot);
+        $form = $this->createForm(EditPhotoshootForm::class, $photoshoot);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->editService->editPhotoshoot($id, $photoshoot);
-            if ($photoshoot->isBackstage() == true) {
-                return $this->redirectToRoute('adminBackstages');
-            }
-            else {
-                return $this->redirectToRoute('adminPortfolioCategory', ['slug' => $photoshoot->getCategory()->getSlug()]);
-            }
+
+            return $this->redirectToRoute('adminPortfolioCategory', ['slug' => $photoshoot->getCategory()->getSlug()]);
         }
 
-        return $this->render('admin/editPhotoshoot.html.twig',
-            ['form' => $form->createView()]);
-
+        return $this->render(
+            'admin/editPhotoshoot.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 
     public function editPhotoshootImages($id, Request $request)
     {
         $images = $this->editService->editPhotoshootImages($id);
         $formDto = new AddPhotoFormDto();
-        $form = $this->createForm(AddPhotoForm::class,$formDto);
+        $form = $this->createForm(AddPhotoForm::class, $formDto);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->addService->addImage($formDto, $id);
             $this->editService->editPhotoshootImages($id);
-            return $this->redirectToRoute('editPhotoshootImages',['id' => $id]);
+
+            return $this->redirectToRoute('editPhotoshootImages', ['id' => $id]);
         }
 
-        return $this->render('admin/editPhotos.html.twig',
-            ['images' => $images, 'photoshootId' => $id ,'form' => $form->createView()]);
+        return $this->render(
+            'admin/editPhotos.html.twig',
+            ['images' => $images, 'photoshootId' => $id,'form' => $form->createView()]
+        );
     }
 
     public function setIsPosted(Request $request)
@@ -218,25 +214,27 @@ class AdminController extends AbstractController
         ]);
 
         return $this->render('admin/admin.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 
     public function categoryMenu(CategoryRepository $categoryRepository)
     {
         $categories = $categoryRepository->findAll();
-        $backstage = $this->service->getBackstages();
-        return $this->render('admin/categoryMenu.html.twig', ['categories' => $categories, 'backstage' => $backstage]);
+
+        return $this->render('admin/categoryMenu.html.twig', ['categories' => $categories]);
     }
 
     public function deleteCategory($slug, CategoryRepository $categoryRepository, PhotoshootRepository $photoshootRepository)
     {
         $category = $categoryRepository->findOneBy(['slug' => $slug]);
         $photoshoots = $photoshootRepository->findBy(['Category' => $category]);
+
         foreach ($photoshoots as $photoshoot) {
             $this->deleteService->deletePhotoshoot($photoshoot->getId());
         }
         $this->deleteService->deleteCategory($slug);
+
         return $this->redirectToRoute('admin');
     }
 }

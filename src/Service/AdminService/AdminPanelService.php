@@ -7,6 +7,7 @@
 
 namespace App\Service\AdminService;
 
+use App\Entity\MainPage;
 use App\MainPage\MainPageMapper;
 use App\Photoshot\PhotoshootCollection;
 use App\Photoshot\PhotoshootMapper;
@@ -57,13 +58,13 @@ class AdminPanelService implements AdminPanelServiceInterface
     {
         $photoshoot = $this->photoshootRepository->findOneBy(['id' => $id]);
         $mapper = new PhotoshootMapper();
-        return $mapper->entityToEditFormDto($photoshoot);
 
+        return $mapper->entityToEditFormDto($photoshoot);
     }
 
     public function getPhotoshootsByCategory(string $category, int $count = null): PhotoshootCollection
     {
-        $photoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count,[$category],[0,1]);
+        $photoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count, [$category], [0,1]);
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
@@ -76,7 +77,7 @@ class AdminPanelService implements AdminPanelServiceInterface
 
     public function getIndexInfo()
     {
-        $indexInfo = $this->indexRepository->findOneBy([]);
+        $indexInfo = $this->indexRepository->findOneBy([]) ?? new MainPage();
 
         $mainPageMapper = new MainPageMapper();
 
@@ -86,23 +87,10 @@ class AdminPanelService implements AdminPanelServiceInterface
 
     public function getIndexImg()
     {
-        $indexImg = $this->indexRepository->findOneBy([]);
+        $indexImg = $this->indexRepository->findOneBy([]) ?? new MainPage();
 
         $mainPageMapper = new MainPageMapper();
 
         return $mainPageMapper->entityToDto($indexImg);
-    }
-
-    public function getBackstages(): PhotoshootCollection
-    {
-        $backstages = $this->photoshootRepository->findBy(['Backstage' => true]);
-        $photoshootMapper = new PhotoshootMapper();
-        $collection = new PhotoshootCollection();
-
-        foreach ($backstages as $item) {
-            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
-        }
-
-        return $collection;
     }
 }

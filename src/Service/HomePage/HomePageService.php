@@ -7,6 +7,7 @@
 
 namespace App\Service\HomePage;
 
+use App\Entity\MainPage;
 use App\MainPage\MainPageMapper;
 use App\Photoshot\PhotoshootCollection;
 use App\Photoshot\PhotoshootMapper;
@@ -29,13 +30,14 @@ class HomePageService implements HomePageServiceInterface
 
     public function getPhotoshoots(int $count = null)
     {
-        $mainPhotoshoots = $this->photoshootRepository->findBy(['IsPosted' => true, 'Backstage' => false],['PublicationDate' => 'desc'],$count);
+        $mainPhotoshoots = $this->photoshootRepository->findBy(['IsPosted' => true], ['PublicationDate' => 'desc'], $count);
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
         foreach ($mainPhotoshoots as $item) {
-            if ($item->getCategory()->getIsVisible() == true)
-            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+            if (true == $item->getCategory()->getIsVisible()) {
+                $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+            }
         }
 
         return $collection;
@@ -43,27 +45,28 @@ class HomePageService implements HomePageServiceInterface
 
     public function getSneakPeaks(int $count = null)
     {
-        $mainSneakPeaks = $this->photoshootRepository->findBy(['Backstage' => true, 'IsPosted' => true],['PublicationDate' => 'desc'],$count);
+        $mainSneakPeaks = $this->photoshootRepository->findBy(['IsPosted' => true], ['PublicationDate' => 'desc'], $count);
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
         foreach ($mainSneakPeaks as $item) {
             $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
         }
-        return $collection;
 
+        return $collection;
     }
 
     public function getPhotoshootsByCategory(string $slug, int $count = null)
     {
         $category = $this->categoryRepository->findOneBy(['slug' => $slug]);
-        $mainSneakPeaks = $this->photoshootRepository->findBy(['IsPosted' => true, 'Category' => $category, 'Backstage' => false],['PublicationDate' => 'desc'],$count);
+        $mainSneakPeaks = $this->photoshootRepository->findBy(['IsPosted' => true, 'Category' => $category], ['PublicationDate' => 'desc'], $count);
         $photoshootMapper = new PhotoshootMapper();
         $collection = new PhotoshootCollection();
 
         foreach ($mainSneakPeaks as $item) {
-            if ($item->getCategory()->getIsVisible() == true)
-            $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+            if (true == $item->getCategory()->getIsVisible()) {
+                $collection->addPhotoshoot($photoshootMapper->entityToDto($item));
+            }
         }
 
         return $collection;
@@ -71,13 +74,12 @@ class HomePageService implements HomePageServiceInterface
 
     public function getMainPageInfo()
     {
-        return $this->mainPageRepository->findOneBy([]);
+        return $this->mainPageRepository->findOneBy([]) ?? new MainPage();
     }
 
     public function getIndexImg()
     {
-        $indexImg = $this->mainPageRepository->findOneBy([]);
-
+        $indexImg = $this->mainPageRepository->findOneBy([]) ?? new MainPage();
         $mainPageMapper = new MainPageMapper();
 
         return $mainPageMapper->entityToDto($indexImg);

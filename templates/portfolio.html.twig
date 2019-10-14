@@ -1,21 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        .header
-        {
-            position: inherit;
-            z-index: 0;
-        }
-    </style>
-{% endblock %}
 {% block header %}
     <header>
         <div>
-            <nav class="navbar navbar-expand-lg  bg-light header">
+            <nav class="navbar navbar-expand-lg  bg-light header-menu">
                 <div class="collapse navbar-collapse row" id="navbarNavAltMarkup">
                     <div class="col-2">
-                        <a class="nav-link m-1" style="color: #af82df;" href={{ path('index') }}><h3>Back</h3></a>
+                        <a class="nav-link m-1 back" href={{ path('index') }}><h3>Back</h3></a>
                     </div>
                     <div class="col-8 ">
                         <ul class="nav justify-content-around">
@@ -29,15 +19,10 @@
                                 </a>
                             </li>
                         {% endfor %}
-                        {% if backstage is not empty %}
-                            <li class="nav-item my-auto">
-                                <a class="nav-link m-1" style="font-style: italic" href={{ path('backstagePortfolio') }}><h3>Backstage</h3></a>
-                            </li>
-                        {% endif %}
                         </ul>
                     </div>
-                    <div class="col-2 px-5">
-                        <div class="text-right">
+                    <div class="col-2 px-lg-5 px-sm-2 px-md-2">
+                        <div class="text-right select-none">
                             <h2 class="text-secondary mb-0 mt-1">Portfolio</h2>
                             <h4 class="text-dark mb-0 mt-1">
                             {% if categoryName is defined %}
@@ -51,6 +36,7 @@
                 </div>
             </nav>
         </div>
+    </header>
         <!-- Navigation -->
         <a class="menu-toggle rounded" id="menu-button" href="#">
             <i class="fas fa-filter"></i>
@@ -65,14 +51,8 @@
                         <a class="nav-link m-1" style="width: max-content" href={{ path('portfolioCategory', {'slug': category.slug}) }}><h3>{{ category.name }}</h3></a>
                     </li>
                 {% endfor %}
-                {% if backstage is not empty %}
-                    <li class="sidebar-nav-item">
-                        <a class="nav-link m-1" style="width: max-content; font-style: italic" href={{ path('backstagePortfolio') }}><h3>Backstage</h3></a>
-                    </li>
-                {% endif %}
             </ul>
         </nav>
-    </header>
 {% endblock %}
 {% block body %}
     <div class="container-custom-portfolio">
@@ -88,34 +68,25 @@
             {% endif %}
         </div>
         {% if pagination is not empty %}
-        <div class="row no-gutters pt-6">
+        <div class="row no-gutters justify-content-around">
             {% for photoshoot in pagination %}
                 <div class="col-lg-4 col-sm-6 portfolio-window">
-                    <a class="portfolio-item" data-fancybox data-src="#portfolio-item-{{ photoshoot.id }}" href="#">
-                            <span class="caption">
-                              <span class="caption-content">
+                    <a href="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" class="portfolio-item" data-fancybox="gallery-{{ photoshoot.id }}">
+                          <span class="caption">
+                             <span class="caption-content">
                                 <h2>{{ photoshoot.title }}</h2>
-                                <p class="mb-0">{{ photoshoot.shortDescription }}</p>
+                                <p class="mb-0">{{ photoshoot.shortDescription |raw }}</p>
                               </span>
-                            </span>
-                        <img class="img-portfolio" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" alt="">
+                          </span>
+                        <img class="img-portfolio" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
                     </a>
                     <div style="display: none" id="portfolio-item-{{ photoshoot.id }}">
-                        <div class="page-title photoshoot-title">
-                            <h2>{{ photoshoot.title | title}}</h2>
-                        </div>
-                        <div class="pt-2">
-                            <a href="uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
-                                <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
+
+                        {% for image in photoshoot.images %}
+                            <a href="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
+                                <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
                             </a>
-                        </div>
-                        <div class="container-custom">
-                            {% for image in photoshoot.images %}
-                                <a href="uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
-                                    <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
-                                </a>
-                            {% endfor %}
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             {% endfor %}
@@ -129,9 +100,5 @@
             </div>
         {% endif %}
     </div>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#portfolio-top">
-        <i class="fas fa-2x align-middle fa-angle-up"></i>
-    </a>
 </div>
 {% endblock %}

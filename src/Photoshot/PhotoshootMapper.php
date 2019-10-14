@@ -55,8 +55,7 @@ class PhotoshootMapper
         return new EditPhotoshootForm(
             $entity->getTitle(),
             $entity->getCategory(),
-            $entity->getShortDescription(),
-            $entity->getBackstage()
+            $entity->getShortDescription()
         );
     }
 }

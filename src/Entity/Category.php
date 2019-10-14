@@ -12,7 +12,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Category\CategoryRepository")
  */
@@ -34,11 +33,6 @@ class Category
      * @ORM\OneToMany(targetEntity="App\Entity\Photoshoot", mappedBy="Category")
      */
     private $photoshoots;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
 
     /**
      * @Gedmo\Slug(fields={"Name"})
@@ -105,18 +99,6 @@ class Category
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -125,7 +107,6 @@ class Category
     public function setSlug($slug): void
     {
         $this->slug = $slug;
-
     }
 
     public function getIsVisible(): ?bool

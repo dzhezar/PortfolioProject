@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Form;
-
 
 use App\DTO\EditPhotoshootForm as EditPhotoshootFormDto;
 use App\Entity\Category;
@@ -34,11 +37,9 @@ class EditPhotoshootForm extends AbstractType
                     return $category->getName();
                 },
             ])
-            ->add('shortDescription', TextType::class,[
-                'attr' => ['maxlength' => 255]
-            ])
-            ->add('backstage', CheckboxType::class,[
-                'required' => false
+            ->add('shortDescription', TextType::class, [
+                'attr' => ['maxlength' => 255],
+                'label' => "Short Description (To break line write '<br>')",
             ])
         ;
     }

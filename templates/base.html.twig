@@ -15,9 +15,9 @@
 
         <!-- Custom Fonts -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-        <link href="/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Spectral" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Spectral&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.min.css') }}">
+
 
         <!-- Custom CSS -->
         <link href="/css/stylish-portfolio.css" rel="stylesheet">
@@ -26,56 +26,13 @@
 
 {% block header %}
 <!-- Header -->
-<header>
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light header">
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <h3><a class="nav-link m-1" href="#page-top">Home</a></h3>
-                        </li>
-                        <li class="nav-item">
-                            <h3><a class="nav-link m-1" href="#portfolio">Projects</a></h3>
-                        </li>
-                        <li class="nav-item">
-                            <h3><a class="nav-link m-1" href="#soon">Soon...</a></h3>
-                        </li>
-                        <li class="nav-item">
-                            <h3><a class="nav-link m-1" href="#about">About Me</a></h3>
-                        </li>
-                        <li class="nav-item">
-                            <h3><a class="nav-link m-1" href="#contact">Contact</a></h3>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
+<header id="header">
+    {{ render(controller('App\\Controller\\DefaultController::renderHeader')) }}
 </header>
 <!-- Navigation -->
-<a class="menu-toggle rounded" id="menu-button" href="#">
-    <i class="fas fa-bars"></i>
-</a>
-<nav id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-        <li class="sidebar-nav-item">
-            <h3><a class="nav-link m-1 sidebar-link" href="#page-top">Home</a></h3>
-        </li>
-        <li class="sidebar-nav-item">
-            <h3><a class="nav-link m-1 sidebar-link" href="#portfolio">Projects</a></h3>
-        </li>
-        <li class="sidebar-nav-item">
-            <h3><a class="nav-link m-1 sidebar-link" href="#soon">Soon...</a></h3>
-        </li>
-        <li class="sidebar-nav-item">
-            <h3><a class="nav-link m-1 sidebar-link" href="#about">About Me</a></h3>
-        </li>
-        <li class="sidebar-nav-item">
-            <h3><a class="nav-link m-1 sidebar-link" href="#contact">Contact</a></h3>
-        </li>
-    </ul>
-</nav>
+<div id="sidebar">
+    {{ render(controller('App\\Controller\\DefaultController::renderMobileHeader')) }}
+</div>
 {% endblock %}
 {% block body %}
 
@@ -84,30 +41,25 @@
 <!-- Footer -->
 <footer class="footer text-center">
     <div class="container">
-        <ul class="nav justify-content-center mb-3">
+        <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="social-link rounded-circle text-white mx-2 my-1" href="https://www.facebook.com/profile.php?id=100012294073975" target="_blank">
-                    <i class="icon-social-facebook"></i>
+                <a class="social-link mx-2 my-1" href="https://www.facebook.com/profile.php?id=100012294073975" target="_blank">
+                    <i class="fab fa-facebook-square"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="social-link rounded-circle text-white mx-2 my-1" href="https://www.behance.net/kate_warsa4b04" target="_blank">
-                    <i class="icon-social-behance"></i>
+                <a class="social-link mx-2 my-1" href="https://www.instagram.com/katyastarodubova/" target="_blank">
+                    <i class="fab fa-instagram"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="social-link rounded-circle text-white mx-2 my-1" href="https://www.instagram.com/katyastarodubova/" target="_blank">
-                    <i class="icon-social-instagram"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="social-link rounded-circle text-white mx-2 my-1" href="tel:+380999224862">
-                    <i class="fas fa-phone"></i>
+                <a class="social-link mx-2 my-1" href="mailto:katyastarodubova.stylist@gmail.com" target="_blank">
+                    <i class="fas fa-envelope"></i>
                 </a>
             </li>
         </ul>
         <a target="_blank" href="https://octowice.com/">
-            <p class="text-muted small mb-0">Copyright &copy; <img style="width: 40px;" src="{{ asset('octo.png') }}">
+            <p class="text-muted small mb-0">Copyright &copy; <img style="width: 40px;" src="{{ asset('octo.png') }}" alt="">
                 Octowice
                 <script>
                     document.write(new Date().getFullYear());
@@ -121,15 +73,15 @@
 <!-- Bootstrap core JavaScript -->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
 
-    <!-- Plugin JavaScript -->
+<!-- Plugin JavaScript -->
 <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/vendor/fancybox/jquery.fancybox.min.js"></script>
+
 
 <!-- Custom scripts for this template -->
 <script src="/js/stylish-portfolio.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 {% endblock %}
 
 </html>

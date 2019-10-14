@@ -7,9 +7,6 @@ portfolio:
 portfolioCategory:
     path: /portfolio/{slug}
     controller: App\Controller\DefaultController::showPortfolioCategory
-backstagePortfolio:
-    path: /backstage
-    controller: App\Controller\DefaultController::showBackstagePortfolio
 admin:
     path: /admin
     controller: App\Controller\Admin\AdminController::showAdminPanel
@@ -43,12 +40,6 @@ addCategory:
 adminPortfolioCategory:
     path: /admin/category/{slug}
     controller: App\Controller\Admin\AdminController::adminPortfolioCategory
-adminBackstages:
-    path: /admin/backstage
-    controller: App\Controller\Admin\AdminController::adminBackstages
 editIndexInfo:
     path: /admin/editIndex
     controller: App\Controller\Admin\AdminController::editIndexInfo
-sendMail:
-    path: /sendMail
-    controller: App\Controller\DefaultController::sendMail

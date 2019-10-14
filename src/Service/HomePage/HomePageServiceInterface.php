@@ -7,8 +7,6 @@
 
 namespace App\Service\HomePage;
 
-use Doctrine\ORM\EntityManagerInterface;
-
 interface HomePageServiceInterface
 {
     public function getPhotoshoots(int $count = null);

@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Stylish Portfolio" project.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ */
 
 namespace App\Form;
-
 
 use App\DTO\EditIndexInfoForm as EditIndexInfoFormDto;
 use Symfony\Component\Form\AbstractType;
@@ -19,20 +22,24 @@ class EditIndexInfoForm extends AbstractType
             ->add(
                 'mainImg1',
                 FileType::class,
-                ['required' => false])
+                ['required' => false]
+            )
             ->add(
                 'mainImg2',
                 FileType::class,
-                ['required' => false])
+                ['required' => false]
+            )
             ->add(
                 'mainImg3',
                 FileType::class,
-                ['required' => false])
+                ['required' => false]
+            )
             ->add(
                 'aboutMe',
                 TextareaType::class,
                 ['attr' =>
-                    ['rows' => 3, 'class' => 'summernote']])
+                    ['rows' => 3, 'class' => 'summernote'], ]
+            )
             ;
     }
 
@@ -42,5 +49,4 @@ class EditIndexInfoForm extends AbstractType
             'data_class' => EditIndexInfoFormDto::class,
         ]);
     }
-
 }

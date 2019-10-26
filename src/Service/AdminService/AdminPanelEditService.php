@@ -52,7 +52,7 @@ class AdminPanelEditService implements AdminPanelEditServiceInderface
 
     public function editPhotoshootImages(int $id)
     {
-        return $this->imageRepository->findBy(['Photoshoot' => $id]);
+        return $this->imageRepository->findBy(['Photoshoot' => $id],['queue' => 'asc']);
     }
 
     public function editIndexInfo(EditIndexInfoForm $form)

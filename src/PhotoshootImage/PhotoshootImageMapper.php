@@ -19,6 +19,7 @@ class PhotoshootImageMapper
 
         return new PhotoshootImageDto(
             $entity->getImage(),
+            $entity->getQueue(),
             $photoshootMapper->entityToDtoWithoutImages($entity->getPhotoshoot())
         );
     }
@@ -26,7 +27,8 @@ class PhotoshootImageMapper
     public function entityToDtoWithoutPhotoshoot(PhotoshootImage $entity): PhotoshootImageDto
     {
         return new PhotoshootImageDto(
-            $entity->getImage()
+            $entity->getImage(),
+            $entity->getQueue()
         );
     }
 }

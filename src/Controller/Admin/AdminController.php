@@ -20,6 +20,7 @@ use App\Form\EditIndexInfoForm;
 use App\Form\EditPhotoshootForm;
 use App\Repository\Category\CategoryRepository;
 use App\Repository\Photoshoot\PhotoshootRepository;
+use App\Repository\PhotoshootImage\PhotoshootImageRepository;
 use App\Service\AdminService\AdminPanelAddServiceInterface;
 use App\Service\AdminService\AdminPanelDeleteServiceInterface;
 use App\Service\AdminService\AdminPanelEditServiceInderface;
@@ -120,7 +121,7 @@ class AdminController extends AbstractController
         if ($category) {
             return $this->redirectToRoute('adminPortfolioCategory', ['slug' => $category]);
         }
-        
+
         return $this->redirectToRoute('admin');
     }
 
@@ -195,6 +196,21 @@ class AdminController extends AbstractController
             'admin/editPhotos.html.twig',
             ['images' => $images, 'photoshootId' => $id,'form' => $form->createView()]
         );
+    }
+
+    public function editPhotoshootImagesOrder(Request $request, PhotoshootImageRepository $imageRepository, EntityManagerInterface $manager)
+    {
+        $order = $request->get('order');
+        foreach ($order as $key => $item){
+            $image = $imageRepository->findOneBy(['id' => $item]);
+
+            if($image){
+                $image->setQueue($key+1);
+            }
+            $manager->persist($image);
+        }
+        $manager->flush();
+        return new Response('', 200);
     }
 
     public function setIsPosted(Request $request)

@@ -22,6 +22,7 @@ class DefaultController extends AbstractController
     public function index(HomePageServiceInterface $service, Request $request): Response
     {
         $mainPhotoshoots = $service->getPhotoshoots(4);
+//        dd($mainPhotoshoots);
         $aboutMe = $service->getMainPageInfo()->getAboutMe();
         $mainImgs = $service->getIndexImg();
         $firstImg = $mainImgs->getMainImg1();

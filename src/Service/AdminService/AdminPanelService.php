@@ -35,7 +35,7 @@ class AdminPanelService implements AdminPanelServiceInterface
     public function getPhotoshoots(): PhotoshootCollection
     {
         $photoshoots = $this->photoshootRepository->findAllPhotoshoots();
-        $photoshootMapper = new PhotoshootMapper();
+        $photoshootMapper = new PhotoshootMapper($this->imageRepository);
         $collection = new PhotoshootCollection();
 
         foreach ($photoshoots as $item) {
@@ -57,7 +57,7 @@ class AdminPanelService implements AdminPanelServiceInterface
     public function getPhotoshootById(int $id)
     {
         $photoshoot = $this->photoshootRepository->findOneBy(['id' => $id]);
-        $mapper = new PhotoshootMapper();
+        $mapper = new PhotoshootMapper($this->imageRepository);
 
         return $mapper->entityToEditFormDto($photoshoot);
     }
@@ -65,7 +65,7 @@ class AdminPanelService implements AdminPanelServiceInterface
     public function getPhotoshootsByCategory(string $category, int $count = null): PhotoshootCollection
     {
         $photoshoots = $this->photoshootRepository->findNumberOfPhotoshoots($count, [$category], [0,1]);
-        $photoshootMapper = new PhotoshootMapper();
+        $photoshootMapper = new PhotoshootMapper($this->imageRepository);
         $collection = new PhotoshootCollection();
 
         foreach ($photoshoots as $item) {

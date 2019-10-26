@@ -13,26 +13,36 @@
     </div>
 </div>
 <div class="card-body">
-    <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-            <tr>
-                <th>Image Preview</th>
-                <th>Manipulations</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for image in images %}
-                <tr>
-                    <td><img style="height: 200px;width: 200px; object-fit: contain; text-align: center" src ='/uploads/images/{{ image.Photoshoot.id }}/{{ image.image }}'></td>
-                    <td>
-                        <br><br><br><a class="btn btn-danger btn-lg text-light" href="{{ path('deleteImage', {'id': image.id}) }}">Delete</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <ul id="sortable" class="list-group">
+        {% for image in images %}
+            <li data-id="{{ image.id }}" class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><img style="height: 200px;width: 200px; object-fit: contain; text-align: center" src ='/uploads/images/{{ image.Photoshoot.id }}/{{ image.image }}' {{ image.queue }}><a class="btn btn-danger btn-lg text-light" href="{{ path('deleteImage', {'id': image.id}) }}">Delete</a></li>
+        {% endfor %}
+    </ul>
 </div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        $( function() {
+            $( "#sortable" ).sortable({
+            axis: "y"
+            });
+            $( "#sortable" ).disableSelection();
+            } );
+        $( "#sortable" ).on( "sortupdate", function() {
+            let arr = [];
+            $("#sortable").find($('li')).each(function () {
+                arr.push($(this).attr('data-id'));
+            });
+            $.ajax({
+                url: '/admin/change_photos_order',
+                data:{
+                    'order': arr
+                }
+            })
+                .done(function() { });
+        });
+        $('#sortable').disableSelection();
+        </script>
 {% endblock %}
 

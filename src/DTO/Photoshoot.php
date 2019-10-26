@@ -22,7 +22,7 @@ class Photoshoot
     private $images;
     private $slug;
 
-    public function __construct(int $id, Category $category, string $title, string $shortDescription, bool $isPosted, DateTime $publicationDate, string $slug, PhotoshootImageCollection $images = null)
+    public function __construct(int $id, Category $category, string $title, string $shortDescription, bool $isPosted, DateTime $publicationDate, string $slug, $images = null)
     {
         $this->id = $id;
         $this->category = $category;

@@ -28,7 +28,7 @@ body {
   max-width: 100vw;
 }
 .social-bar {
-  top: 3rem;
+  bottom: 1rem;
   left: 2rem;
   position: absolute;
 }
@@ -47,7 +47,9 @@ body {
 }
 #portfolio {
   padding-bottom: unset;
-  background: linear-gradient(0deg,white, #91b4c6, white);
+  background: linear-gradient(0deg,white 0%, #91b4c6);
+  display: flex;
+  align-content: center;
 }
 
 #portfolio .btn {
@@ -90,6 +92,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  background: linear-gradient(0deg,#91b4c6, white);
 }
 
 h2,
@@ -395,7 +398,7 @@ a:hover, a:focus, a:active {
 .carousel-item img
 {
   height: inherit;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .scrolling-wrapper {

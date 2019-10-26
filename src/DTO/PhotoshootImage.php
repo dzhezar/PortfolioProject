@@ -11,11 +11,13 @@ class PhotoshootImage
 {
     private $photoshoot;
     private $image;
+    private $queue;
 
-    public function __construct(string $image, Photoshoot $photoshoot = null)
+    public function __construct(string $image, int $queue,Photoshoot $photoshoot = null)
     {
         $this->photoshoot = $photoshoot;
         $this->image = $image;
+        $this->queue = $queue;
     }
 
     public function getPhotoshoot(): Photoshoot
@@ -26,5 +28,10 @@ class PhotoshootImage
     public function getImage(): string
     {
         return $this->image;
+    }
+
+    public function getQueue(): int
+    {
+        return $this->queue;
     }
 }

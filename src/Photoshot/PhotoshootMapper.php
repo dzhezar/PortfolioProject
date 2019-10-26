@@ -12,15 +12,27 @@ use App\DTO\Photoshoot as PhotoshotDto;
 use App\Entity\Photoshoot;
 use App\PhotoshootImage\PhotoshootImageCollection;
 use App\PhotoshootImage\PhotoshootImageMapper;
+use App\Repository\PhotoshootImage\PhotoshootImageRepository;
 
 class PhotoshootMapper
 {
+    private $imageRepository;
+
+    /**
+     * PhotoshootMapper constructor.
+     * @param $imageRepository
+     */
+    public function __construct(PhotoshootImageRepository $imageRepository)
+    {
+        $this->imageRepository = $imageRepository;
+    }
+
+
     public function entityToDto(Photoshoot $entity): PhotoshotDto
     {
         $imagesMapper = new PhotoshootImageMapper();
         $collection = new PhotoshootImageCollection();
-        $images = $entity->getPhotoshootImages();
-
+        $images = $this->imageRepository->findBy(['Photoshoot' => $entity],['queue' => 'asc']);
         foreach ($images as $image) {
             $collection->addPhotoshot($imagesMapper->entityToDtoWithoutPhotoshoot($image));
         }

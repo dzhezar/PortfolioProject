@@ -43,3 +43,6 @@ adminPortfolioCategory:
 editIndexInfo:
     path: /admin/editIndex
     controller: App\Controller\Admin\AdminController::editIndexInfo
+editPhotoshootImagesOrder:
+    path: /admin/change_photos_order
+    controller: App\Controller\Admin\AdminController::editPhotoshootImagesOrder

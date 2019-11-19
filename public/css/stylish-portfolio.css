@@ -47,21 +47,22 @@ body {
 }
 #portfolio {
   padding-bottom: unset;
-  background: linear-gradient(0deg,white 0%, #91b4c6);
+  background: linear-gradient(0deg,white 0%, lightgray);
   display: flex;
   align-content: center;
 }
 
 #portfolio .btn {
-  background-color: #dcdcdc;
+  background-color: white;
   font-size: 1.5rem !important;
-  color: #1d809f;;
-  border: solid 2px #91b4c6;
+  color: black;
+  border: solid 2px black;
   transition: all 0.35s ease-in;
 }
 
 #portfolio .btn:hover {
-  background-color: #959c9e;
+  background-color: black;
+  color: white;
 }
 
 .portfolio-window{
@@ -92,7 +93,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background: linear-gradient(0deg,#91b4c6, white);
+  background: linear-gradient(0deg,lightgray, white);
 }
 
 h2,
@@ -301,6 +302,10 @@ h4 {
 
 footer.footer {
   padding-bottom: 1rem;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 footer.footer .social-link {

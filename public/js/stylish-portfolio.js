@@ -83,6 +83,10 @@
       $('html,body').animate({scrollTop: div.offset().top}, 400, 'linear');
   });
 
+  let photoshootsCounter = $('.portfolio-window').length;
+  if (photoshootsCounter > 3 || window.screen.width < 769) {
+    $('.footer').css('position','unset');
+  }
 
   $('input').each(function () {
     var attr = $(this).attr('maxlength');

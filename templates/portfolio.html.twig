@@ -68,7 +68,7 @@
             {% endif %}
         </div>
         {% if pagination is not empty %}
-        <div class="row no-gutters justify-content-around">
+        <div class="row no-gutters justify-content-between">
             {% for photoshoot in pagination %}
                 <div class="col-lg-4 col-sm-6 portfolio-window">
                     <a href="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" class="portfolio-item" data-fancybox="gallery-{{ photoshoot.id }}">

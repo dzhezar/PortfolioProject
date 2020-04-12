@@ -47,19 +47,17 @@
     <section class="content-section" id="portfolio">
         <div class="container">
             <div class="content-section-heading text-center">
-                <h3 class="text-secondary mb-0">Portfolio</h3>
                 <h2 class="mb-3">Recent Projects</h2>
             </div>
             {% if mainPhotoshoots.photoshoots is not empty %}
             <div class="row m-auto" id="bb">
                 {% set i =  0.7%}
                 {% for photoshoot in mainPhotoshoots %}
-                    <div class="portfolio-window col-lg-6 col-sm-6 photo" data-delay="{{ i }}s">
+                    <div class="portfolio-window col-lg-6 col-sm-6 photo margin-vert-1rem" data-delay="{{ i }}s">
                         <a href="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shiftU.image }}" class="portfolio-item" data-fancybox="gallery-{{ photoshoot.id }}">
                           <span class="caption">
                              <span class="caption-content">
                                 <h2>{{ photoshoot.title }}</h2>
-                                <p class="mb-0">{{ photoshoot.shortDescription | raw }}</p>
                               </span>
                           </span>
                             <img class="img-portfolio" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">

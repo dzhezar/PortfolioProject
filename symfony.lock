@@ -156,6 +156,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.x-dev"
     },
+    "php": {
+        "version": "7.3"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
     },
@@ -213,6 +216,9 @@
     "symfony/cache": {
         "version": "4.3-dev"
     },
+    "symfony/cache-contracts": {
+        "version": "v1.1.7"
+    },
     "symfony/config": {
         "version": "4.3-dev"
     },
@@ -267,6 +273,9 @@
     },
     "symfony/event-dispatcher": {
         "version": "4.3-dev"
+    },
+    "symfony/event-dispatcher-contracts": {
+        "version": "v1.1.7"
     },
     "symfony/expression-language": {
         "version": "4.3-dev"
@@ -446,6 +455,9 @@
     "symfony/serializer-pack": {
         "version": "dev-master"
     },
+    "symfony/service-contracts": {
+        "version": "v1.1.8"
+    },
     "symfony/stopwatch": {
         "version": "4.3-dev"
     },
@@ -478,6 +490,9 @@
             "config/packages/translation.yaml",
             "translations/.gitignore"
         ]
+    },
+    "symfony/translation-contracts": {
+        "version": "v1.1.7"
     },
     "symfony/twig-bridge": {
         "version": "4.3-dev"

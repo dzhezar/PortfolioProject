@@ -66,7 +66,8 @@ class AdminPanelAddService implements AdminPanelAddServiceInterface
         $photoshootImage = new PhotoshootImage();
         $photoshootImage
             ->setPhotoshoot($photoshoot)
-            ->setImage($filename);
+            ->setImage($filename)
+            ->setQueue(0);
         $this->em->persist($photoshootImage);
         $this->em->flush();
     }

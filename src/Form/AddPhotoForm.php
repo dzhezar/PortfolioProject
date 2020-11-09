@@ -22,7 +22,7 @@ class AddPhotoForm extends AbstractType
             ->add('images', FileType::class, [
                 'label' => 'Images',
                 'multiple' => true,
-                constraints' => [
+                'constraints' => [
                     new File([
                         'maxSize' => '5M',
                     ])

@@ -12,7 +12,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
 class AddPhotoForm extends AbstractType
 {
@@ -22,11 +21,6 @@ class AddPhotoForm extends AbstractType
             ->add('images', FileType::class, [
                 'label' => 'Images',
                 'multiple' => true,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '5M',
-                    ])
-                ],
             ])
         ;
     }

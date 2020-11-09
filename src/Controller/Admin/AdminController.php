@@ -70,7 +70,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(AddPhotoshootForm::class, $formDto);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $id= $this->addService->addPhotoshoot($formDto);
 
             foreach ($formDto->getImages() as $image) {

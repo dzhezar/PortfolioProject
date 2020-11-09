@@ -16,7 +16,7 @@
                 {% if otherImages is not empty %}
                     {% for img in otherImages %}
                         <div class="carousel-item">
-                            <img src="/uploads/indexImages/{{ img }}" class="d-block w-100" alt="...">
+                            <img data-src="/uploads/indexImages/{{ img }}" class="d-block w-100 lazy" alt="...">
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -60,13 +60,13 @@
                                 <h2>{{ photoshoot.title }}</h2>
                               </span>
                           </span>
-                            <img class="img-portfolio" src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
+                            <img class="img-portfolio lazy" data-src="/uploads/images/{{ photoshoot.id }}/{{ photoshoot.images.shift.image }}" alt="">
                         </a>
                         <div class="display-none" id="portfolio-item-{{ photoshoot.id }}">
 
                             {% for image in photoshoot.images %}
                                 <a href="uploads/images/{{ photoshoot.id }}/{{ image.image }}" data-fancybox="gallery-{{ photoshoot.id }}">
-                                    <img class="img-photoshoot" src="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
+                                    <img class="img-photoshoot lazy" data-src="/uploads/images/{{ photoshoot.id }}/{{ image.image }}" alt="">
                                 </a>
                             {% endfor %}
                         </div>
